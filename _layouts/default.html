@@ -1,16 +1,16 @@
+---
+layout: compress
+---
+
 <!DOCTYPE html>
-<html>
-
-  {% include head.html %}
-
-  <body>
-
-    <main>
-      {{ content }}
-    </main>
-
-    {% include footer.html %}
-
-  </body>
-
+<html lang="pt-br">
+    {% include head.html %}
+    <body>
+        {% include svg-icons.html %}
+        {% include header-default.html %}
+            <section class="content">
+                {{ content }}
+            </section>
+        {% include scripts.html %}
+    </body>
 </html>

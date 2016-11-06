@@ -1,37 +1,50 @@
 # Site settings
-email: 
-baseurl: ""
-paginate: 5
-paginate_path: "/blog/page-:num"
-google_analytics: 
+title: Lorem Ipsum - Web Developer
+description: "A blog about lorem ipsum ..."
+baseurl: "" # the subpath of your site
+url: "http://localhost:4000"
 
-# SEO settings
-title: Trophy
-description: 
-url: ""
-twitter_username: 
-default_img: 
-
-# Profile settings
-name: Eka Prasasti
-profile_img: http://developer.erabelajar.com/content/images/2016/10/picpro.jpg
-profile: Chief Technology Officer of Era Belajar (PT Ridaka Indonesia Cerdas). Leads IT team about vision technology in Era Belajar.
-social:
-  github: 
-  facebook:
-  twitter:
-  instagram:
-  linkedin:
+# User settings
+username: lorem ipsum
+user_title: Lorem Ipsum - FrontEnd
+email: lorem.lorem@ipsum.com
+twitter_username: loremipsum
+github_username:  loremipsum
+gplus_username:  loremipsum
+disqus_username: loremipsum
 
 # Build settings
-include: ["_categories"]
-exclude: ["_screenshots", "Gemfile", "Gemfile.lock"]
 markdown: kramdown
-permalink: /:year/:month/:day/:title/
+highlighter: rouge
+permalink: /:title/
 
-# Sass
-sass:
-  style: compressed
 
-# Gems
-gems: [jekyll-paginate, jekyll-sitemap, octopress-autoprefixer]
+# html minify
+compress_html:
+  clippings: all
+  comments: all
+  endings: []
+  profile: false
+
+# Links to include in menu navigation
+links:
+  - title: home
+    url: /
+  - title: my posts
+    url: /posts
+  - title: series
+    url: /series
+  - title: tags
+    url: /tags
+  - title: about me
+    url: /about
+# projects in header index
+projects:
+  - name: asciilang
+    url: https://github.com/victorvoid/asciilang
+  - name: vim-frontend
+    url: https://github.com/victorvoid/vim-frontend
+  - name: generator-capybara
+    url: https://github.com/victorvoid/generator-capybara 
+# exclude my node related stuff
+exclude: ['package.json', 'src', 'node_modules']
