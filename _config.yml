@@ -1,17 +1,19 @@
 # Site settings
-title: Lorem Ipsum - Web Developer
-description: "A blog about lorem ipsum ..."
+title: Eka Prasasti - Web Developer
+description: "A blog about Eka Prasasti ..."
 baseurl: "" # the subpath of your site
 url: "http://localhost:4000"
 
 # User settings
-username: lorem ipsum
+username: Eka Prasasti
 user_title: Lorem Ipsum - FrontEnd
-email: lorem.lorem@ipsum.com
-twitter_username: loremipsum
-github_username:  loremipsum
-gplus_username:  loremipsum
-disqus_username: loremipsum
+email: ekaputraprasasti@gmail.com
+facebook_username: ekaprasasti
+twitter_username: ekaprasasti
+github_username:  ekaprasasti
+gplus_username:  +Ekaprasasti90
+disqus_username: ekaprasasti
+instagram_username: eka_prasasti
 
 # Build settings
 markdown: kramdown
@@ -40,11 +42,9 @@ links:
     url: /about
 # projects in header index
 projects:
-  - name: asciilang
-    url: https://github.com/victorvoid/asciilang
-  - name: vim-frontend
-    url: https://github.com/victorvoid/vim-frontend
-  - name: generator-capybara
-    url: https://github.com/victorvoid/generator-capybara 
+  - name: Era Belajar
+    url: http://erabelajar.com
+  - name: Developer Era Belajar
+    url: http://developer.erabelajar.com
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules']
