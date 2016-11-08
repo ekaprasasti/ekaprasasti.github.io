@@ -2,7 +2,7 @@
 title: Eka Prasasti - Web Developer
 description: "A blog about Eka Prasasti ..."
 baseurl: "" # the subpath of your site
-url: "http://localhost:4000"
+url: "https://ekaprasasti.github.io"
 
 # User settings
 username: Eka Prasasti
