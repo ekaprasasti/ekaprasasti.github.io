@@ -19,7 +19,7 @@ Halo dunia, merupakan kata yang pas di tujukan untuk posting kali ini yang mana 
 
 ### Perkenalan
 
-Setelah lulus SMA saya melanjutkan studi di Universitas Gunadarma jurusan Manajemen Informatika, sebenarnya minat saya pada jurusan Teknik Informatika namun karena saya jurusan IPS apa boleh buat saya tidak bisa masuk jurusan tersebut, sampai pada akhirnya alhamdulillah saya lulus S1 jurusan Sistem Informatika pada 2015 lalu.
+Setelah lulus SMA saya melanjutkan studi di Universitas Gunadarma jurusan Manajemen Informatika, sebenarnya minat saya pada jurusan Teknik Informatika namun karena saya jurusan IPS apa boleh buat saya tidak bisa masuk jurusan tersebut, sampai pada akhirnya alhamdulillah saya lulus S1 jurusan Sistem Informatika pada 2015 lalu. Saat ini saya sedang berikhtiar untuk bisa melanjutkan studi S2 saya di Fasilkom Universitas Indonesia, doakan ya teman2 :)
 
 Sewaktu kuliah saya sangat mendalami pemrograman JAVA, lewat komunitas dan pelatihan JAVA (namanya lupa) yang di dirikan oleh pak Frans Thamura pendiri Meruvian dan JUG Indonesia, saya dan teman-teman belajar bahasa pemrograman ini.
 
@@ -33,7 +33,7 @@ Hampir 6 bulan berselang saya resign dari tempat kerja saya yang lama untuk menc
 
 Akhirnya saya pun bertekad untuk fokus pada pemrograman berbasis Web, akhirnya dengan berbagai pertimbangan, pengalaman dan riset yang telah saya lakukan saya memilih untuk menjadi Expert Javascript.
 
-Setelah 6 bulan lamanya saya berkesempatan untuk berbisnis startup, pada september 2016 saya resign di Wisata Hati dan mulai membangun bisnis startup saya. Saat ini saya bekerja sebagai Chief Technology mengembangkan aplikasi EraBelajar.com, yang mana dari aplikasi tersebut kita dapat memilih guru belajar sesuai yang kita ingin kan.
+Setelah 6 bulan lamanya saya berkesempatan untuk berbisnis startup, pada september 2016 saya resign di Wisata Hati dan mulai membangun perusahaan startup bersama 2 rekan saya CEO dan CFO. Saat ini saya bekerja sebagai Chief Technology mengembangkan aplikasi EraBelajar.com, yang mana dari aplikasi tersebut kita dapat memilih guru belajar sesuai yang kita ingin kan.
 
 EraBelajar.com saya bangun menggunakan technology MongoDB, ExpressJS, AngularJS, dan NodeJS (MEAN Stack).
 
@@ -42,6 +42,7 @@ Perjalanan saya tidak sampai di sini, dengan profesi di bidang technology yang d
 Untuk itu blog ini saya buat untuk menjadi catatan perjalanan saya mempelajari ilmu-ilmu baru yang berkembang, dan juga pengalaman-pengalaman yang pernah saya dapat.
 
 So, enjoy my blog
+
 Eka Putra Prasasti
 
 
