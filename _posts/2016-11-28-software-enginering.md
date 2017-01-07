@@ -11,8 +11,6 @@ categories:
 serie: Learn
 ---
 
-## Software Engineering
-
 Berikut saya kutip dari para ahli Software Engineering
 
 "Apa yang di maksud dengan computer? Dia adalah sebuah alat yang di program, jadi pada dasarnya proses computing adalah programming. Development program adalah dasar yang di gunakan untuk komputer. Software engineer adalah sebuah disiplin untuk menyelidiki dan meneliti proses development program, sehingga proses development menjadi lebih efektif." - Tufik Bultan, University of California, Santa Barbara.
