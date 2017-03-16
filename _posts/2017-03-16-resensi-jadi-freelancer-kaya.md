@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Resensi buku "Jadi Freelancer Kaya""
+title:  'Resensi buku "Jadi Freelancer Kaya"'
 image: ''
 date:   2016-12-27 00:05:03
 tags:
@@ -45,7 +45,8 @@ Dan juga yang gak kalah penting adalah flowchart alur "Metode Pembayaran (Kartu 
 
 Masih banyak quotes2 dan catatan penting dalam buku ini yang saya garis bawahi, namun karena alasan copyright saya tidak bisa memberikan semuanya di sini tentunya. heheheee..
 
-##Kesimpulan
+## Kesimpulan
+
 Buku ini sangat saya rekomendasikan buat kamu-kamu yang mau belajar bagaimana menjadi seorang freelancer, khususnya freelancer online. Walaupun ada kekurangan yang saya temukan seperti kurang detilnya mengenai cara membuat akun di website pembayaran seperti paypal dan lainnya, dan bagaimana atau adakah cara memverifikasi pembayaran tanpa kartu kredit. Karena memiliki akun platform pembayaran ini juga elemen wajib bagi freelancer online dan tidak semua masyakarakat di Indonesia tidak memiliki kartu kredit (termasuk saya, hehe). Dan bagaimana solusinya jika hal tersebut tidak memungkinkan.
 
 Ada 10 bab dalam buku ini, dan terpenting menurut saya adalah pada bab Persiapan Menjadi Freelancer Online, Halaman Profil Freelancer, Proposal Penawaran Yang Kreatif, dan Menghadapi Pelanggan yang menjadi isi inti dari buku ini dan semua bab dalam buku ini mengandung informasi yang sangat penting dan menginspirasi kita untuk menjadi freelancer. Saya sendiri sebenarnya ada 2 bab yang belum saya baca/tunda baca, yaitu Mengatur Waktu & Keuangan, dan Kisah Sukses Freelancer Indonesia. Di karenakan saya ingin cepat-cepat mempraktekan bab-bab yang saya baca sebelumnya. hehehee..
