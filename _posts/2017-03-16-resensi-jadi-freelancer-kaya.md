@@ -2,7 +2,7 @@
 layout: post
 title:  'Resensi buku "Jadi Freelancer Kaya"'
 image: ''
-date:   2016-12-27 00:05:03
+date:   2017-03-16 00:05:03
 tags:
 - review
 description: ''
