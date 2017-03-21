@@ -38,8 +38,9 @@ links:
     url: /series
   - title: tags
     url: /tags
-  - title: about me
-    url: /about
+  # - title: about me
+  #   url: https://about.me/ekaprasasti
+    # url: /about
 # projects in header index
 projects:
   - name: Era Belajar

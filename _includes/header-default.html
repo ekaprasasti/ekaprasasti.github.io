@@ -17,7 +17,7 @@
         </div>
         <ul class="recent">
             <p>Recent posts:</p>
-             {% for post in site.posts limit:10%}
+             {% for post in site.posts limit:5%}
                 <li><a href="{{ post.url | prepend: site.baseurl }}"><h2 class="post-title" itemprop="name">{{ post.title }}</h2></a></li>
               {% endfor %}
               <br>
