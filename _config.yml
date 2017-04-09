@@ -1,12 +1,12 @@
 # Site settings
 title: Eka Prasasti - Web Developer
-description: "A blog about Eka Prasasti ..."
+description: "A blog about mind of Eka Prasasti ..."
 baseurl: "" # the subpath of your site
-url: "https://ekaprasasti.github.io"
+url: "http://ekaprasasti.com"
 
 # User settings
 username: Eka Prasasti
-user_title: Lorem Ipsum - FrontEnd
+user_title: Web Developer
 email: ekaputraprasasti@gmail.com
 facebook_username: ekaprasasti
 twitter_username: ekaprasasti
