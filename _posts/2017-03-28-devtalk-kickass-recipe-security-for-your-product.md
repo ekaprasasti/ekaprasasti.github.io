@@ -85,3 +85,5 @@ Setelah Vandy memaparkan tips dan pendapatnya mengenai security yang singkat nam
 ## Pulang
 
 Akhirnya acara selesai dan di tutup dengan foto-foto bareng dan networking. Setelah itu saya pun langsung pulang menuju parkiran motor, yang jam setengah 10 kuran mall udah pada tutup, akhirnya jalan ke basement lewat luar. Ok, sampe sini aja dulu ya ceritanya. Nanti kita ketemuan di event2 technology dan programming lainnya. Kalo mau janjian sekalian kenalan boleh ya kita ngobrol di sosmed saya lewat [facebook](https://www.facebook.com/ekaprasasti) atau [twitter](https://twitter.com/ekaprasasti)
+
+Untuk slide mas Wasis bisa di akses [di sini](https://www.slideshare.net/TechInAsiaID/infrastructure-security-practice-by-wasis-adi-putranto-olx-indonesia) dan untuk slide mas Vandy bisa di akses [di sini](https://www.slideshare.net/TechInAsiaID/kickass-security-recipe-for-fintech-startup-by-vandy-putrandika-ovo)
