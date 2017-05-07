@@ -2,7 +2,7 @@
 layout: post
 title:  'Mengapa Harus Javascript'
 image: ''
-date:   2017-05-02 00:05:03
+date:   2017-05-07 00:05:03
 tags:
 - javascript
 description: ''
