@@ -147,7 +147,7 @@ Coba kita simpan 2 file HTML di atas secara terpisah dan kita buka pada browser,
 
 Berbeda jika kita buka file Javascript di Body, karena script Javascript berada di akhir tag `</body>` maka HTML akan mengeksekusi dan menampilkan semua kode pada tag body terlebih dahulu baru mengeksekusi kode Javascript. Jika kita jalankan file Javascript di Body maka kita akan lihat HTML Content akan di tampilkan terlebih dahulu baru menampilkan popup alert “Hello World!”.
 
-![Javascript Body](/assets/img/mengapa-harus-javascript/javascript-body.jpg)
+![Javascript Body](/assets/img/mengapa-harus-javascript/javascript-body.png)
 
 Nah sekarang sudah mengertikan ya perbedaan antara Javascript di tag `<head>` dan Javascript yang di letakan di dalam tag `<body>`. Meletakan Javascript di tag head memiliki masalah tersendiri, yaitu karena Javascript di gunakan untuk memanipulasi HTML maka sebelum HTML di load secara penuh dan script Javascript di jalankan terlebih dahulu, maka Javascript tidak akan mengenali kode HTML mana yang akan dia eksekusi, coba perhatikan kode berikut.
 
