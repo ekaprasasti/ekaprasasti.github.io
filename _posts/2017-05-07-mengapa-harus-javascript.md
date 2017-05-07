@@ -197,11 +197,11 @@ Untuk mengatasi hal ini maka kita harus memindahkan file Javascript di akhir bod
 
 ![Javascript no error](/assets/img/mengapa-harus-javascript/noerror-report.png)
 
-Kesimpulan
+## Kesimpulan
 
 Nah kesimpulannya sederhana, yuk kita belajar bareng Javascript! Karena di Era ini lah waktu yang tepat untuk mempelajari Javascript. Saya men-chalange diri saya sendiri untuk insya Allah jika tidak ada halangan menulis artikel tentang Javascript fundamental, mungkin tidak di mulai dari dasar sekali, karena tutorial dan artikel ini sudah banyak bertebaran di internet baik yang berbahasa Inggris maupun Indonesia. Tapi saya akan bahas tentang konsep, fungsi dan method, dan hal-hal mendasar dari programmer Javascript. Maka ikuti terus saya di media sosial dengan follow, subscribe, atau ngobrol di facebook untuk mendapatkan update terbaru.
 
-Referensi
+## Referensi
 
 - [https://id.wikipedia.org/wiki/JavaScript](https://id.wikipedia.org/wiki/JavaScript)
 - [http://www.dhan.web.id/2016/03/sebuah-sejarah-singkat-dari-javascript.html](http://www.dhan.web.id/2016/03/sebuah-sejarah-singkat-dari-javascript.html)
