@@ -5,6 +5,7 @@ image: ''
 date:   2017-05-02 00:05:03
 tags:
 - javascript
+- ReactJS
 description: ''
 categories:
 - Programming
@@ -37,7 +38,7 @@ Jika kita lihat definisi pada wikipedia, bisa kita dapat definisi JSX adalah sep
 
 > React components are typically written in JSX, a JavaScript extension syntax allowing quoting of HTML and using HTML tag syntax to render subcomponents. This is a React-specific grammar extension to JavaScript like now defunct. HTML syntax is processed into JavaScript calls of the React framework. Developers may also write in pure JavaScript.
 
-Nah coba sekarang kita bahas lebih lanjut langsung ke contoh kodenya, biar cepet faham. Apa kalian pernah lihat kode javascript seperti ini, 
+Nah coba sekarang kita bahas lebih lanjut langsung ke contoh kodenya, biar cepet faham. Apa kalian pernah lihat kode javascript seperti ini,
 
 ```javascript     
 var h1 = <h1>Hello world</h1>;
@@ -89,7 +90,7 @@ Jika JSX terdapat lebih dari 1 baris maka harus di beri tanda kurung, nested JSX
 
 ```javascript
 var paragraphs = (
-	<p>I am a paragraph.</p> 
+	<p>I am a paragraph.</p>
 	<p>I, too, am a paragraph.</p>
 );
 ```
@@ -99,7 +100,7 @@ Kode diatas akan error karena JSX tidak memiliki tag terluar, solusinya adalah s
 ```javascript
 var paragraphs = (
 	<div>
-		<p>I am a paragraph.</p> 
+		<p>I am a paragraph.</p>
 		<p>I, too, am a paragraph.</p>
 	</div>
 );
@@ -193,10 +194,10 @@ Jika kita melihat kode di atas, kira-kira akan tampil seperti apa ya di browser?
 Ketika kita inject javascript pada kode JSX, maka javascript adalah kode yang juga berada dalam file tersebut. Ini artinya kita juga bisa menyisipkan sebuah variabel pada kode JSX. Perhatikan contoh berikut,
 
 ```javascript
-// Deklarasikan sebuah variabel: 
-var name =  ‘Eka Prasasti’; 
+// Deklarasikan sebuah variabel:
+var name =  ‘Eka Prasasti’;
 
-// Akses variable 
+// Akses variable
 // dari dalam JSX expression:
 var greeting = <p>Hello, {name}!</p>;
 ```
@@ -210,11 +211,11 @@ Sebuah variabel juga dapat di sisipkan pada nilai sebuah attribute, contoh
 
 var sideLength = "200px”;
 
-var panda = ( 
-    <img 
-        src="images/panda.jpg" 
+var panda = (
+    <img
+        src="images/panda.jpg"
         alt="panda"
-        height={sideLength} 
+        height={sideLength}
         width={sideLength} />
 );  
 ```  
@@ -224,7 +225,7 @@ var panda = (
 Seperti pada kode HTML, element pada JSX juga dapat di sisipkan sebuah event.
 
 ```javascript
-function myFunc () { 
+function myFunc () {
     alert('Make myFunc the pFunc... omg that was horrible i am so sorry’);
 }
 
@@ -247,7 +248,7 @@ if (user.age >= drinkingAge) {
 	var message = (
 		<h1>Hey, check out this alcoholic beverage!</h1>
 	);
-} 
+}
 else {
 	var message = (
 		<h1>Hey, check out these earrings I got at Claire's!</h1>
@@ -255,7 +256,7 @@ else {
 }
 
 ReactDOM.render(
-	message, 
+	message,
 	document.getElementById('app')
 );
 ```
@@ -265,12 +266,12 @@ ReactDOM.render(
 Juga sebagai solusi pengganti kondisional if dan else, JSX mendukung apa yang di sebut dengan *ternary operator* yang dapat mendeteksi kondisi *true* atau *false*.
 
 ```javascript
-var headline = ( 
-	<h1> 
-		{ age >= drinkingAge ? 'Buy Drink' : 'Do Teen Stuff' } 
+var headline = (
+	<h1>
+		{ age >= drinkingAge ? 'Buy Drink' : 'Do Teen Stuff' }
 	</h1>
 );
-``` 
+```
 
 Pada contoh di atas apabila *age* lebih dari *drinkingAge* maka berkondisi *true* dan akan mengesekusi `<h1>Buy Drink</h1>`, sebaliknya jika kondisi bernilai *false* maka akan mengesekusi `<h1>Do Teen Stuff</h1>`.
 
@@ -279,13 +280,13 @@ Pada contoh di atas apabila *age* lebih dari *drinkingAge* maka berkondisi *true
 Operator kondisi pada JSX juga mengenal operator &&. Perhatikan contoh berikut ini,
 
 ```javascript
-var tasty = ( 
-	<ul> 
-		<li>Applesauce</li> 
-		{ !baby && <li>Pizza</li> } 
-		{ age > 15 && <li>Brussels Sprouts</li> } 
-		{ age > 20 && <li>Oysters</li> } 
-		{ age > 25 && <li>Grappa</li> } 
+var tasty = (
+	<ul>
+		<li>Applesauce</li>
+		{ !baby && <li>Pizza</li> }
+		{ age > 15 && <li>Brussels Sprouts</li> }
+		{ age > 20 && <li>Oysters</li> }
+		{ age > 25 && <li>Grappa</li> }
 	</ul>
 );
 ```
@@ -297,7 +298,7 @@ Array method .map juga dapat di gunakan pada React untuk menampilkan atau meloop
 ```javascript
 var strings = ['Home', 'Shop', 'About Me’];
 
-var listItems = strings.map(function(string){ 
+var listItems = strings.map(function(string){
     return <li>{string}</li>;
 });
 
@@ -319,9 +320,9 @@ var h1 = <h1>Hello world</h1>;
 Kode di atas dapat di tulis tanpa menggunakan kode JSX seperti ini,
 
 ```javascript
-var h1 = React.createElement( 
-	"h1", 
-	null, 
+var h1 = React.createElement(
+	"h1",
+	null,
 	"Hello, world"
 );
 ```
