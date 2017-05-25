@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Melanjutkan artikel [sebelumnya](http://ekaprasasti.com/dasar-react-component/) mengenai dasar react component dan juga catatan pembelajaran saya di [codecademy](https://www.codecademy.com/learn/react-101), kali ini kita akan membahas bagaimana berbagai component dalam aplikasi react berinteraksi.
+Melanjutkan artikel [sebelumnya](http://ekaprasasti.com/dasar-react-component/) mengenai dasar react component dan juga catatan pembelajaran saya di [codecademy](https://www.codecademy.com/learn/react-101), kali ini kita akan membahas bagaimana component dalam aplikasi react saling berinteraksi satu sama lain.
 
 Aplikasi React dapat berisi puluhan bahkan ratusan component. Setiap component merupakan bagian dari kode kecil yang mungkin tidak berpengaruh terhadap sistem jika sendirian. Namun bila di kombinasikan dengan component lain, mereka dapat membentuk ekosistem informasi yang sangat kompleks dan fantastis.
 
