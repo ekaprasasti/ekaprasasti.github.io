@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  'Si "Tukang Catat" MorganJS'
+title:  "Si 'Tukang Catat' MorganJS"
 image: ''
 date:   2017-06-03 00:05:03
 tags:
