@@ -12,17 +12,17 @@ categories:
 serie: javascript
 ---
 
-Artikel ini adalah pembelajaran saya mengenai Angular yang bersumber dari official documentasinya yang bisa di buka [di sini](https://angular.io/docs/ts/latest/guide/setup.html).
+Artikel ini adalah pembelajaran saya mengenai Angular yang bersumber dari official dokumentasinya yang bisa di buka [di sini](https://angular.io/docs/ts/latest/guide/setup.html).
 
-Ok, langsung saja setup di sini adalah dengan menggunakan cloning dari repository yang di sediakan angular untuk file basic yang dapat kita gunakan, bukan dari *create* file di angular cli.
+Ok, langsung saja setup di sini adalah dengan menggunakan cloning dari repository yang di sediakan angular untuk file basic, bukan dari *create* file di angular cli.
 
 ## Setup local development environment
 
-Pada bagian ini kita akan belajar bagaimana membuat angular berjalan pada local komputer kita. Setting project baru di local sangat lah mudah, coba lihat langkah-lankah berikut (jangan lupa untuk menginstall [node dan npm](https://angular.io/docs/ts/latest/guide/setup.html#install-prerequisites))
+Pada bagian ini kita akan belajar bagaimana membuat angular berjalan pada komputer lokal kita. Setting project baru di lokal komputer sangat lah mudah, coba lihat langkah-langkah berikut (jangan lupa untuk menginstall [node dan npm](https://angular.io/docs/ts/latest/guide/setup.html#install-prerequisites))
 
 1. Buat project folder dengan nama `quickstart`, kita dapat me-*rename* nya nanti.
 
-2. Clone atau download angular dari [repository github](https://github.com/angular/quickstart.git) ke dalam project yang sudah kita lihat.
+2. Clone atau download angular dari [repository github](https://github.com/angular/quickstart.git) ke dalam project yang sudah kita buat.
 
 3. Install semua packages dengan npm.
 
@@ -61,7 +61,7 @@ rd e2e /s /q
 
 ## Apa yang kita Clone?
 
-Folder berisi file yang membentuk fondasi yang solid untuk local development. Karena itu, sangat banyak file di dalam folder di *working directory* kita, yang sebagian besar kita [bisa pelajari nanti](https://angular.io/docs/ts/latest/guide/setup-systemjs-anatomy.html).
+Folder berisi file yang membentuk fondasi yang solid untuk local development. Karena itu, sangat banyak file di dalam folder di *working directory* kita, yang sebagian besar bisa kita [pelajari nanti](https://angular.io/docs/ts/latest/guide/setup-systemjs-anatomy.html).
 
 Fokus pada tiga file TypeScipt (`.ts`) di dalam folder `/src`
 
@@ -77,7 +77,7 @@ import { Component } from '@angular/core';
 export class AppComponent { name = 'Angular'; }
 ```
 
-Mendefinisikan sebuah `AppComponent`, ini adalah **root** components pada sebuah aplikasi
+Mendefinisikan sebuah `AppComponent`, ini adalah **root** component pada sebuah aplikasi
 
 ### src/app/app.module.ts
 
@@ -105,7 +105,7 @@ import { AppModule }              from './app/app.module';
 platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
-Mengcompile aplikasi dengan [JIT compiler](https://angular.io/docs/ts/latest/glossary.html#!#jit) (Just-in-time compilation) dan [bootstaps](https://angular.io/docs/ts/latest/guide/appmodule.html#main) `AppModule` untuk menjalankannya pada browser. Kita akan belajar tentang pilihan alternatif compiling dan [deployment](https://angular.io/docs/ts/latest/guide/deployment.html) nanti.
+Mengcompile aplikasi dengan [JIT compiler](https://angular.io/docs/ts/latest/glossary.html#!#jit) (Just-in-time compilation) dan [bootstrap](https://angular.io/docs/ts/latest/guide/appmodule.html#main) `AppModule` untuk menjalankannya pada browser. Kita akan belajar tentang pilihan alternatif compiling dan [deployment](https://angular.io/docs/ts/latest/guide/deployment.html) nanti.
 
 ## Referensi
 
