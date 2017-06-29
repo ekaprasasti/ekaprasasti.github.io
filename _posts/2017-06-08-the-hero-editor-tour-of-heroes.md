@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The Hero Editor"
+title:  "Tour of Heroes: The Hero Editor"
 image: ''
 date:   2017-06-08 00:05:03
 tags:
@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Tutorial ini adalah step pertama membuat aplikasi [Tour of Heroes](http://ekaprasasti.com/angular-tour-of-heroes-tutorial/). Ikuti langkah-langkah untuk men-[setup](http://ekaprasasti.com/setup-angular-documentation/) untuk membuat project baru dengan nama `angular-tour-of-heroes`. Struktur file akan terlihat seperti berikut.
+Tutorial ini adalah step pertama membuat aplikasi [Tour of Heroes](http://ekaprasasti.com/angular-tour-of-heroes-tutorial/). Ikuti langkah-langkah [setup](http://ekaprasasti.com/setup-angular-documentation/) untuk membuat project baru dengan nama `angular-tour-of-heroes`. Struktur file akan terlihat seperti berikut.
 
 ```
 angular-tour-of-heroes
@@ -50,7 +50,7 @@ npm start
 
 Perintah ini akan menjalankan compiler TypeScipt di dalam "Watch mode", dan akan me-recompiling secara automatis ketika kode berubah. Perintah tersebut secara simultan me-launch aplikasi di dalam browser dan me-refresh browser ketika kode berubah.
 
-Kita dapa tetap mengerjakan aplikasi tanpa pause untuk recompile atau refresh browser.
+Kita dapat tetap mengerjakan aplikasi tanpa pause untuk recompile atau refresh browser.
 
 ## Show the Heroes
 
@@ -85,7 +85,7 @@ export class Hero {
 }
 ```
 
-Di dalam class `AppComponent`, refactor component property `hero` menjadi `Hero` type, lalu initialize dengan `id` adalah `1` dan `name` adalah `Windstorm`.
+Di dalam class `AppComponent`, refactor component property `hero` menjadi `Hero` type, lalu inisiasi `id` dengan `1` dan `name` dengan `Windstorm`.
 
 #### src/app/app.component.ts (hero property)
 ```javascript
@@ -134,9 +134,9 @@ Refactor nama hero di dalam template sehingga terlihat seperti kode berikut.
 
 `[(ngModel)]` merupakan syntax Angular untuk binding property `hero.name` di dalam textbox.
 
-Aplikasi akan *breaks*, dan jika kita lihan dalam browser console, kita akan melihat Angular memberitahukan errornya "`ngModel` ... isn't a known property of `input`."
+Aplikasi akan error, dan jika kita lihat dalam browser console, kita akan melihat Angular memberitahukan errornya "`ngModel` ... isn't a known property of `input`."
 
-`NgModel` adalah directive valid dari Angular, dan itu tidak tersedia secara default. Ini termasuk dalam optional module `FormsModule`. Kita harus menambahkan module tersebut.
+`NgModel` adalah directive valid dari Angular, dan itu tidak tersedia secara default. Ini termasuk dalam optional module `FormsModule`. Kita harus menambahkan module tersebut secara manual.
 
 ### import FormsModule
 
@@ -166,7 +166,7 @@ Ketika browser di refresh, app kembali berjalan dengan normal.
 
 ## Apa saja yang sudah kita pelajari?
 
-- Menggunakan double kurung kurawal (one-way data binding) untuk menampilkan title dan property object `hero`.
+- Menggunakan kurung kurawal ganda (one-way data binding) untuk menampilkan title dan property object `hero`.
 
 - Menulis multi-line template menggunakan ES2015 literal template untuk membuat template mudah di baca.
 

@@ -12,17 +12,17 @@ categories:
 serie: javascript
 ---
 
-Tutorial ini adalah pembelajaran saya mengenai Angular yang bersumber dari [dokumentasi official](https://angular.io/docs/ts/latest/tutorial/) Angular.
+Tutorial ini adalah pembelajaran saya mengenai Angular yang bersumber dari [dokumentasi official](https://angular.io/docs/ts/latest/tutorial/) Angular. Dan juga ceritanya sekaligus saya belajar bahasa Inggris, jadi sekalian saya translate dokumentasinya ke bahasa Indonesia.
 
 > The Tour of Heroes tutorial takes you through the steps of creating an Angular application in TypeScript.
 
-Tujuan dari tutorial ini adalah membuat sebuah aplikasi yang dapat menolong staff agensi mengatur *stable of heroes*. Aplikasi ini mencakup *core fundamentals* dari Angular. Kita akan membuat aplikasi dasar dengan banyak fitur yang dapat kita temukan pada aplikasi berbasis data yang lengkap (*data-driven app*): mengambil dan menampilkan data *heroes*, mengedit detail *heroes* yang di pilih, dan navigasi di antar tampilan yang berbeda pada data heroic.
+Tujuan dari tutorial ini adalah membuat sebuah aplikasi yang dapat menolong staff agensi mengatur *stable of heroes*. Aplikasi ini mencakup *core fundamentals* dari Angular. Kita akan membuat aplikasi dasar dengan banyak fitur yang dapat kita temukan pada aplikasi berbasis data yang lengkap (*data-driven app*): mengambil dan menampilkan data hero, mengedit detail hero yang di pilih, dan navigasi di antara tampilan yang berbeda pada data heroic.
 
 ## Apa saja fitur yang akan kita buat?
 
 - Kita akan menggunakan built-in directive untuk memunculkan dan menghilangkan elements dan menampilkan data pada list hero.
 
-- Kita membuat component untuk menampilkan detail hero dan memunculkan sebuah array dari *heroes*.
+- Kita membuat component untuk menampilkan detail hero dan memunculkan sebuah array dari *hero*.
 
 - Kita menggunakan *one-way data binding* hanya untuk membaca data.
 
@@ -34,7 +34,7 @@ Tujuan dari tutorial ini adalah membuat sebuah aplikasi yang dapat menolong staf
 
 - Kita bisa memformat data dengan *pipes*.
 
-- Kita akan membuat sebuah *shared service* untuk mengumpulkan *heroes*.
+- Kita akan membuat sebuah *shared service* untuk mengumpulkan *hero*.
 
 - Kita juga akan membuat routing untuk menavigasi *view* yang berbeda pada setiap component.
 
@@ -42,21 +42,21 @@ Kita cukup belajar inti dari Angular untuk memulai dan setelahnya kita akan dapa
 
 ## The End Game
 
-Bagian ini adalah ide visual yang akan kita buat pada tutorial ini, di mulai dari "Dashboard" view dan heroes yang paling heroik.
+Bagian ini adalah ide visual yang akan kita buat pada tutorial ini, di mulai dari "Dashboard" view dan hero yang paling heroik.
 
 ![Dashboard](https://angular.io/resources/images/devguide/toh/heroes-dashboard-1.png)
 
-Kita dapat meng-klik 2 link di atas dashboard yaitu "Dashboard" dan "Heroes" yang merupakan navigasi antara Dashboard view dan Heroes view.
+Kita dapat meng-klik 2 link di atas dashboard yaitu "Dashboard" dan "Heroes" yang merupakan navigasi antara Dashboard view dan Hero view.
 
 Di dalam Dashboard Jika kita klik hero "Magneta", router akan membuka "Hero Details" yang di mana kita dapat meng-edit nama hero.
 
 ![hero details](https://angular.io/resources/images/devguide/toh/hero-details-1.png)
 
-Klik button "Back" untuk kembali ke Dashboard yang merupakan view utama kita. Jika di klik "Heroes", aplikasi akan menampilkan master *heroes* list.
+Klik button "Back" untuk kembali ke Dashboard yang merupakan view utama kita. Jika di klik "Hero", aplikasi akan menampilkan master *hero* list.
 
 ![Heroes](https://angular.io/resources/images/devguide/toh/heroes-list-2.png)
 
-Jika kita klik nama hero yang berbeda, membuat nama hero dan button di bagian paling bawah menyesuaikan. Kita dapat men-klik "View Details" untuk menuju detail yang dapat kita edit pada hero yang di pilih.
+Jika kita klik nama hero yang berbeda, membuat nama hero maka button di bagian paling bawah menyesuaikan. Kita dapat men-klik "View Details" untuk menuju detail yang dapat kita edit pada hero yang di pilih.
 
 Perhatikan alur dan diagram navigasi yang akan kita buat
 
@@ -66,7 +66,7 @@ Perhatikan alur dan diagram navigasi yang akan kita buat
 
 ![gif action](https://angular.io/resources/images/devguide/toh/toh-anim.gif)
 
-Kita akan membuat aplikasi Tour of Heroes, step by step. Setiap langkah memotifasi kita requirement yang mungkin akan banyak kita temui di setiap aplikasi. Klik di setiap step pada daftar berikut ini.
+Kita akan membuat aplikasi Tour of Heroes, step by step. Setiap langkah memotivasi kita membuat requirement yang mungkin akan banyak kita temui di setiap aplikasi. Klik di setiap step pada daftar berikut ini.
 
 1. [The Hero Editor](http://ekaprasasti.com/the-hero-editor/)
 
