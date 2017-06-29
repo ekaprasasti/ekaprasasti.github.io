@@ -67,7 +67,7 @@ export class AppComponent {
 Sekarang update template di dalam `@Component` decorator dengan data binding.
 
 #### app.component.ts (@Component)
-```javascript
+```
 template: `<h1>{{title}}</h1><h2>{{hero}} details!</h2>`
 ```
 
@@ -75,7 +75,7 @@ Refresh browser dan akan menampilkan `title` dan nama `hero`. Tanda double kurun
 
 ## Hero Object
 
-Hero membutuhkan lebih banyak property. Convert `hero` dari string ke class. Buat class `hero` dengan property `id` dan `name`. Tambahkan property berikut di bagian atas aplikasi.
+Hero membutuhkan lebih banyak property. Convert `hero` dari string ke class. Buat class `hero` dengan property `id` dan `name`. Tambahkan property berikut di bagian atas aplikasi, di atas `@Component`.
 
 #### src/app/app.component.ts (Hero class)
 ```javascript
@@ -119,7 +119,7 @@ template: `
 
 User harus dapat men-edit nama hero di dalam `<input>` textbox. Textbox harus dapat menampilkan keduanya, property `name` dan property *update* yang di ketikan user.
 
-Kita membutuhkan *two-way binding* antara element <input> form dan property `hero.name`.
+Kita membutuhkan *two-way binding* antara element `<input>` form dan property `hero.name`.
 
 ### Two-way binding
 
