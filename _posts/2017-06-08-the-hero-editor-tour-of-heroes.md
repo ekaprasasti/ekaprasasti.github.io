@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Tutorial ini adalah step pertama membuat aplikasi [Tour of Heroes](http://ekaprasasti.com/angular-tour-of-heroes-tutorial/). Ikuti langkah-langkah [setup](http://ekaprasasti.com/setup-angular-documentation/) untuk membuat project baru dengan nama `angular-tour-of-heroes`. Struktur file akan terlihat seperti berikut.
+Tutorial ini adalah langkah pertama membuat aplikasi [Tour of Heroes](/angular-tour-of-heroes-tutorial). Ikuti langkah-langkah [setup](/setup-angular-documentation/) untuk membuat project baru dengan nama `angular-tour-of-heroes`. Struktur file akan terlihat seperti berikut.
 
 ```
 angular-tour-of-heroes
@@ -67,8 +67,10 @@ export class AppComponent {
 Sekarang update template di dalam `@Component` decorator dengan data binding.
 
 #### app.component.ts (@Component)
-```
+```html
+{% raw %}
 template: `<h1>{{title}}</h1><h2>{{hero}} details!</h2>`
+{% endraw %}
 ```
 
 Refresh browser dan akan menampilkan `title` dan nama `hero`. Tanda double kurung kurawal merupakan Angular sintaks *interpolation binding*.
@@ -97,8 +99,10 @@ hero: Hero = {
 
 Karena kita merubah hero dari string ke object, update binding di dalam template yang mengambil property `name` hero.
 
-```javascript
+```html
+{% raw %}
 template: `<h1>{{title}}</h1><h2>{{hero.name}} details!</h2>`
+{% endraw %}
 ```
 
 ## Menambah HTML dengan multi-line template strings
@@ -107,12 +111,14 @@ Untuk menampilkan semua property hero, tambahkan `<div>` untuk property `id` pad
 
 #### app.component.ts (AppComponent's template)
 ```html
+{% raw %}
 template: `
   <h1>{{title}}</h1>
   <h2>{{hero.name}} details!</h2>
   <div><label>id: </label>{{hero.id}}</div>
   <div><label>name: </label>{{hero.name}}</div>
-  `
+`
+{% endraw %}
 ```
 
 ## Edit hero name
@@ -177,6 +183,7 @@ Ketika browser di refresh, app kembali berjalan dengan normal.
 Berikut adalah file `app.component.ts` yang lengkap.
 
 ```javascript
+{% raw %}
 import { Component } from '@angular/core';
 export class Hero {
   id: number;
@@ -201,6 +208,7 @@ export class AppComponent {
     name: 'Windstorm'
   };
 }
+{% endraw %}
 ```
 
 ## Referensi
