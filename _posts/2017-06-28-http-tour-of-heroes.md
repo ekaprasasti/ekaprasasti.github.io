@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Tour of Heroes: HTTP"
+title:  "Tour of Heroes #6: HTTP"
 image: ''
 date:   2017-06-28 00:05:03
 tags:
@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Kita memasuki bagian akhir dari rangkaian tutorial Angular aplikasi Tour of Heroes yaitu HTTP.
+Kita memasuki bagian akhir dari rangkaian [tutorial Angular aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) yaitu HTTP.
 
 Pada halaman ini, kita akan membuat beberapa pengembangan yaitu
 
@@ -393,6 +393,7 @@ Elemetn `<li>` sekarang menjadi seperti ini.
 
 #### src/app/heroes.component.html (li-element)
 ```html
+{% raw %}
 <li *ngFor="let hero of heroes" (click)="onSelect(hero)"
     [class.selected]="hero === selectedHero">
   <span class="badge">{{hero.id}}</span>
@@ -400,6 +401,7 @@ Elemetn `<li>` sekarang menjadi seperti ini.
   <button class="delete"
     (click)="delete(hero); $event.stopPropagation()">x</button>
 </li>
+{% endraw %}
 ```
  
 Selain memanggil methdo component `delete()`, kode click handler tombol delete menghentikan penyebaran click event. Kita tidka ingin click handler `<li>` di triggered karena hal tersebut akan menghapus hero yang di pilih user.
@@ -511,6 +513,7 @@ Template component di buat sederhana, hanya text box dan list dari hasil pencari
 
 #### src/app/hero-search.component.html
 ```html
+{% raw %}
 <div id="search-component">
   <h4>Hero Search</h4>
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
@@ -521,6 +524,7 @@ Template component di buat sederhana, hanya text box dan list dari hasil pencari
     </div>
   </div>
 </div>
+{% endraw %}
 ``` 
 
 Juga tambahkan sebuah style dari component yang baru kita buat.
@@ -699,6 +703,7 @@ Tambahkan element HTML search hero di bawah dari template `DashboardComponent`.
 
 #### src/app/dashboard.component.html
 ```html
+{% raw %}
 <h3>Top Heroes</h3>
 <div class="grid grid-pad">
   <a *ngFor="let hero of heroes"  [routerLink]="['/detail', hero.id]"  class="col-1-4">
@@ -708,6 +713,7 @@ Tambahkan element HTML search hero di bawah dari template `DashboardComponent`.
   </a>
 </div>
 <hero-search></hero-search>
+{% endraw %}
 ```
 
 Akhirnya, import `HeroSearchComponent` dari `hero-search.component.ts` dan tambahkan kepada array `declarations`.
@@ -813,6 +819,7 @@ Berikut adalah file yang kita tambahkankan atau di ubah pada tutorial ini.
 
 #### app.component.ts
 ```javascript
+{% raw %}
 import { Component }          from '@angular/core';
  
 @Component({
@@ -830,6 +837,7 @@ import { Component }          from '@angular/core';
 export class AppComponent {
   title = 'Tour of Heroes';
 }
+{% endraw %}
 ```
 
 #### app.module.ts
@@ -935,6 +943,7 @@ export class HeroesComponent implements OnInit {
 
 #### heroes.component.html
 ```html
+{% raw %}
 <h2>My Heroes</h2>
 <div>
   <label>Hero name:</label> <input #heroName />
@@ -957,6 +966,7 @@ export class HeroesComponent implements OnInit {
   </h2>
   <button (click)="gotoDetail()">View Details</button>
 </div>
+{% endraw %}
 ```
 
 #### heroes.component.css
@@ -1072,6 +1082,7 @@ export class HeroDetailComponent implements OnInit {
 
 #### hero-detail.component.html
 ```html
+{% raw %}
 <div *ngIf="hero">
   <h2>{{hero.name}} details!</h2>
   <div>
@@ -1083,6 +1094,7 @@ export class HeroDetailComponent implements OnInit {
   <button (click)="goBack()">Back</button>
   <button (click)="save()">Save</button>
 </div>
+{% endraw %}
 ```
 
 #### hero.service.ts
@@ -1259,6 +1271,7 @@ export class HeroSearchComponent implements OnInit {
 
 #### hero-search.component.html
 ```html
+{% raw %}
 <div id="search-component">
   <h4>Hero Search</h4>
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
@@ -1269,6 +1282,7 @@ export class HeroSearchComponent implements OnInit {
     </div>
   </div>
 </div>
+{% endraw %}
 ```
 
 #### hero-search.component.css

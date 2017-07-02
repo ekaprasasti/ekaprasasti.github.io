@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Angular: Master/Detail"
+title:  "Tour of Heroes #2: Master/Detail"
 image: ''
 date:   2017-06-10 00:05:03
 tags:
@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Tutorial kali ini, kita akan melanjutkan tutorial aplikasi Tour of Heroes untuk menampilkan list heroes, dan memungkinkan user untuk memilih hero dan menampilkan detail hero.
+Tutorial kali ini, kita akan melanjutkan [tutorial aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) untuk menampilkan list heroes, dan memungkinkan user untuk memilih hero dan menampilkan detail hero.
 
 Akhir dari tutorial ini dapat kalian lihat di sini [live example](https://angular.io/resources/live-examples/toh-2/ts/eplnkr.html) / [downloadable example](https://angular.io/resources/zips/toh-2/toh-2.zip).
 
@@ -44,7 +44,7 @@ Array heroes merupakan tipe dari Hero, sebuah class yang telah kita definisikan 
 
 ### Expose heroes
 
-Buat public property di dalam AppComponent yang meng-expose heroes agar dapat kita binding.
+Buat public property di dalam class AppComponent yang meng-expose heroes agar dapat kita binding.
 
 #### app.component.ts (hero array property)
 ```javascript
@@ -88,9 +88,11 @@ Didalam tag `<li>`, tambahkan content dengan menggunakan template `hero` variabe
 
 #### app.component.ts (ngFor template)
 ```html
+{% raw %}
 <li *ngFor="let hero of heroes">
   <span class="badge">{{hero.id}}</span> {{hero.name}}
 </li>
+{% endraw %}
 ```
 
 Ketika browser me-refresh, list heroes akan tampil.
@@ -163,12 +165,14 @@ Template untuk menampilkan heroes akan terlihat seperti berikut ini
 
 #### src/app/app.component.ts (styled heroes)
 ```html
+{% raw  %}
 <h2>My Heroes</h2>
 <ul class="heroes">
   <li *ngFor="let hero of heroes">
     <span class="badge">{{hero.id}}</span> {{hero.name}}
   </li>
 </ul>
+{% endraw %}
 ```
 
 ## Memilih hero
@@ -194,7 +198,7 @@ Pelajari lebih lanjut mengenai event binding pada [User Input](https://angular.i
 
 ### Tambahkan click handler untuk mengakses selected hero
 
-Kita tidak perlu membuat `hero` peroperty karena kita tidak menampilkan single hero, kita menampilkan list heroes. Tapi user dapat memilih salah satu heroes dengan mengkliknya. Jadi ganti property `hero` dengan property `selectedHero`.
+Kita tidak perlu membuat property `hero` karena kita tidak menampilkan single hero, kita menampilkan list heroes. Tapi user dapat memilih salah satu heroes dengan mengkliknya. Jadi ganti property `hero` dengan property `selectedHero`.
 
 #### src/app/app.component.ts (selectedHero)
 ```javascript
@@ -232,6 +236,7 @@ Tambahkan built-in directive `ngIf` dan set pada property `selectedHero` pada co
 
 #### src/app/app.component.ts (ngIf)
 ```html
+{% raw %}
 <div *ngIf="selectedHero">
   <h2>{{selectedHero.name}} details!</h2>
   <div><label>id: </label>{{selectedHero.id}}</div>
@@ -240,6 +245,7 @@ Tambahkan built-in directive `ngIf` dan set pada property `selectedHero` pada co
     <input [(ngModel)]="selectedHero.name" placeholder="name"/>
   </div>
 </div>
+{% endraw %}
 ```
 
 Sekarang aplikasi tidak lagi error dan list nama kembali muncul pada browser.
@@ -254,36 +260,39 @@ Baca lebih lanjut mengenai `ngIf` dan `ngFor` dalam halaman [Structural Directiv
 
 Dalam `styles` metadata yang sudah kita buat di atas, disana ada CSS class dengan nama `selected`. Untuk membuat hero yang di pilih lebih terlihat, kita akan memakai class `selected` pada tag `<li>` ketika user mengklik pada nama hero. Sebagai contoh, ketika user klik "Magneta", warna background akan menjadi seperti ini.
 
-!(style selected hero)[https://angular.io/resources/images/devguide/toh/heroes-list-selected.png].
+![style selected hero](https://angular.io/generated/images/guide/toh/heroes-list-selected.png).
 
-Di dalam templat, tambahkan `[class.selected]` binding dengan `<li>`.
+Di dalam template, tambahkan `[class.selected]` binding dengan `<li>`.
 
 #### app.component.ts (setting the CSS class)
 ```javascript
 [class.selected]="hero === selectedHero"
 ```
 
-Ketika ekspresi (`hero === selectedHero`) bernilai `ture`, Angular menambahkan CSS class `selected`. Ketika ekspresi bernilai `false`, Angular menghilangkan class `selected`.
+Ketika ekspresi (`hero === selectedHero`) bernilai `true`, Angular menambahkan CSS class `selected`. Ketika ekspresi bernilai `false`, Angular menghilangkan class `selected`.
 
 Final version dari tag `<li>` akan terlihat seperti ini.
 
 #### app.component.ts (styling each hero)
 ```html
+{% raw %}
 <li *ngFor="let hero of heroes"
   [class.selected]="hero === selectedHero"
   (click)="onSelect(hero)">
   <span class="badge">{{hero.id}}</span> {{hero.name}}
 </li>
+{% endraw %}
 ```
 
 Setelah "Magneta", list akan terlihat seperti ini.
 
-![list hero](https://angular.io/resources/images/devguide/toh/heroes-list-1.png)
+![list hero](https://angular.io/generated/images/guide/toh/heroes-list-1.png)
 
 Berikut adalah file `app.component.ts` yang lengkap.
 
 #### src/app/app.component.ts
 ```javascript
+{% raw %}
 import { Component } from '@angular/core';
 export class Hero {
   id: number;
@@ -308,7 +317,7 @@ const HEROES: Hero[] = [
     <h2>My Heroes</h2>
     <ul class="heroes">
       <li *ngFor="let hero of heroes"
-        [class.selected]="hero === selectedHero"
+			[class.selected]="hero === selectedHero"
         (click)="onSelect(hero)">
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
@@ -380,6 +389,7 @@ export class AppComponent {
     this.selectedHero = hero;
   }
 }
+{% endrow %}
 ```
 
 ## Apa saja yang sudah kita pelajari?

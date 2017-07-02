@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Angular: Multiple Component"
+title:  "Tour of Heroes #3: Multiple Component"
 image: ''
 date:   2017-06-11 00:05:03
 tags:
@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Tutorial kali ini kita akan membahas Refactor master/detal view kedalam component yang terpisah.
+Tutorial kali ini kita akan membahas Refactor master/detail view kedalam component yang terpisah. Tutorial ini merupakan lanjutan dari tutorial Angular [Tour of Heroes](/angular-tour-of-heroes-tutorial). 
 
 Saat ini `AppComponent` dapat melakukan apa saja. Selanjutnya akan banyak requirement dan fitur yang akan di implementasi. Kita tidak bisa terus menumpuk fitur dalam satu component, hal ini membuat sulit untuk di maintain.
 
@@ -24,7 +24,7 @@ Buat file dengan nama `hero-detail.component.ts` pada folder `app/`. File ini ak
 
 Nama file dan component mengikuti standard yang di deskripsikan Angular [style guide](https://angular.io/docs/ts/latest/guide/style-guide.html#naming).
 
-- Nama component class harus di tulis dengan *upper camel case* dan di akhiri dengan kata "Component". Component class hero dtail adalah `HeroDetailComponent`.
+- Nama component class harus di tulis dengan *upper camel case* dan di akhiri dengan kata "Component". Component class hero detail adalah `HeroDetailComponent`.
 
 - Nama file component harus di eja dengan *lower dash case*, setiap kata di sisipi dengan dash (strip), dan di akhiri dengan `.component.ts`. Class `HeroDetailComponent` ada pada file `hero-detail.component.ts`.
 
@@ -41,7 +41,7 @@ export class HeroDetailComponent {
 }
 ```
 
-Untuk mendefinisikan component, kita selalu import `Component` symbol.
+Untuk mendefinisikan component, kita akan selalu meng-import `Component` symbol.
 
 Selector `hero-detail`, akan sesuai dengan tag element pada template component parent. Di akhir tutorial ini, kita akan menambahkan `<hero-detail>` element pada template `AppComponent`.
 
@@ -55,6 +55,7 @@ Untuk memindahkan detail view ke dalam `HeroDetailComponent`, cut content hero d
 
 #### src/app/hero-detail.component.ts (template)
 ```javascript
+{% raw %}
 @Component({
   selector: 'hero-detail',
   template: `
@@ -68,6 +69,7 @@ Untuk memindahkan detail view ke dalam `HeroDetailComponent`, cut content hero d
     </div>
   `
 })
+{% endraw %}
 ```
 
 ### Tambahkan property hero
@@ -99,7 +101,7 @@ import { Hero } from './hero';
 
 ### Property hero sebagai property input
 
-Component utama `AppComponent` memberitahukan component turunannya `HeroDetailComponent` hero yang mana yang akan di turunkan dengan *binding* `selectedHero` kepada property `hero` di `HeroDetailComponent`. Binding akan terlihat seperti ini:
+Component utama `AppComponent` memberitahukan component turunannya `HeroDetailComponent`, hero yang mana yang akan di turunkan dengan *binding* `selectedHero` kepada property `hero` di `HeroDetailComponent`. Binding akan terlihat seperti ini:
 
 ```html
 <hero-detail [hero]="selectedHero"></hero-detail>
@@ -138,6 +140,7 @@ Berikut code `HeroDetailComponent` yang lengkap.
 
 #### src/app/hero-detail.component.ts
 ```javascript
+{% raw  %}
 import { Component, Input } from '@angular/core';
 import { Hero } from './hero';
 @Component({
@@ -156,9 +159,10 @@ import { Hero } from './hero';
 export class HeroDetailComponent {
   @Input() hero: Hero;
 }
+{% endraw %}
 ```
 
-## Mendeklrasikan *HeroDetailComponent* dalam *AppModule*
+## Mendeklarasikan *HeroDetailComponent* dalam *AppModule*
 
 Setiap component harus di deklarasikan pada satu (dan hanya boleh satu) Angular module.
 
@@ -181,7 +185,7 @@ declarations: [
 
 Secara umum, array `declarations` berisi list component dari aplikasi, pipes, dan directive yang termasuk di dalam module. Component harus di deklarasikan di dalam module sebelum component lain menggunakannya. Module ini mendeklarasikan hanya dua component pada aplikasi, yakni `AppComponent` dan `HeroDetailComponent`.
 
-Baca lebih lanjut mengenai Angular modules dalam guide [NgModules](https://angular.io/docs/ts/latest/guide/ngmodule.html%20%22Angular%20Modules%20(NgModule)
+Baca lebih lanjut mengenai Angular modules dalam guide [NgModules](https://angular.io/guide/ngmodule)
 
 ## Menambahkan component *HeroDetailComponent* ke dalam *AppComponent*
 
@@ -201,6 +205,7 @@ Sekarang setiap kali `selectedHero` berubah, `HeroDetailComponent` menampilkan h
 Revisi dari template `AppComponent` harus terlihat seperti ini.
 
 ```javascript
+{% raw %}
 template: `
   <h1>{{title}}</h1>
   <h2>My Heroes</h2>
@@ -213,6 +218,7 @@ template: `
   </ul>
   <hero-detail [hero]="selectedHero"></hero-detail>
 `,
+{% endraw %}
 ```
 
 ## Apa saja yang sudah kita rubah?
@@ -269,7 +275,7 @@ angular-tour-of-heroes
 
 - Kita belajar bagaimana membuat component menyetujui input.
 
-- Kita belajar mendeklarasikan directive yang di butuhkan aplikasi pada Angular module. Kita melist directive di dalam `NgModule` decorator pada array `declarations`.
+- Kita belajar mendeklarasikan directive yang di butuhkan aplikasi pada Angular module. Kita me-list directive di dalam `NgModule` decorator pada array `declarations`.
 
 - Kita belajar bagaimana bind parent component dengan child component.
 

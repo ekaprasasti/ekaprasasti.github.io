@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Tour of Heroes: Routing"
+title:  "Tour of Heroes #5: Routing"
 image: ''
 date:   2017-06-15 00:05:03
 tags:
@@ -12,7 +12,7 @@ categories:
 serie: javascript
 ---
 
-Pada tutorial lanjutan mengenai aplikasi Tour of Heroes ini kita akan menambahkan requirement baru pada aplikas.
+Pada tutorial lanjutan mengenai [aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) ini kita akan menambahkan requirement baru pada aplikasi.
 
 - Menambahkan *Dashboard* view.
 
@@ -50,11 +50,11 @@ Berikut adalah plan dari tutorial ini.
 
 ## Splitting *AppComponent*
 
-Aplikasi kita saat ini me load `AppComponent` dan menampilkan list heroes.
+Aplikasi kita saat ini me-load `AppComponent` dan menampilkan list heroes.
 
 Aplikasi yang di revisi harus menampilkan shell dengan pilihan tampilan (Dashboard dan Heroes) dan kemudian memilih default ke salah satu dari mereka.
 
-`AppComponent` harus hanya bisa menangani navigasi, jadi kita akan memindahkan tampilan Heroes keluar dari `AppComponent` ke dalam componentnya `HeroesComponent.
+`AppComponent` harus hanya bisa menangani navigasi, jadi kita akan memindahkan tampilan Heroes keluar dari `AppComponent` ke dalam componentnya `HeroesComponent`.
 
 ### *HeroesComponent*
 
@@ -66,7 +66,7 @@ Ikuti langkah berikut:
 
 - Rename class `AppComponent` dengan `HeroesComponent` (*rename locally*, hanya pada file ini).
 
-- Renama selector my-app dnegan `my-heroes`.
+- Renama selector my-app dengan `my-heroes`.
 
 #### src/app/heroes.component.ts (showing renamings only)
 ```javascript
@@ -80,7 +80,7 @@ export class HeroesComponent implements OnInit {
 
 ### Membuat *AppComponent*
 
-`AppComponent` yang baru adalah aplikasi shell. Ia akan mempunya beberapa navigasi link di atas dan menampilkan area di bawahnya.
+`AppComponent` yang baru adalah aplikasi shell. Ia akan mempunyai beberapa navigasi link di atas dan menampilkan area di bawahnya.
 
 Lakukan langkah berikut
 
@@ -108,6 +108,7 @@ Hasilnya akan menjadi seperti ini
 
 #### src/app/app.component.ts (v1)
 ```javascript
+{% raw %}
 import { Component } from '@angular/core';
  
 @Component({
@@ -120,10 +121,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Tour of Heroes';
 }
+{% endraw %}
 ```
 
 #### src/app/app.module.ts (v1)
 ```javascript
+{% raw %}
 import { Component } from '@angular/core';
  
 @Component({
@@ -136,13 +139,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Tour of Heroes';
 }
+{% endraw %}
 ```
 
 Jalankan aplikasi dan akan menampilkan heroes.
 
 ## Menambahkan routing
 
-Angular router merupakan bagian external, optional Angular NgModule disebut `RouterModule`. Router merupakan kombinasi dari beberapa service yang di sediakan (`RouterModule`), beberapa directives (`RouterOutlet`, `RouterLink`, `RouterLinkActive`), dan konfiguras (`Routes`). Kita akan membuat konfigurasi terlebih dahulu.
+Angular router merupakan bagian external, optional Angular NgModule disebut `RouterModule`. Router merupakan kombinasi dari beberapa service yang di sediakan (`RouterModule`), beberapa directives (`RouterOutlet`, `RouterLink`, `RouterLinkActive`), dan konfigurasi (`Routes`). Kita akan membuat konfigurasi terlebih dahulu.
 
 ### <base href>
 
@@ -182,7 +186,7 @@ Mendefinisikan route mampunyai bagian seperti ini:
 
 - *Path*: Router mencocokan *path route* pada URL di dalam address bar browser (`heroes`).
 
-- *Component*: Componentn yang akan router gunakan ketika menuju navigasi route (`HeroesComponent`).
+- *Component*: Component yang akan router gunakan ketika menuju navigasi route (`HeroesComponent`).
 
 > Baca lebih lanjut mengenai pendefinisian route dengan `Routes` pada halaman [Routing & Navigation](https://angular.io/guide/router).
 
@@ -240,12 +244,14 @@ User tidak harus paste route URL pada address bar. Tapi user bisa menambahkan ta
 Revisi template menjadi seperti ini:
 
 #### src/app/app.component.ts (template-v2)
-```javaascript
+```javascript
+{% raw %}
 template: `
    <h1>{{title}}</h1>
    <a routerLink="/heroes">Heroes</a>
    <router-outlet></router-outlet>
  `
+{% endraw %}
 ```
 
 Refresh browser. Browser akan menampilkan aplikasi dengan link title dan heroes, tapi bukan list heroes.
@@ -256,6 +262,7 @@ Click link navigasi *Heroes*. Address bar terupdate ke `/heroes` dan list heroes
 
 #### src/app/app.component.ts (v2)
 ```javascript
+{% raw %}
 import { Component } from '@angular/core';
  
 @Component({
@@ -269,11 +276,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Tour of Heroes';
 }
+{% endraw %}
 ```
 
 ## Menambahkan dashboard
 
-Routing akan lebih masuk akan dengan multiple view. Untuk menambahkan view, buat `DashboarComponent`, yang mana user juga dapat menavigasinya.
+Routing akan lebih masuk akal dengan multiple view. Untuk menambahkan view, buat `DashboarComponent`, yang mana user juga dapat menavigasinya.
 
 #### src/app/dashboard.component.ts (v1)
 ```javascript
@@ -319,7 +327,7 @@ Saat ini browser berjalan dengan `/` pada address bar. Ketika aplikasi berjalan,
 Untuk melakukannya, gunakan redirect route. Tambahkan array route definitions:
 
 #### src/app/app.module.ts (redirect)
-```javascirpt
+```javascript
 {
   path: '',
   redirectTo: '/dashboard',
@@ -335,6 +343,7 @@ Tambahkan link navigasi dashboard ke dalam template, di atas link *Heroes*.
 
 #### src/app/app.component.ts (template-v3)
 ```javascript
+{% raw %}
 template: `
    <h1>{{title}}</h1>
    <nav>
@@ -343,13 +352,14 @@ template: `
    </nav>
    <router-outlet></router-outlet>
  `
+{% endraw %}
 ```
 
-> Tag `<nav>` tidak berpengaruh apa-apa, tapi ia akan berguna nanti ketuka kita membuat style pada link.
+> Tag `<nav>` tidak berpengaruh apa-apa, tapi ia akan berguna nanti ketika kita membuat style pada link.
 
 Pada browser, pergi ke root aplikasi (`/`) dan reload. Aplikasi akan menampilkan dashboard dan kita bisa menavigasi antara dashboard dan heroes.
 
-## Menambahkan heros ke dalam dashboard
+## Menambahkan hero ke dalam dashboard
 
 Untuk membuat dashboard lebih menarik, kita akan menampilkan 4 heroes.
 
@@ -367,6 +377,7 @@ Buat file dan isikan dengan konten.
 
 #### src/app/dashboard.component.html
 ```html
+{% raw %}
 <h3>Top Heroes</h3>
 <div class="grid grid-pad">
   <div *ngFor="let hero of heroes" class="col-1-4">
@@ -375,6 +386,7 @@ Buat file dan isikan dengan konten.
     </div>
   </div>
 </div>
+{% endraw %}
 ```
 
 `*ngFor` di gunakan kembali untuk mengiterasi list heroes dan menampilkan nama. Tambahan element `<div>` akan berguna untuk styling nanti.
@@ -383,7 +395,7 @@ Buat file dan isikan dengan konten.
 
 Untuk mengisi array `heroes`, kita bisa menggunakan kembali `HeroService`.
 
-Sebelumnya, kita hapus `HeroService` dari array `provides` pada `HeroesComponent` dan menambahkannya kepada array `provides` pada `AppModule`. Itu memindahkan pembuatan *singleton* instance `HeroService`, dapat di gunakan pada seluruh component di aplikasi. Angular meng-inject `HeroService` dan kita bisa menggunakannya di dalam `DashboardComponent`.
+Sebelumnya, kita menghapus `HeroService` dari array `provides` pada `HeroesComponent` dan menambahkan pada array `provides` pada `AppModule`. Hal itu memindahkan pembuatan *singleton* instance `HeroService` dapat di gunakan pada seluruh component di aplikasi. Angular meng-inject `HeroService` dan kita bisa menggunakannya di dalam `DashboardComponent`.
 
 ### Get heroes
 
@@ -436,7 +448,7 @@ Sementara detail hero yang di pilih di tampilkan di bawah dari `HeroesComponent`
 
 ### Routing detail hero
 
-Kita bisa menambahkan route `HeroDetailComponent` di dalam `app.module.ts`, di mana route lain di konfiguraskikan.
+Kita bisa menambahkan route `HeroDetailComponent` di dalam `app.module.ts`, di mana route lain di konfigurasikan.
 
 Route baru ini tidak seperti biasa, di mana kita harus memberitahukan `HeroDetailComponent` mana hero yang akan di tampilkan. Kita tidak perlu memberi tahu `HeroesComponent` atau `DashboardComponent` apa pun.
 
@@ -484,6 +496,7 @@ Berikut `HeroDetailComponent` saat ini:
 
 #### src/app/hero-detail.component.ts (current)
 ```javascript
+{% raw %}
 import { Component, Input } from '@angular/core';
 import { Hero } from './hero';
  
@@ -505,11 +518,12 @@ import { Hero } from './hero';
 export class HeroDetailComponent {
   @Input() hero: Hero;
 }
+{% endraw %}
 ```
 
 Template tidak berubah. Nama hero akan di tampilkan dengan cara yang sama. Perubahan utama di pengaruhi oleh bagaimana kita *get* nama hero.
 
-Kita tidak lagi menerima hero di dalam binding property parent component. `HeroDetalComponent` baru harus mengambil peramter `id` dari *params Obeervable* di service `ActivatedRoute` dan menggunakan `HeroService` mengambul id hero.
+Kita tidak lagi menerima hero di dalam binding property parent component. `HeroDetailComponent` baru harus mengambil peramter `id` dari *params Observable* di service `ActivatedRoute` dan menggunakan `HeroService` mengambil id hero.
 
 #### src/app/hero-detail.component.ts
 ```javascript
@@ -559,7 +573,7 @@ ngOnInit(): void {
 
 Operator `switchMap` memetakan `id` di dalam Observable route parameter kepada `Observable` yang baru, hasil dari method `HeroService.getHero()`.
 
-Jika user menavigasi ulang ke dalam component ini, request `getHero` masih teteap berjalan, `switchMap` cancel request lama dan lalu memanggil lagi `HeroService`.
+Jika user menavigasi ulang ke dalam component ini, request `getHero` masih tetap berjalan, `switchMap` cancel request lama dan lalu memanggil lagi `HeroService`.
 
 `id` hero merupakan nomor. Parameter route selalu string. Jadi nilai parameter route di convert ke dalam number dengan operator Javascript.
 
@@ -577,9 +591,9 @@ getHero(id: number): Promise<Hero> {
 
 ### Temukan cara kembali
 
-User mempunyai beberapa cara untuk menavigasi ke `HeroDetilComponent`.
+User mempunyai beberapa cara untuk menavigasi ke `HeroDetailComponent`.
 
-Untuk navigasi ke tempat lainnya, user bisa klik satu atau dua link di dalam `AppComponent` atau klik tombol back. Sekarang tambahkan option ke tiga, method `goBack()` yang menavigasi mundur satu step ke belakang di dalam browser history menggunakan service `Location` yang sebelum kita inject.
+Untuk navigasi ke tempat lainnya, user bisa klik satu atau dua link di dalam `AppComponent` atau klik tombol back. Sekarang tambahkan opsi ke tiga, method `goBack()` yang menavigasi mundur satu step ke belakang di dalam browser history menggunakan service `Location` yang sebelum kita inject.
 
 #### src/app/hero-detail.component.ts (goBack)
 ```javascript
@@ -600,6 +614,7 @@ Migrasi template ke pada file yang bernama `hero-detail.component.html`.
 
 #### src/app/hero-detail.component.html
 ```html
+{% raw %}
 <div *ngIf="hero">
   <h2>{{hero.name}} details!</h2>
   <div>
@@ -610,6 +625,7 @@ Migrasi template ke pada file yang bernama `hero-detail.component.html`.
   </div>
   <button (click)="goBack()">Back</button>
 </div>
+{% endraw %}
 ```
 
 Update metadata component dengan `templateUrl` dengan pointing pada file yang baru saja kita buat.
@@ -628,11 +644,11 @@ Refresh browser dan lihat hasilnya.
 
 Ketika user memilih hero di dalam dashboard, aplikasi harus menavigasi pada `HeroDetailComponent` untuk view dan edit hero yang di pilih.
 
-Meskipun dashboard heores di presentasikan sebagai button, mereka harus bersika seperti tag anchor. Ketika di hover di atas block hero, target URL harus m=tampil di dala status bar browser dan user harus  bisa men-copy link atau membuka detail hero pada tab baru.
+Meskipun dashboard heores di presentasikan sebagai button, mereka harus bersikap seperti tag anchor. Ketika di hover di atas block hero, target URL harus muncul di dalam status bar browser dan user harus  bisa men-copy link atau membuka detail hero pada tab baru.
 
 Untuk melakukan effect ini, buka `dashboard.component.html` dan ganti pengulangan  `<div *ngFor...>` dengan tag `<a>`. 
 
-#### src/app/dashboard.component.html (repeated <a> tag)
+#### src/app/dashboard.component.html (repeated `<a>` tag)
 ```html
 <a *ngFor="let hero of heroes"  [routerLink]="['/detail', hero.id]"  class="col-1-4">
 ```
@@ -653,7 +669,7 @@ Dua items array dengn *path* dan *:id* token di dalam parameterized hero detail 
 
 ## Refactor routes pada *Routing Module*
 
-Hampir 20 baris pada `AppModule` yang di khususkan untuk mengkonfigurasi 4 routes. Ide baik untuk merefactor konfigurasi routing ke dalam classnya masing-masing. Sekarang `RouterModule.forRoot()` menghasilkan Angular `ModuleWithProviders`, sebuah class untuk routing. Untuk informasi lebih jauh lihat sesi [Milestone #2: The Routing Module](https://angular.io/guide/router#routing-module) pada halaman [Routing & Navigation](https://angular.io/guide/router).
+Hampir 20 baris pada `AppModule` yang di khususkan untuk mengkonfigurasi 4 routes. Merupakan ide yang baik untuk merefactor konfigurasi routing ke dalam classnya masing-masing. Sekarang `RouterModule.forRoot()` menghasilkan Angular `ModuleWithProviders`, sebuah class untuk routing. Untuk informasi lebih jauh lihat sesi [Milestone #2: The Routing Module](https://angular.io/guide/router#routing-module) pada halaman [Routing & Navigation](https://angular.io/guide/router).
 
 Buat file `app-routing.module.ts` sebagai persamaan dengan `app.module.ts`. Berikan content, ekstrak dari class `AppModule`.
 
@@ -696,7 +712,7 @@ Point berikut adalah tipikal dari module routing:
 
 Hapus konfigurasi routing pada `AppModule` dan import `AppRoutingModule`. gunakan statement `import` dari ES2015 dan tambahkan pada list `NgModule.imports`.
 
-Berikut adalah revisi `AppModule`, perbandingan atara refactor dan yang belum di refactor.
+Berikut adalah revisi `AppModule`, perbandingan antara refactor dan yang belum di refactor.
 
 #### src/app/app.module.ts (after)
 ```javascript
@@ -790,6 +806,7 @@ Di dalam `HeroesComponent`, template saat ini memperlihatkan style "master/detai
 
 #### src/app/heroes.component.ts (current template)
 ```javascript
+{% raw %}
 template: `
   <h1>{{title}}</h1>
   <h2>My Heroes</h2>
@@ -802,9 +819,10 @@ template: `
   </ul>
   <hero-detail [hero]="selectedHero"></hero-detail>
 `,
+{% endraw %}
 ```
 
-Hapus `<h1` di paling atas.
+Hapus `<h1>` di paling atas.
 
 Hapus baris terakhir dari template dengan tag `<hero-detail>`.
 
@@ -814,31 +832,35 @@ Namun, ketika user memilih hero dari list, mereka tidak masuk ke halaman detail.
 
 ### Menambahkan mini detail
 
-Tambahkan HTML berikut di bagian bawah template di mana `<hero-detail>` terlebih dahulu.
+Tambahkan HTML berikut di bagian bawah template.
 
 #### src/app/heroes.component.ts
 ```html
+{% raw %}
 <div *ngIf="selectedHero">
   <h2>
     {{selectedHero.name | uppercase}} is my hero
   </h2>
   <button (click)="gotoDetail()">View Details</button>
 </div>
+{% endraw %}
 ```
 
 Setelah klik hero, user seharusnya melihati seperti di ini di bawah list hero.
 
 ![detail mini](https://angular.io/generated/images/guide/toh/mini-hero-detail.png)
 
-### Format dengan pipi uppercase
+### Format dengan pipe uppercase
 
-Nama hero di tampilkan dengan huruf besar, karena pipe `uppercase` di sertakan pada binding, setelah operator pipe (|).
+Nama hero di tampilkan dengan huruf besar, karena pipe `uppercase` di sertakan pada binding, setelah operator pipe `(|)`.
 
 ```html
+{% raw %}
 {{selectedHero.name | uppercase}} is my hero
+{% endraw %}
 ```
 
-Pipe merupakan cara yang baik untuk memformat string, currency, dates dan banyak data lain. Angular menyediakan beberapa pipe dan kita juga bisa menulis pipe kita sendiri.
+Pipe merupakan cara terbaik untuk memformat string, currency, dates dan banyak data lain. Angular menyediakan beberapa pipe dan kita juga bisa menulis pipe kita sendiri.
 
 > Baca lebih lanjut mengenai pipe di halaman [Pipes](https://angular.io/guide/pipes)
 
@@ -852,6 +874,7 @@ Dua file tersebut akan terlihat seperti berikut.
 
 #### src/app/heroes.component.html
 ```html
+{% raw %}
 <h2>My Heroes</h2>
 <ul class="heroes">
   <li *ngFor="let hero of heroes"
@@ -866,6 +889,7 @@ Dua file tersebut akan terlihat seperti berikut.
   </h2>
   <button (click)="gotoDetail()">View Details</button>
 </div>
+{% endraw %}
 ```
 
 #### src/app/heroes.component.css
@@ -952,6 +976,10 @@ Pendekatan ini membutuhkan perubahan berikut pada class component.
 
 1. Import `Router` dari Angular router library.
 
+```javascript
+import { Router } from '@angular/router'
+```
+
 2. Inject `Router` ke dalam constructor, bersama dengan `HeroService`.
 
 3. Implementasikan `gotoDetail()` dengan memamnggil method router `navigate()`.
@@ -993,7 +1021,7 @@ export class HeroesComponent implements OnInit {
 }
 ```
 
-Refresh browser dan mulai meng-klik. User bisa menavigasi di sekitar aplikas, dari dashboard ke detail hero dan kembali, dari list heroes ke detail mini ke detail hero dan kembali lagi ke heroes.
+Refresh browser dan mulai meng-klik. User bisa menavigasi di sekitar aplikasi, dari dashboard ke detail hero dan kembali, dari list heroes ke detail mini ke detail hero dan kembali lagi ke heroes.
 
 Kita sudah menerapkan semua *navigational requirements* dengan baik pada halaman ini.
 
@@ -1116,7 +1144,7 @@ h4 {
 
 ### Style navigation link
 
-CSS yang disediakan membuat link navigasi di `AppComponent` terlihat lebih seperti tombol yang dapat dipilih. 
+CSS yang disediakan membuat link navigasi di `AppComponent` terlihat lebih seperti tombol yang dapat di pilih. 
 
 Tambahkan file `app.component.css` pada folder `app` dengan konten berikut.
 
@@ -1154,10 +1182,11 @@ nav a.active {
 
 > Directive *routerLinkActive*
 > 
-> Angular router menyediakan `routerLinkActive` yang dapat kita gunakan untuk menambahkan class ke elemen navigasi HTML yang routenya sesuai dengan route yang aktiv. Yang harus kita lukukan adalah mendefinisikan style untuk itu.
+> Angular router menyediakan `routerLinkActive` yang dapat kita gunakan untuk menambahkan class ke elemen navigasi HTML yang routenya sesuai dengan route yang aktiv. Yang harus kita lakukan adalah mendefinisikan style untuk itu.
 
 #### src/app/app.component.ts (active router links)
 ```html
+{% raw %}
 template: `
   <h1>{{title}}</h1>
   <nav>
@@ -1166,6 +1195,7 @@ template: `
   </nav>
   <router-outlet></router-outlet>
 `,
+{% endraw %}
 ```
 
 #### src/app/app.component.ts
@@ -1175,7 +1205,7 @@ styleUrls: ['./app.component.css'],
 
 ### Global aplikasi style
 
-Ketika kita menambahkan style pada component, kita menahan semua yang di butuhkan component -HTML, CSS, code- bersama dalam tempat yang nyaman. Ini mudah untuk package semuanya dan menggunakan component tersebut di luar sana.
+Ketika kita menambahkan style pada component, kita menahan semua yang di butuhkan (HTML, CSS, code) bersama dalam tempat yang nyaman. Ini mudah untuk semua package dan menggunakan component untuk menggunakan package tersebut di luar sana.
 
 Designer menyediakan beberapa style dasar untuk di terapkan ke elemen di keseluruhan aplikasi. Ini sesuai dengan *full set of master styles* yang kita install sebelumnya sebelum setup. Berikut kutipannya:
 

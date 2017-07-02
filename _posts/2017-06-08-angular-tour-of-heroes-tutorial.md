@@ -44,41 +44,41 @@ Kita cukup belajar inti dari Angular untuk memulai dan setelahnya kita akan dapa
 
 Bagian ini adalah ide visual yang akan kita buat pada tutorial ini, di mulai dari "Dashboard" view dan hero yang paling heroik.
 
-![Dashboard](https://angular.io/resources/images/devguide/toh/heroes-dashboard-1.png)
+![Dashboard](https://angular.io/generated/images/guide/toh/heroes-dashboard-1.png)
 
 Kita dapat meng-klik 2 link di atas dashboard yaitu "Dashboard" dan "Heroes" yang merupakan navigasi antara Dashboard view dan Hero view.
 
 Di dalam Dashboard Jika kita klik hero "Magneta", router akan membuka "Hero Details" yang di mana kita dapat meng-edit nama hero.
 
-![hero details](https://angular.io/resources/images/devguide/toh/hero-details-1.png)
+![hero details](https://angular.io/generated/images/guide/toh/hero-details-1.png)
 
 Klik button "Back" untuk kembali ke Dashboard yang merupakan view utama kita. Jika di klik "Hero", aplikasi akan menampilkan master *hero* list.
 
-![Heroes](https://angular.io/resources/images/devguide/toh/heroes-list-2.png)
+![Heroes](https://angular.io/generated/images/guide/toh/heroes-list-2.png)
 
 Jika kita klik nama hero yang berbeda, membuat nama hero maka button di bagian paling bawah menyesuaikan. Kita dapat men-klik "View Details" untuk menuju detail yang dapat kita edit pada hero yang di pilih.
 
 Perhatikan alur dan diagram navigasi yang akan kita buat
 
-![diagram navigations](https://angular.io/resources/images/devguide/toh/nav-diagram.png).
+![diagram navigations](https://angular.io/generated/images/guide/toh/nav-diagram.png).
 
 ## App in Action
 
-![gif action](https://angular.io/resources/images/devguide/toh/toh-anim.gif)
+![gif action](https://angular.io/generated/images/guide/toh/toh-anim.gif)
 
 Kita akan membuat aplikasi Tour of Heroes, step by step. Setiap langkah memotivasi kita membuat requirement yang mungkin akan banyak kita temui di setiap aplikasi. Klik di setiap step pada daftar berikut ini.
 
-1. [The Hero Editor](http://ekaprasasti.com/the-hero-editor/)
+1. [The Hero Editor](/the-hero-editor-tour-of-heroes)
 
-2. Master Details
+2. [Master Details](/master-detail-tour-of-heroes)
 
-3. Multiple Component
+3. [Multiple Component](/multiple-component-tour-of-heroes)
 
-4. Services
+4. [Services](/services-tour-of-heroes)
 
-5. routing
+5. [Routing](/routing-tour-of-heroes)
 
-6. HTTP
+6. [HTTP](/http-tour-of-heroes)
 
 ## Referensi
 

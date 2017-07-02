@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Tour of Heroes: The Hero Editor"
+title:  "Tour of Heroes #1: The Hero Editor"
 image: ''
 date:   2017-06-08 00:05:03
 tags:

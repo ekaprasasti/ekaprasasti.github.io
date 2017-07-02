@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Tour of Heroes: Services"
+title:  "Tour of Heroes #4: Services"
 image: ''
 date:   2017-06-15 00:05:03
 tags:
@@ -12,11 +12,11 @@ categories:
 serie: javascript
 ---
 
-Tutorial ini merupakan kelanjutan step by step aplikasi Tour of Heroes dari Angular.
+Tutorial ini merupakan kelanjutan step by step [aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) dari Angular.
 
 Seiring aplikasi Tour of Heroes terus berkembang, kita akan menambahkan lebih banyak component yang memerlukan akses ke data hero.
 
-Dari pada copy dan paste code yang sama terus menerus, kita akan membual satu data service yang *reusable* dan *inject* kedalam component yang membutuhkannya. Menggunakan service yang terpisah membuat component lebih ringkas dan fokus kepada view atau tampilan, dan membuat lebih mudah untuk unit-test component dengan *mock* service.
+Dari pada copy dan paste code yang sama terus menerus, kita akan membuat satu data service yang *reusable* dan di *inject* kedalam component yang membutuhkannya. Menggunakan service yang terpisah membuat component lebih ringkas dan fokus kepada view atau tampilan, dan membuat lebih mudah untuk unit-test component dengan *mock* service.
 
 Karena data services selalu menggunakan *asynchronous*, kita akan mengakhiri tutorial pada bagian ini dengan *Promise-based version* pada data service.
 
@@ -24,7 +24,7 @@ Ketika bagian tutorial ini selesai, aplikasi akan terlihat seperti berikut [live
 
 ## Membuat hero service
 
-Saat ini, `AppComponent` mendefinisikan heroes untuk di tampilkan. Namun, mendefinisikan heroes bukan merupakan tugas dari component, dan kita tidak dengan mudah membagikan list heroes dengan component dan view lain. Pada bagian ini, kita akan memindahkan data hero ke satu service yang menyediakan data dan berbagi service tersebut dengan semua component yang membutuhkan data heroes.
+Saat ini, `AppComponent` mendefinisikan heroes untuk di tampilkan. Namun, mendefinisikan heroes bukan merupakan tugas dari component, dan kita tidak mudah membagikan list heroes dengan component dan view lain. Pada bagian ini, kita akan memindahkan data hero ke satu service yang menyediakan data dan berbagi service tersebut dengan semua component yang membutuhkan data heroes.
 
 Buat sebuah file di dalam folder `app` yang bernama `hero.service.ts`.
 
@@ -47,7 +47,7 @@ Perhatikan kita meng-import function `Injetable` pada Angular dan mengaplikasika
 
 Decorator `@Injectable()` memberitahukan TypeScript untuk membuat metadata tentang sebuah service. Metadata yang menentukan bahwa Angular mungkin perlu *inject* dependency lain kedalam service.
 
-Meskipun `HeroService` saat ini tidak memiliki dependency, menerapkan decorator `@Injectable()` dari awal memastikan konsistesi dan kemudahan di waktu mendatang.
+Meskipun `HeroService` saat ini tidak memiliki dependency, menerapkan decorator `@Injectable()` dari awal memastikan konsistensi dan kemudahan di waktu mendatang.
 
 ### Mendapatkan data hero
 
@@ -147,14 +147,14 @@ Alih-alih menggunakan baris baru, Anda akan menambahkan dua baris.
 
 - Menambahkan `providers` metadata pada component.
 
-Tambahkan constructor:
+Tambahkan constructor di dalam class:
 
 #### src/app/app.component.ts (constructor)
 ```javascript
 constructor(private heroService: HeroService) { }
 ```
 
-Constructor itu sendiri tidak melakukan apapun. Parameter secara simultan mendefiniskan private `heroService` property dan mengidentifikasi sebgai `HeroService` injection site.
+Constructor itu sendiri tidak melakukan apapun. Parameter secara simultan mendefiniskan private property `heroService` dan mengidentifikasi sebgai `HeroService` injection site.
 
 Sekarang Angular mengetahui untuk supply sebuah instance dari `HeroService` ketika membuat `AppComponent`.
 
@@ -177,11 +177,11 @@ Array `providers` memberitahukan Angular untuk membuat fresh instance dari `Hero
 
 ### *getHeroes()* di dalam *AppComponent*
 
-Service berada di dalam private `heroService` variabel.
+Service berada di dalam private variabel `heroService`.
 
 Kamu bisa memanggil service dan mengambil data dalam satu baris.
 
-#### src/app/app.component.ts
+#### src/app/app.component.ts (letakan di dalam class)
 ```javascript
 this.heroes = this.heroService.getHeroes();
 ```
@@ -201,13 +201,13 @@ getHeroes(): void {
 
 Kita mungkin akan memanggil method `getHeroes()` di dalam constructor, tapi constructor tidak boleh mengandung logic yang rumit, terutama constructor yang memanggil server, seperti method akses data. Constructor adalah di tujukan untuk inisiasi sederhana, seperti menghubungkan parameter constructor ke properties.
 
-Untuk Angular dapat memanggil `getHeroes()`, kita bisa mengimplementasikan Angular *ngOnInit lifecycle hook*. Angular menawarkan interface untuk memanfaatkan saat-saat penting dalam component lifecycle: *at creation*, *after each change*, dan *eventual destruction*.
+Agar Angular dapat memanggil `getHeroes()`, kita bisa mengimplementasikan Angular *ngOnInit lifecycle hook*. Angular menawarkan interface untuk memanfaatkan saat-saat penting dalam component lifecycle: *at creation*, *after each change*, dan *eventual destruction*.
 
 Setiap interface mempunyai satu method. Ketika component mengimplementasikan method, Angular memanggilnya pada waktu yang tepat.
 
 > Pelajari lebih lanjut mengenai *lifecycle hook* pada page [Lifecycle Hooks](https://angular.io/guide/lifecycle-hooks)
 
-Berikut adalah outline `OnInit` interface secara garis besar (*don't copy this into your code*):
+Berikut adalah outline `OnInit` interface secara garis besar:
 
 #### src/app/app.component.ts
 ```javascript
@@ -225,7 +225,7 @@ Tambahkan implementasi interface `OnInit` pada export statement:
 export class AppComponent implements OnInit {}
 ``` 
 
-Tulis method `ngOnInit` dengan menginisiasi logic di dalamnya. Angular akan memanggil pada waktu yang tepat. Pada kasus ini, inisiasi dengan memanggil `getHeroes()`.
+Tulis method `ngOnInit` dengan menginisiasi logic di dalamnya. Angular akan memanggil pada waktu yang tepat. Pada kasus ini, inisiasi dengan memanggil `getHeroes()`:
 
 #### src/app/app.component.ts (ng-on-init)
 ```javascript
@@ -234,18 +234,18 @@ ngOnInit(): void {
 }
 ```
 
-Aplikasi harus berjalan sesuai ekspektasi, menamilkan list heroes dan detail hero ketika user mengklik nama hero.
+Aplikasi harus berjalan sesuai ekspektasi, menampilkan list heroes dan detail hero ketika user mengklik nama hero.
 
 ## Async service & Promises
 
-`HeroService` me-return list data dari heroes, `getHeroes()` signature is synchronous.
+`HeroService` me-return list data dari heroes, `getHeroes()` merupakan synchronous.
 
 #### src/app/app.component.ts
 ```javascript
 this.heroes = this.heroService.getHeroes();
 ```
 
-Dalam beberapa kasus, data hero datang dari remote server. Ketika menggunakan remote server, user tidak bisa menunggu untuk server melakukan respon. Selain itu, kita tidak bisa block userinterface saat menunggu.
+Dalam beberapa kasus, data hero datang dari remote server. Ketika menggunakan remote server, user tidak bisa menunggu untuk server melakukan respon. Selain itu, kita tidak bisa mem-block userinterface saat menunggu.
 
 Untuk mengkoordinasikan view dengan respon, kita bisa menggunakan *Promises*, yang merupakan teknik asynchronous yang merubah signature method `getHeroes()`.
 
@@ -347,6 +347,7 @@ export class HeroService {
 
 #### src/app/app.component.ts
 ```javascript
+{% raw %}
 import { Component, OnInit } from '@angular/core';
  
 import { Hero } from './hero';
@@ -436,6 +437,7 @@ export class AppComponent implements OnInit {
     this.selectedHero = hero;
   }
 }
+{% endraw %}
 ```
 
 #### src/app/mock-heroes.ts
