@@ -5,7 +5,7 @@ image: '/assets/img/telah-lahir-putri-pertama-kami/haura.jpg'
 date:   2017-08-02 00:05:03
 tags:
 - Life
-description: 'Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami **Haura Brantadari Shazfa** pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.'
+description: 'Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami Haura Brantandari Shazfa pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.'
 categories:
 - My Daily Posts
 - Moment
@@ -14,7 +14,7 @@ serie: Life
 
 ![haura](/assets/img/telah-lahir-putri-pertama-kami/haura.jpg)
 
-Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami **Haura Brantadari Shazfa** pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.
+Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami **Haura Brantandari Shazfa** pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.
 
 Kami di beri Allah kemudahan dan kelancaran dalam kelahiran, dengan panggul istri saya yang tergolong kecil tetapi alhamdulillah bisa melahirkan secara normal, walaupun sempat di bantu dengan vacum tidak apa yang terpenting ibu dan bayinya sehat. Alhamdulillah.
 
