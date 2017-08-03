@@ -40,4 +40,4 @@ Akhirnya jam setengah 10 malam kurang 2 menit anak saya lahir, dan saya pun memp
 
 Sampai hari selasa pagi istri dan anak saya di izinkan untuk pulang. Kayanya segitu aja dulu deh ya cerita-ceritanya, ini saya sekarang sudah di depan laptop dan kak Haura udah nangis minta di gendong ayahnya. hehee.
 
-> Semoga kak Haura jadi anak solehah beriman dan bertakwa pada Allah dan Rasulnya, menjunjung tinggi nilai-nilai islam, berbakti dan taat pada orang tua, dan menjadi penhafal AlQuran. Amiiin ya Rabb. 
+> Semoga kak Haura jadi anak solehah beriman dan bertakwa pada Allah dan Rasulnya, menjunjung tinggi nilai-nilai islam, berbakti dan taat pada orang tua, dan menjadi penghafal AlQuran. Amiiin ya Rabb. 
