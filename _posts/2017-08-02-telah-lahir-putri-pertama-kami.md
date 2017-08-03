@@ -1,18 +1,20 @@
 ---
 layout: post
 title:  "Telah Lahir Putri Pertama Kami"
-image: ''
+image: '/assets/img/telah-lahir-putri-pertama-kami/haura.jpg'
 date:   2017-08-02 00:05:03
 tags:
 - Life
-description: ''
+description: 'Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami **Haura Brantadari Shazfa** pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.'
 categories:
 - My Daily Posts
 - Moment
 serie: Life
 ---
 
-Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami Haura Brantadari Shazfa pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.
+![haura](/assets/img/telah-lahir-putri-pertama-kami/haura.jpg)
+
+Alhamdulillahwasyukurillah, tidak ada hentinya saya, istri, beserta keluarga mengucap syukur atas kelahiran putri pertama kami **Haura Brantadari Shazfa** pada hari Minggu, 30 Juli 2017 pukul 21.28. Dengan kesehatan sempurna untuk ibu dan anaknya dari yang maha sempurna Allah swt. Berat 2,5 kilogram dan panjang 47cm.
 
 Kami di beri Allah kemudahan dan kelancaran dalam kelahiran, dengan panggul istri saya yang tergolong kecil tetapi alhamdulillah bisa melahirkan secara normal, walaupun sempat di bantu dengan vacum tidak apa yang terpenting ibu dan bayinya sehat. Alhamdulillah.
 
@@ -26,15 +28,15 @@ Hari minggunya dari pagi istri saya sudah mulai kontraksi, tapi ya memang biasan
 
 Karena agak macet di leuwinanggung dan alternative cibubur baru sampai rumah sakit jam setengah 7 sore. Langsung masuk IGD dan oleh bidan langsung di antar ke ruang bersalin. Setelah di cek di ruang bersalin ternyata sudah pembukaan 5 jalan 6. Agak kaget juga sih ternyata sudah pembukaan segitu. hehe!
 
-Karena dokter Sofani sedang cuti, jadi mau tidak mau harus dengan dokter pengganti dan yang memungkinkan hari itu dalah Dr. Novi Gracia, yang memang rumahnya juga dekat dengan rumah sakit. Sambil menunggu dokter sampai saya mengurus administrasi pendaftaran, sempet bingung juga karena gak tega ninggalin istri saya sedang kesakitan di ruang bersalin. Alhamdulillah, sudah di putuskan istri saya bisa melahirkan secara normal hari itu juga dan bisa ikut harga paket karena istri saya bisa melahirkan tanpa penyulit, dengan harga murah yang harganya belasan rupiah karena ikut paket hanya hitungan jutaan saja harganya.
+Karena dokter Sofani sedang cuti, jadi mau tidak mau harus dengan dokter pengganti dan yang memungkinkan hari itu dalah Dr. Novi Gracia, yang memang rumahnya juga dekat dengan rumah sakit. Sambil menunggu dokter sampai saya mengurus administrasi pendaftaran, sempet bingung juga karena gak tega ninggalin istri saya sedang kesakitan di ruang bersalin. Alhamdulillah, sudah di putuskan istri saya bisa melahirkan secara normal hari itu juga dan bisa ikut harga paket karena istri saya bisa melahirkan tanpa penyulit dan menggunakan induksi, dengan harga murah yang harganya belasan rupiah karena ikut paket hanya hitungan jutaan saja harganya.
 
 ## Proses Kelahiran
 
 Akhirnya dokter datang jam setengah 9 malam langsung masuk ruang bersalin untuk memeriksa keadaan istri saya, dan baru pembukaan 9. Sambil menunggu pembukaan lengkap sambil istri saya mengatur nafas dan sesekali di suruh bidan latihan ngeden. Akhirnya setelah pembukaan 10, dokter masuk ruang bersalin lagi dan mulai di lakukan tindakan.
 
-Setelah istri saya berusaha sekuat tenaga, dan saya pun ikut menyemangati dengan membisik-bisikan kata penyemangat, dokter dan bidan menuntun istri saya untuk mendorong bayi dengan ngeden sekuat tenaga, tapi sudah hampir 20 menit kata dokter bayi sulit untuk keluar kahirnya di putuskan untuk di bantu menggunakan vacum.
+Setelah istri saya berusaha sekuat tenaga, dan saya pun ikut menyemangati dengan membisik-bisikan kata penyemangat dan dzikir melalui samping telinga istri saya. Dokter dan bidan menuntun istri saya untuk mendorong bayi dengan ngeden sekuat tenaga, tapi sudah hampir 20 menit kata dokter bayi sulit untuk keluar kahirnya di putuskan untuk di bantu menggunakan vacum.
 
-Akhirnya jam setengah 10 malam kurang 2 menit anak saya lahir, dan saya pun memperhatikan betul ketika anak saya di angkat oleh dokter dari mulut rahim, matanya terbuka lebar dan menatap kearah saya. hehee. Saya juga di izinkan dokter untuk memotong sendiri tali pusar anak saya. Alhamdulillah.
+Akhirnya jam setengah 10 malam kurang 2 menit anak saya lahir, dan saya pun memperhatikan betul ketika anak saya di angkat oleh dokter dari mulut rahim, matanya terbuka lebar dan menatap kearah saya. hehee. Saya juga di izinkan dokter untuk memotong sendiri tali pusar anak saya. Jadi total 3 jam proses kelahirannya. Alhamdulillah.
 
 Sampai hari selasa pagi istri dan anak saya di izinkan untuk pulang. Kayanya segitu aja dulu deh ya cerita-ceritanya, ini saya sekarang sudah di depan laptop dan kak Haura udah nangis minta di gendong ayahnya. hehee.
 
