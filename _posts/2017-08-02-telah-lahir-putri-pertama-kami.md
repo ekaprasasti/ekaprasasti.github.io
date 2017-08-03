@@ -20,7 +20,7 @@ Kami di beri Allah kemudahan dan kelancaran dalam kelahiran, dengan panggul istr
 
 Hari perkiraan lahir (HPL) sebenarnya tanggal 5 Agustus, tetapi dokter memang menyarankan untuk melahirkan sebelum HPL, supaya bayinya tidak tambah besar di dalam perut jadi takut gak muat panggul istri saya, kalau sudah begitu mau tidak mau gak bisa lewat bawah keluarnya kata dokter (sesar).
 
-Kontrol terakhir hari Kamis, 27 Juli 2017 di rumah sakit Mitra Keluarga Cibubur dengan Dr. Sofani Munzila, alhamdulillah semua normal gak ada masalah dan air ketuban masih banyak dan bagus, sempet CTG juga (cek detak jantung bayi), tapi permasalahannya adalah dokternya mau cuti selama seminggu, jadi ya baru bisa kontrol lagi benar-benar tanggal 5 Agustus.
+Kontrol terakhir hari Kamis, 27 Juli 2017 di rumah sakit Mitra Keluarga Cibubur dengan [Dr. Sofani Munzila](http://mitrakeluarga.com/depok/dokter/dr-sofani-munzila-spog/), alhamdulillah semua normal gak ada masalah dan air ketuban masih banyak dan bagus, sempet CTG juga (cek detak jantung bayi), tapi permasalahannya adalah dokternya mau cuti selama seminggu, jadi ya baru bisa kontrol lagi benar-benar tanggal 5 Agustus.
 
 ## Menuju Rumah Sakit
 
@@ -28,13 +28,13 @@ Hari minggunya dari pagi istri saya sudah mulai kontraksi, tapi ya memang biasan
 
 Karena agak macet di leuwinanggung dan alternative cibubur baru sampai rumah sakit jam setengah 7 sore. Langsung masuk IGD dan oleh bidan langsung di antar ke ruang bersalin. Setelah di cek di ruang bersalin ternyata sudah pembukaan 5 jalan 6. Agak kaget juga sih ternyata sudah pembukaan segitu. hehe!
 
-Karena dokter Sofani sedang cuti, jadi mau tidak mau harus dengan dokter pengganti dan yang memungkinkan hari itu dalah Dr. Novi Gracia, yang memang rumahnya juga dekat dengan rumah sakit. Sambil menunggu dokter sampai saya mengurus administrasi pendaftaran, sempet bingung juga karena gak tega ninggalin istri saya sedang kesakitan di ruang bersalin. Alhamdulillah, sudah di putuskan istri saya bisa melahirkan secara normal hari itu juga dan bisa ikut harga paket karena istri saya bisa melahirkan tanpa penyulit dan menggunakan induksi, dengan harga murah yang harganya belasan rupiah karena ikut paket hanya hitungan jutaan saja harganya.
+Karena dokter Sofani sedang cuti, jadi mau tidak mau harus dengan dokter pengganti dan yang memungkinkan hari itu dalah [Dr. Novi Gracia](http://mitrakeluarga.com/cibubur/dokter/dr-novi-gracia/), yang memang rumahnya juga dekat dengan rumah sakit. Sambil menunggu dokter sampai saya mengurus administrasi pendaftaran, sempet bingung juga karena gak tega ninggalin istri saya sedang kesakitan di ruang bersalin. Alhamdulillah, sudah di putuskan istri saya bisa melahirkan secara normal hari itu juga dan bisa ikut harga paket karena istri saya bisa melahirkan tanpa penyulit dan menggunakan induksi, dengan harga murah yang harganya belasan rupiah karena ikut paket hanya hitungan jutaan saja harganya.
 
 ## Proses Kelahiran
 
 Akhirnya dokter datang jam setengah 9 malam langsung masuk ruang bersalin untuk memeriksa keadaan istri saya, dan baru pembukaan 9. Sambil menunggu pembukaan lengkap sambil istri saya mengatur nafas dan sesekali di suruh bidan latihan ngeden. Akhirnya setelah pembukaan 10, dokter masuk ruang bersalin lagi dan mulai di lakukan tindakan.
 
-Setelah istri saya berusaha sekuat tenaga, dan saya pun ikut menyemangati dengan membisik-bisikan kata penyemangat dan dzikir melalui samping telinga istri saya. Dokter dan bidan menuntun istri saya untuk mendorong bayi dengan ngeden sekuat tenaga, tapi sudah hampir 20 menit kata dokter bayi sulit untuk keluar kahirnya di putuskan untuk di bantu menggunakan vacum.
+Setelah istri saya berusaha sekuat tenaga, dan saya pun ikut menyemangati dengan membisik-bisikan kata penyemangat dan dzikir melalui samping telinga istri saya. Dokter dan bidan menuntun istri saya untuk mendorong bayi dengan ngeden sekuat tenaga, tapi sudah hampir 20 menit kata dokter bayi sulit untuk keluar akhirnya di putuskan untuk di bantu menggunakan vacum.
 
 Akhirnya jam setengah 10 malam kurang 2 menit anak saya lahir, dan saya pun memperhatikan betul ketika anak saya di angkat oleh dokter dari mulut rahim, matanya terbuka lebar dan menatap kearah saya. hehee. Saya juga di izinkan dokter untuk memotong sendiri tali pusar anak saya. Jadi total 3 jam proses kelahirannya. Alhamdulillah.
 
