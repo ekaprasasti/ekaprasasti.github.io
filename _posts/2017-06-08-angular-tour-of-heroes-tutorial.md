@@ -4,12 +4,12 @@ title:  "Angular: Tour of Heroes tutorial"
 image: ''
 date:   2017-06-08 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Tutorial ini adalah pembelajaran saya mengenai Angular yang bersumber dari [dokumentasi official](https://angular.io/docs/ts/latest/tutorial/) Angular. Dan juga ceritanya sekaligus saya belajar bahasa Inggris, jadi sekalian saya translate dokumentasinya ke bahasa Indonesia.

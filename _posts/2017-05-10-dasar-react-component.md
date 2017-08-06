@@ -4,12 +4,12 @@ title:  'Dasar React Component'
 image: ''
 date:   2017-05-10 00:05:03
 tags:
-- javascript
+- Javascript
 - ReactJS
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 ![ReactJS Component](/assets/img/dasar-react-component/react-component.jpg)

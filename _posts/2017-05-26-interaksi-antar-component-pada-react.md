@@ -4,12 +4,12 @@ title:  'Interaksi Antar Component pada React'
 image: ''
 date:   2017-05-26 00:05:03
 tags:
-- javascript
+- Javascript
 - ReactJS
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Melanjutkan artikel [sebelumnya](http://ekaprasasti.com/dasar-react-component/) mengenai dasar react component dan juga catatan pembelajaran saya di [codecademy](https://www.codecademy.com/learn/react-101), kali ini kita akan membahas bagaimana component dalam aplikasi react saling berinteraksi satu sama lain.

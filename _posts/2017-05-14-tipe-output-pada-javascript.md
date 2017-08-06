@@ -4,11 +4,11 @@ title:  'Tipe Output pada Javascript'
 image: ''
 date:   2017-05-14 00:05:03
 tags:
-- javascript
+- Javascript
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 ![Keep calm and console log](/assets/img/tipe-output-javascript/keep-calm-and-console-log.jpg)

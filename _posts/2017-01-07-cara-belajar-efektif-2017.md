@@ -4,11 +4,11 @@ title:  "Cara belajar efektif 2017"
 image: ''
 date:   2017-01-07 00:05:03
 tags:
-- life
+- Life
 description: ''
 categories:
 - My Daily Posts
-serie: life
+serie: Life
 ---
 
 Halo semua, blog saya sepi banget udah setahun rasanya ga di update (padahal baru sebulan desember kemaren bikin). Ga kerasa ya baru 2 artikel yang saya buat. Heheee...

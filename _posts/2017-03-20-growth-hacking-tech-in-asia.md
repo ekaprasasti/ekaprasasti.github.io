@@ -4,12 +4,12 @@ title:  'Menuju Tech In Asia Meetup "Growth Hacking Weapons For Startup"'
 image: ''
 date:   2017-03-20 00:05:03
 tags:
-- review
-- moment
+- Review
+- Moment
 description: ''
 categories:
 - My Daily Posts
-serie: moment
+serie: Moment
 ---
 
 <img src="{{ "/assets/img/growth-hacking-tech-in-asia/TIA-Jakarta-meetup-feature-image.png"}}" alt="tech-in-asia-growth-hacking">

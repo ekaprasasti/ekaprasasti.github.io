@@ -4,12 +4,12 @@ title:  "Tour of Heroes #5: Routing"
 image: ''
 date:   2017-06-15 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Pada tutorial lanjutan mengenai [aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) ini kita akan menambahkan requirement baru pada aplikasi.

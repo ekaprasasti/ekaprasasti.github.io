@@ -4,12 +4,12 @@ title:  "Tour of Heroes #2: Master/Detail"
 image: ''
 date:   2017-06-10 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Tutorial kali ini, kita akan melanjutkan [tutorial aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) untuk menampilkan list heroes, dan memungkinkan user untuk memilih hero dan menampilkan detail hero.

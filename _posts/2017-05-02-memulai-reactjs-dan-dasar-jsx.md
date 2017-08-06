@@ -4,12 +4,12 @@ title:  'Memulai ReactJS & dasar JSX'
 image: ''
 date:   2017-05-02 00:05:03
 tags:
-- javascript
+- Javascript
 - ReactJS
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 ![ReactJS JSX](/assets/img/memulai-reactjs-dan-dasar-jsx/react-jsx.jpg)

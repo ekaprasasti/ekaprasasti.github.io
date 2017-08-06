@@ -4,12 +4,12 @@ title:  "Si 'Tukang Catat' MorganJS"
 image: ''
 date:   2017-06-03 00:05:03
 tags:
-- javascript
+- Javascript
 - NodeJS
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Morgan adalah sebuah HTTP request logger middleware untuk NodeJS, yang berfungsi sebagai pencatatan setiap request ke server. Pencatatan ini di sebut dengan istilah Logger yang dapat di akses melalui terminal.

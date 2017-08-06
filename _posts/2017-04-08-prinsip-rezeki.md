@@ -4,11 +4,11 @@ title:  'Prinsip Rezeki'
 image: ''
 date:   2017-04-08 00:05:03
 tags:
-- islam
+- Islam
 description: ''
 categories:
 - My Daily Posts
-serie: islam
+serie: Islam
 ---
 
 <iframe width="560" height="415" src="https://www.youtube.com/embed/a_1L4bG8CCE" frameborder="0" allowfullscreen></iframe>

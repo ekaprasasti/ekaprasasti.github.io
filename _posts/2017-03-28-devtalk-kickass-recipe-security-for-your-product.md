@@ -4,12 +4,12 @@ title:  '#DevTalk "Kick-ass Recipe Security For Your Product" review'
 image: ''
 date:   2017-03-28 00:05:03
 tags:
-- review
-- moment
+- Review
+- Moment
 description: 'Beberapa hari yang lalu, tepatnya Rabu 22 Maret 2017 saya dateng ke event DevTalk dari Tech In Asia Dev Community dan PHP Indonesia.'
 categories:
 - My Daily Posts
-serie: moment
+serie: Moment
 ---
 
 ![Pamflet devtalk](/assets/img/devtalk-kickass-recipe-security-for-your-product/pamflet.png)

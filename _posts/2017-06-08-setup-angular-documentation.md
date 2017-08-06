@@ -4,12 +4,12 @@ title:  "Setup Angular"
 image: ''
 date:   2017-06-08 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Artikel ini adalah pembelajaran saya mengenai Angular yang bersumber dari official dokumentasinya yang bisa di buka [di sini](https://angular.io/docs/ts/latest/guide/setup.html).

@@ -4,11 +4,11 @@ title:  'Resensi buku "Jadi Freelancer Kaya"'
 image: ''
 date:   2017-03-16 00:05:03
 tags:
-- review
+- Review
 description: ''
 categories:
 - My Daily Posts
-serie: review
+serie: Review
 ---
 
 <img src="{{ "/assets/img/resensi-freelance-kaya/Cover.jpg"}}" alt="jadi-freelancer-kaya">

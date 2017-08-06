@@ -4,12 +4,12 @@ title:  "Tour of Heroes #1: The Hero Editor"
 image: ''
 date:   2017-06-08 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Tutorial ini adalah langkah pertama membuat aplikasi [Tour of Heroes](/angular-tour-of-heroes-tutorial). Ikuti langkah-langkah [setup](/setup-angular-documentation/) untuk membuat project baru dengan nama `angular-tour-of-heroes`. Struktur file akan terlihat seperti berikut.

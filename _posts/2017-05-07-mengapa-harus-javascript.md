@@ -4,11 +4,11 @@ title:  'Mengapa Harus Javascript'
 image: ''
 date:   2017-05-07 00:05:03
 tags:
-- javascript
+- Javascript
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 ![Javascript featured](/assets/img/mengapa-harus-javascript/javascript-featured.jpg)

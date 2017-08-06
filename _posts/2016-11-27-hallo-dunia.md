@@ -4,11 +4,11 @@ title:  "Halo Dunia"
 image: ''
 date:   2016-12-27 00:05:03
 tags:
-- life
+- Life
 description: ''
 categories:
 - My Daily Posts
-serie: life
+serie: Life
 ---
 
 ## Halo Dunia

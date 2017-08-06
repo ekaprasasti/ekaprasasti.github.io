@@ -4,12 +4,12 @@ title:  "Tour of Heroes #4: Services"
 image: ''
 date:   2017-06-15 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Tutorial ini merupakan kelanjutan step by step [aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) dari Angular.

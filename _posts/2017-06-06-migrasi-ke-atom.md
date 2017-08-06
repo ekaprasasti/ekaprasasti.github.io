@@ -4,11 +4,11 @@ title:  'Migrasi ke Atom'
 image: ''
 date:   2017-06-06 00:05:03
 tags:
-- review
+- Review
 description: ''
 categories:
 - My Daily Posts
-serie: review
+serie: Review
 ---
 
 ![atom logo](/assets/img/migrasi-ke-atom/atom-logo.jpg)
