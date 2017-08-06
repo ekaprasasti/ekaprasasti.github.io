@@ -1,12 +1,22 @@
 <div class="tree-posts">
-    <h3>*Posts*</h3>
+	<center>
+    <h3 style="position: static">All Posts</h3>
     {% for post in site.posts %}
+		{% assign currentDate = post.date | date: "%Y" %}
+		{% if currentDate != myDate %}
+			{% unless forloop.first %}</ul>{% endunless %}
+			<h2 style="color: #f5f5f5">{{ currentDate }}</h2>
+			{% assign myDate = currentDate %}
+		{% endif %}
     <article role="article" class="post-item" itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
         <div class="content">
-            <a href="{{ post.url | prepend: site.baseurl }}">
-                <h2 class="post-title" itemprop="name">{{ post.title }}</h2>
+					<center>
+            <a href="{{ post.url | prepend: site.baseurl }}" style="float: none">
+                <h3 class="post-title" itemprop="name">{{ post.title }}</h3>
             </a>
+					</center>
         </div>
     </article>
     {% endfor %}
+	</center>
 </div>
