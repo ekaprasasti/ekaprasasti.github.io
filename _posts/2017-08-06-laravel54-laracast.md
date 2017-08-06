@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  "Belajar Laravel 5.4 di Laracast.com"
-image: ''
+image: '/assets/img/laravel54-laracast/laravel54-laracast.png'
 date:   2017-08-06 00:05:03
 tags:
 - PHP
 - Laravel
 - Learn
-description: ''
+description: 'Saat ini saya sedang ada project menggunakan PHP dengan framework Laravel, hmmm.. rasanya sudah lama gak pegang PHP semenjak kira-kira 1 setengah tahun lalu saya menggunakan PHP dengan framework CakePHP'
 categories:
 - Programming
 - Learn
