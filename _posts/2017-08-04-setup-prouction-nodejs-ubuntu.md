@@ -94,7 +94,7 @@ node server.js
 
 * Untuk menjalankan aplikasi kita dapat membuka browser dan mengetikan url `http://31.220.111.123:8080/` atau dengan perintah 
 
-````/bash
+```bash
 curl http://31.220.111.123:8080
 ```
 
