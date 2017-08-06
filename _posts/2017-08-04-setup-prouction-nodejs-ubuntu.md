@@ -63,13 +63,13 @@ Jika sudah terinstall akan muncul versi nodejs yang kita gunakan.
 
 Kita akan mencoba aplikasi sederhana menggunakan nodejs. Buat sebuah file dengan nama server.js dan edit menggunakan editor nano dengan mengetikan perintah berikut
 
-````bash
+```bash
 nano server.js
 ```
 
 * lalu masukan source code berikut untuk membuat server dengan port 8080
 
-````javascript
+```javascript
 var http = require('http');
 http.createServer(function(req, res) {
    res.writeHead(200, {'Contect-type': 'text/plain'});
