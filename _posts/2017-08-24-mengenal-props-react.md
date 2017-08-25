@@ -4,7 +4,7 @@ title:  'Pengenalan Props pada React'
 image: '/assets/img/props-react/props-react.jpg'
 date:   2017-08-24 00:05:03
 tags:
-- javascript
+- Javascript
 - ReactJS
 description: 'Pada artikel kali ini kita akan belajar mengenai props, untuk melanjutkan jurnal pembelajaran saya mengenai ReactJS'
 categories:
