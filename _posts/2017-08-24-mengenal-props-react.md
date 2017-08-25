@@ -98,7 +98,7 @@ Pada contoh diatas, kita bisa lihat sebuah informasi di lewatkan pada `<Greeting
 
 ## Melewatkan props dari Component ke Component
 
-Hal berguna lain dari `props` adalah kita dapat melewatkan informasi ke suatu component, dari component yang berbeda. 
+Hal berguna lain dari `props` adalah kita dapat melewatkan informasi dari suatu component ke component lain yang berbeda. 
 
 Penjelasan mengenai grammer kata `prop` dan `props`:
 
@@ -151,7 +151,7 @@ ReactDOM.render(
 
 Ketika kita menggunakan component lain dalam hal ini component `Greeting` kita harus meng-import filenya terlebih dahulu dengan sintaks `import { Greeting } from './Greeting';`. Kita akan melewatkan informasi `name` pada component instance `<Greeting>`.
 
-## Render UI berbeda berdasarkan props
+## Render UI yang berbeda berdasarkan props
 
 Kita dapat melakukan lebih banyak lagi dengan `props` dari pada hanya menampilkannya. Kita juga dapat menggunakan `props` untuk membuat keputusan.
 
@@ -208,7 +208,7 @@ Kita bisa, dan akan selalu, melewatkan function sebagai `props`. Terutama pada f
 
 Bagaimana kita mendefinisikan sebuah event handler di dalam React?
 
-Kita mendefinisikan sebuah event handler sebagai property dalam instruksi pada object, sama halnya seperti render function. Hampir semua function yang kita definisikan pada React akan di definisikan dengan cara ini, sebagai instructions object properties.
+Kita mendefinisikan sebuah event handler sebagai instruksi di dalam property pada object, sama halnya seperti render function. Hampir semua function yang kita definisikan pada React akan di definisikan dengan cara ini, sebagai *instructions object properties*.
 
 Perhatikan contoh berikut:
 
@@ -283,9 +283,9 @@ export class Button extends React.Component {
 
 Kita telah melewatkan function dari `<Talker />` ke `<Button />`.
 
-Jika user klik element `<button></button>`, lalu kita ingin melewatkan function `talk` untuk di panggil. Itu artinya kita harus mengikatkan `talk` kepada `<button></button>` sebagai *event handler*.
+Jika user klik element `<button></button>`, lalu kita ingin melewatkan function `talk` untuk di panggil. Itu artinya kita harus menyematkan `talk` kepada `<button></button>` sebagai *event handler*.
 
-Bagaimana kita melakukannya? Cara yang sama ketika kita mengikatkan event handler ke JSX element, yaitu kita memberikan element JSX sebuah atribut spesial. Nama atribut bisa seperti `onClick` atau `onHover`. Nilai dari atribut adalah event handeler yang kita ingin gunakan.
+Bagaimana kita melakukannya? Cara yang sama ketika kita menyematkan event handler ke JSX element, yaitu kita memberikan element JSX sebuah atribut spesial. Nama atribut bisa seperti `onClick` atau `onHover`. Nilai dari attribute adalah event handler yang kita ingin gunakan.
 
 ```javascript
 import React from 'react';
@@ -313,9 +313,9 @@ Untuk nama `prop`, kita juga memilih `talk`, lihat baris kode ini:
 return <Button talk={this.talk} />;
 ```
 
-Kedua nama ini bisa apa saja sesuai yang kita mau. Namun, ada senbuah naming convention yang sering mereka ikuti. Kita tidak harus mengikuti convention ini tapi kita harus mengerti kapan harus menggunakannya.
+Kedua nama ini bisa apa saja sesuai yang kita mau. Namun, ada sebuah naming convention yang sering mereka ikuti. Kita tidak harus mengikuti convention ini tapi kita harus mengerti kapan harus menggunakannya.
 
-Berikut bagaimana sebuah naming convention bekerja: Pertama, fikirkan tipe dari event yang kita perhatikan. Dalam contoh diatas tipe eventnya adalah “click”.
+Berikut bagaimana sebuah naming convention bekerja: Pertama, fikirkan tipe dari event yang kita inginkan. Dalam contoh diatas tipe eventnya adalah “click”.
 
 Jika kita menginginkan sebuah event “click”, maka kita namakan event handler kita `handleClick`. Jika kita menginginkan sebuah event “keyPress”, maka kita bisa menamai event handler `handleKeyPress`:
 
@@ -375,9 +375,9 @@ export class Button extends React.Component {
 
 ## this.props.children
 
-Setiap component `props` object, mempunyai properti bernama `children`. `this.props.children` akan mereturn semua di antara opening component dan closing JSX tags.
+Setiap component `props` object, mempunyai properti bernama `children`. `this.props.children` akan mereturn semua yang ada di antara opening component dan closing JSX tags.
 
-Sejauh ini, semua component yang kita lihat mempunya tag self-closing, seperti `<MyComponentClass />`. Mereka tidak mempunyai tag penutup, kita bisa menulis `<MyComponentClass></MyComponentClass>`, dan itu akan tetap berjalan.
+Sejauh ini, semua component yang kita lihat mempunya tag self-closing, seperti `<MyComponentClass />`. Mereka yang tidak mempunyai tag penutup, kita bisa menulis `<MyComponentClass></MyComponentClass>`, dan itu akan tetap berjalan.
 
 `this.props.children` akan mereturn apapun antara  `<MyComponentClass>` dan `</MyComponentClass>`. Perhatikan contoh berikut ini.
 
@@ -424,7 +424,7 @@ ReactDOM.render(
 
 Lihat `Button` component class pada contoh diatas. Pada baris ke 8, `Button` berharap menerima `prop` dengan nama `text`. Hasil dari menerima `prop` dengan nama `text` akan di tampilkan ke element `<button></button>`.
 
-Bagaimana jika `text` tidak melewati apa2 pada `Button`? Jika tidak ada yang passes `text` pada `Button`, maka `Button` tidak akan menampilkan apa2 (blank). Lebih baik jika `Button` bisa menampilkan pesan di dalamnya secara default.
+Bagaimana jika `text` tidak melewati apa2 pada `Button`? Jika tidak ada yang melewatkan `text` pada `Button`, maka `Button` tidak akan menampilkan apa2 (blank). Lebih baik jika `Button` bisa menampilkan pesan di dalamnya secara default.
 
 Kita dapat memungkinkan ini dengan menuliskan sebuah function dengan nama `defaultProps`:
 
@@ -469,7 +469,7 @@ Jika sebuah `<Example />` tidak melewatkan text apapun, maka "yo" akan di tampil
 
 Kita sudah menyelesaikan belajar `props`!
 
-- Melewatkan `prop` dengan memberikan atribut pada sebuah component instance.
+- Melewatkan `prop` dengan memberikan attribute pada sebuah component instance.
 
 - Akses `prop` via `this.props.prop-name`.
 
@@ -485,6 +485,6 @@ Kita sudah menyelesaikan belajar `props`!
 
 - Penamaan event handle dan atribute pada event handler sesuai convention.
 
-- `this.props.childer`
+- `this.props.children`
 
 - `getDefaultProps`
