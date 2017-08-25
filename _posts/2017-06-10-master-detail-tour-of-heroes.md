@@ -389,7 +389,7 @@ export class AppComponent {
     this.selectedHero = hero;
   }
 }
-{% endrow %}
+{% endraw %}
 ```
 
 ## Apa saja yang sudah kita pelajari?
