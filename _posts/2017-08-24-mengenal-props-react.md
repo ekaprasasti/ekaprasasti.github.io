@@ -9,7 +9,7 @@ tags:
 description: 'Pada artikel kali ini kita akan belajar mengenai props, untuk melanjutkan jurnal pembelajaran saya mengenai ReactJS'
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 ![props react](/assets/img/props-react/props-react.jpg)
