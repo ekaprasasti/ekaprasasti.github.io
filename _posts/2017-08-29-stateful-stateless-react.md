@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  'Stateful dan Stateless React'
+title:  'Stateful dan Stateless'
 image: '/assets/img/stateful-stateless-react/props-state.jpg'
 date:   2017-08-25 00:05:03
 tags:
