@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  "Portfolio di Github Pages"
-image: ''
+image: '/assets/img/portfolio-github-pages/portfolio.png'
 date:   2017-09-20 00:05:03
 tags:
 - Life
-description: ''
+description: 'Dirasa portfolio menggunakan PDF kurang terlihat profesional walaupun cukup, saya berfikir untuk membuat website portfolio supaya kelihatan lebih profesional.'
 categories:
 - My Daily Posts
 serie: Life
@@ -13,7 +13,7 @@ serie: Life
 
 ![portfolio ekaprasasti](/assets/img/portfolio-github-pages/portfolio.png)
 
-Akhir-akhir ini saya ada target untuk memperbanyak project freelance, salah satu tujuannya adalah selain buat tambahan dapur ngebul hehe, juga untuk memperbanyak portfolio. Sebelumnya portfolio saya di buat menggunakan PDF sederhana aja di buat di software Pages di osx. Kalo temen2 mau liat portfolio saya versi PDF bisa lihat [di sini](bit.ly/EkaPortfolio).
+Akhir-akhir ini saya ada target untuk memperbanyak project freelance, salah satu tujuannya adalah selain buat tambahan dapur ngebul hehe, juga untuk memperbanyak portfolio. Sebelumnya portfolio saya di buat menggunakan PDF sederhana lewat software Pages di osx. Kalo temen2 mau liat portfolio saya versi PDF bisa lihat [di sini](bit.ly/EkaPortfolio).
 
 Dirasa portfolio menggunakan PDF kurang terlihat profesional walaupun cukup, saya berfikir untuk membuat website portfolio supaya kelihatan lebih profesional. Di mulai dengan cari2 platform online yang bisa membuat website portfolio gratis, googling dan yang muncul teratas adalah platform dari Adobe yaitu [myportfolio.com](https://myportfolio.com). Hal yang pertama kali dalam melihat sebuah website dan platform online di biasakan untuk melihat kegunaannya apa setelah itu langsung menuju halaman [price](https://www.myportfolio.com/pricing). Dan di sana tertulis bahwa platform ini sudah include dengan photoshop dan kebetulan saya lagi pakai photoshop yang trial 30 hari, dan dengan pedenya saya login pake account adobe dan langsung bikin portfolio lumayan lama kelarnya dan setelah saya publish langsung disuruh bayar. Hahaa, waduh udah lama bikinnya mau di publish malah di suruh pake photoshop yang berbayar. hehee.
 
