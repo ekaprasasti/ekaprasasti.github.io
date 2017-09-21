@@ -129,7 +129,7 @@ nmap <leader>p :NERDTreeFind<CR>
 
 Sebagai tambahan saya juga mau share aplikasi keren lainnya yang mendukung penggunaan Vim dan mengefisiensikan penggunaan teriminal yaitu Tmux. Tmux merupakan aplikasi manajemen terminal, aplikasi ini sangat berguna untuk saya yang sehari2 bekerja menggunakan terminal, untuk menginstall Tmux silahkan menuju [ke sini](https://github.com/tmux/tmux). Di Tmux kita bisa menggunakan beberapa jendela sekaligus dalam satu layar terminal, dan bisa menambahkan halaman sebanyak yang kita mau pada terminal, selain itu Tmux juga bisa menyimpan session pekerjaan kita jika terminal kita tertutup selama komputer tidak di restart, dan masih banyak hal keren lainnya di Tmux.
 
-Hal ke 2 sebagai tambahan dan penyemangat kita bekerja dengan terminal adalah themes yang bernana [powerlevel9k](https://github.com/bhilburn/powerlevel9k). Themes ini dapat memperindah tampilan dari terminal kita, dan dengan themes ini kita dapat melihat status git pada project tersebut yang di indikasikan dengan warna yang berbeda2. Keren kan!
+Hal ke 2 sebagai tambahan dan penyemangat kita bekerja dengan terminal adalah themes yang bernama [powerlevel9k](https://github.com/bhilburn/powerlevel9k). Themes ini dapat memperindah tampilan dari terminal kita, dan dengan themes ini kita dapat melihat status git pada project tersebut yang di indikasikan dengan warna yang berbeda2. Keren kan!
 
 ![screenshot tmux](/assets/img/hijrah-ke-vim/screenshot-tmux.png)
 
