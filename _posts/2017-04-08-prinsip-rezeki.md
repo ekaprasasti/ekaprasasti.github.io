@@ -7,7 +7,7 @@ tags:
 - Islam
 description: ''
 categories:
-- My Daily Posts
+- Islam
 serie: Islam
 ---
 
@@ -22,7 +22,7 @@ Lagi browsing2 ketemu ini di youtube, potongan ceramahnya Ust Adi Hidayat mengen
 - QS Al-Baqarah, ayat 172
 - QS Al-A'raf, ayat 96
 
-Ceramah ustad kali membuat saya membuat prinsip dan sudut pandang saya mengenai rezeki, sehingga menjadikan saya terdorong untuk membuat artikel ini sebagai pengingat saya dan semoga bisa membuat pembaca menjadi terinspirasi.
+Ceramah ustad kali membuat saya merubah prinsip dan sudut pandang saya mengenai rezeki, sehingga menjadikan saya terdorong untuk membuat artikel ini sebagai pengingat saya dan semoga bisa membuat pembaca menjadi terinspirasi.
 
 > "Ketika seseorang ingin di dekatkan dan di cintai oleh Allah, dia akan di pindahkan dari yang kurang baik menurut Allah ke yang lebih baik menurut Allah" ~Ust Adi Hidayat~
 

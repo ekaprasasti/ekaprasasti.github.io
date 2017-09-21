@@ -4,12 +4,12 @@ title:  "Tour of Heroes #6: HTTP"
 image: ''
 date:   2017-06-28 00:05:03
 tags:
-- javascript
+- Javascript
 - Angular
 description: ''
 categories:
 - Programming
-serie: javascript
+serie: Javascript
 ---
 
 Kita memasuki bagian akhir dari rangkaian [tutorial Angular aplikasi Tour of Heroes](/angular-tour-of-heroes-tutorial) yaitu HTTP.
