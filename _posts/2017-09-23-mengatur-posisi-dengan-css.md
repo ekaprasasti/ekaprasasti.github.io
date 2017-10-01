@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "Mengatur Posisi Dengan CSS" 
-image: ''
+image: '/assets/img/posisi-dengan-css/inline-block.png'
 date:   2017-09-23 00:05:03
 tags:
 - CSS
 - Web Design 
-description: ''
+description: 'Saat ini saya ingin membahas mengenai *positioning* element HTML menggunakan CSS. Biasanya programmer yang sudah terbiasa menggunakan framework CSS seperti Bootstrap sering melupakan dasar dari pengaturan posisi, karena framework seperti itu mereka sudah menyediakan class yang tinggal kita tambahkan di *attribute* HTML, biasanya kita menggunakan Grid dan Column yang di tandai dengan misal `col-md-12` dan sebagainya.'
 categories:
 - Web Design
 serie: CSS 
