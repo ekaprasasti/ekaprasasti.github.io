@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  'Input Year Mask VueJS'
+title:  'Input Year Mask Vue JS'
 image: '/assets/img/mask-input-year-vue/the-mask.gif'
 date:   2018-04-15 00:05:03
 tags:
