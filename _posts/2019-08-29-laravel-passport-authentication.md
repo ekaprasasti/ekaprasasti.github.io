@@ -250,4 +250,4 @@ class AuthController extends Controller
 }
 ```
 
-Setelah itu bisa kalian coba di postman atau client api manapun yang kalian suka routing yang telah kita buat. Jika ada pertanyaan dan kesulitan kita diskusi di kolom komentar ya. Oh ya tutorial ini saya pelajari di medium [Alfredo Barron](https://medium.com/modulr/create-api-authentication-with-passport-of-laravel-5-6-1dc2d400a7f) dan bisa juga sourcecode nya di [github saya](https://github.com/ekaprasasti).
+Setelah itu bisa kalian coba di postman atau client api manapun yang kalian suka routing yang telah kita buat. Jika ada pertanyaan dan kesulitan kita diskusi di kolom komentar ya. Oh ya tutorial ini saya pelajari di medium [Alfredo Barron](https://medium.com/modulr/create-api-authentication-with-passport-of-laravel-5-6-1dc2d400a7f) dan bisa juga kalo mau liat full sourcecode nya di [github saya](https://github.com/ekaprasasti).
