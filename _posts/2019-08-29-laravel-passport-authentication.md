@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  'Laravel Passport Authentication'
-image: '/assets/img/lumen-hasil-return-json-datetime-beda-sama-di-database/debug.png'
+image: '/assets/img/laravel-passport-authentication/generate-key.png'
 date:   2019-08-29 00:05:03
 tags:
 - PHP
