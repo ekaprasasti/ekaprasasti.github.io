@@ -1,0 +1,121 @@
+I"³9<p>Melanjutkan artikel <a href="http://ekaprasasti.com/dasar-react-component/">sebelumnya</a> mengenai dasar react component dan juga catatan pembelajaran saya di <a href="https://www.codecademy.com/learn/react-101">codecademy</a>, kali ini kita akan membahas bagaimana component dalam aplikasi react saling berinteraksi satu sama lain.</p>
+
+<p>Aplikasi React dapat berisi puluhan bahkan ratusan component. Setiap component merupakan bagian dari kode kecil yang mungkin tidak berpengaruh terhadap sistem jika sendirian. Namun bila di kombinasikan dengan component lain, mereka dapat membentuk ekosistem informasi yang sangat kompleks dan fantastis.</p>
+
+<p>Dengan kata lain, aplikasi react di buat menggunakan component, tapi yang membuat React spesial bukan dari component itu sendiri. Yang membuat react spesial adalah ketika dimana component-component tersebut berinteraksi.</p>
+
+<p>Pada pembahasan kali ini kita akan membahas bagaimana sebuah component berinteraksi dengan component lain (components interacting).</p>
+
+<h2 id="component-pada-function-render">Component pada function render</h2>
+
+<p>Kode berikut adalah sebuah function <code class="highlighter-rouge">render</code> yang me-return sebuah HTML menggunakan elemen JSX:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Example</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Function <code class="highlighter-rouge">render</code> bisa juga me-return JSX pada function <code class="highlighter-rouge">render</code> lain menggunakan <em>component instances</em>. Perhatikan contoh kode berikut.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">OMG</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Whooaa</span><span class="o">!&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Crazy</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">OMG</span> <span class="o">/&gt;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Pada contoh di atas, variabel <code class="highlighter-rouge">Crazy</code> me-render function yang me-return instance dari component class <code class="highlighter-rouge">OMG</code>. Atau dengan kata lain yang lebih sederhana, <code class="highlighter-rouge">Crazy</code> me-render <code class="highlighter-rouge">&lt;OMG /&gt;</code>.</p>
+
+<h2 id="component-merender-component-lainnya">Component merender component lainnya</h2>
+
+<p>Pada pembahaasan sebelumnya kita sudah mempelajari bagamana sebuah component di render menggunakan <code class="highlighter-rouge">ReactDOM.render</code>. Ketika sebuah component merender component lainnya, yang terjadi adalah sama seperti <code class="highlighter-rouge">ReactDOM.render</code> merender sebuah component.</p>
+
+<p>Perhatikan 2 file kode berikut,</p>
+
+<p>File <code class="highlighter-rouge">ProfilePage.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+
+
+<span class="kd">var</span> <span class="nx">ProfilePage</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">NavBar</span> <span class="o">/&gt;</span>
+                <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">All</span> <span class="nx">About</span> <span class="nx">Me</span><span class="o">!&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">I</span> <span class="nx">like</span> <span class="nx">movies</span> <span class="nx">and</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span> <span class="nx">blah</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>                <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">https://s3.amazonaws.com/codecademy-content/courses/React/react_photo-monkeyselfie.jpg</span><span class="dl">"</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>File <code class="highlighter-rouge">NavBar.js</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">NavBar</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">pages</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">home</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">blog</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pics</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">bio</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">art</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">shop</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">about</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">contact</span><span class="dl">'</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">navLinks</span> <span class="o">=</span> <span class="nx">pages</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">page</span><span class="p">){</span>
+      <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="p">{</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">page</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">page</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>      <span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">nav</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">navLinks</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/nav&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Kita lihat pada file <code class="highlighter-rouge">ProfilePage.js</code> pada line 9, component class ProfilePage merender sebuah instance dari component class <code class="highlighter-rouge">&lt;NavBar /&gt;</code> pada file <code class="highlighter-rouge">NavBar.js</code>.</p>
+
+<h2 id="require-file">Require file</h2>
+
+<p>Setiap kita menggunakan React, setiap file javascript di dalam aplikasi secara default tidak dapat terlihat pada file javascript lainnya. Pada contoh diatas, file <code class="highlighter-rouge">ProfilePage.js</code> dan file <code class="highlighter-rouge">NavBar.js</code> tidak bisa melihat kode satu sama lain. Nah di sinilah permasalahannya.</p>
+
+<p>Pada baris 9, kita memasukan instance <code class="highlighter-rouge">&lt;NavBar /&gt;</code> pada component class, tetapi karena kita berada di file ProfilePage.js, javascript tidak dapat menampilkan <code class="highlighter-rouge">&lt;NavBar /&gt;</code>. Jika kita ingin menggunakan sebuah variabel yang di declare pada file yang berbeda seperti NavBar.js, maka kita harus mengimport file yang kita inginkan.</p>
+
+<p>Untuk mengimport file, kita bisa menggukan <code class="highlighter-rouge">require</code>, dan mempassing path file, lihat contoh di bawah ini.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">NavBar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./NavBar.js</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Kita sudah menggunakan keyword <code class="highlighter-rouge">require</code> sebelumnya, tapi berbeda kali ini. Jika kita mem-passing <code class="highlighter-rouge">require</code> sebuah string yang di mulai dengan salah satu dot atau slash, maka <code class="highlighter-rouge">require</code> akan memperlakukannya sebagai sebuah path file. <code class="highlighter-rouge">require</code> akan mencari path file, dan akan mengimport jika menemukan file tersebut.</p>
+
+<h2 id="moduleexports">Module.exports</h2>
+
+<p>Ok kita sudah belajar bagaimana caranya mengimport file lain di dalam kode kita. Tapi tentu kita tidak ingin mengimport keseluruhan file, kita hanya ingin mengimport component class <code class="highlighter-rouge">NavBar</code>, sehingga kita bisa merender <NavBar></NavBar> instance. Yang kita butuh kan adalah mengimport hanya bagian yang spesifik pada sebuah file.</p>
+
+<p>Jawabannya adalah dengan menggunakan <code class="highlighter-rouge">module.exports</code>. <code class="highlighter-rouge">module.exports</code> berasal dari <a href="https://www.sitepoint.com/understanding-module-exports-exports-node-js/">Node.js module system</a> sama seperti halnya dengan <code class="highlighter-rouge">require</code>. Artinya <code class="highlighter-rouge">module.exports</code> dan <code class="highlighter-rouge">require</code> akan di gunakan bersama-sama, dan kita pada dasarnya tidak pernah melihat satu tanpa yang lainnya.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Manifestos.js:</span>
+<span class="kd">var</span> <span class="nx">faveManifestos</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">futurist</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://bit.ly/1lKuB2I</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">SCUM</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://bit.ly/1xWjvYc</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">cyborg</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://bit.ly/16sbeoI</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">faveManifestos</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Pada file berbeda, gunakan <code class="highlighter-rouge">require</code> untuk mengimport file sebelumnya. <code class="highlighter-rouge">require</code> tidak hanya me-return keseluruhan file, ia hanya akan me-return nilai pada <code class="highlighter-rouge">module.exports</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// App.js:</span>
+<span class="c1">// Link to the Futurist Manifesto:</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./Manifestos</span><span class="dl">'</span><span class="p">).</span><span class="nx">futurist</span><span class="p">);</span>
+</code></pre></div></div>
+:ET

@@ -1,0 +1,233 @@
+I"�F<p>Gak enak emang ketika kita dapet legacy code yang gak ada dokumentasinya, bahkan gak ada standard yang jelas code style pada sebuah tim atau perusahaan. Biasanya (bukan standarnya, karena standar setiap perusahaan beda) di tempat saya kerja untuk laravel handle api itu pasti pake JWT, ketika saya dapet legacy code dan harus handle ambil data credential user dari token saya panggil class JWTAuth, ternyata class not found, usut punya usut ternyata ini project pake Passport untuk handle authentikasi nya. Cari sana sini gimana cara ambil dan ekstrak data token dari passport gampang sintaksnya cuman pake <code class="highlighter-rouge">$request-&gt;user('api')</code> aja. Agak kagok emang karena emang saya belum pernah pake passport sebelumnya.</p>
+
+<p>Dari pada tulisannya cuman sampe sini mending sekalian deh saya pelajarin dan tulis lagi tutorial cara bikin autentikasi di laravel pake passport di artikel ini.</p>
+
+<h2 id="step-1-install-laravel">Step 1 Install Laravel</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel new laravel-passport
+</code></pre></div></div>
+
+<p>Setalah itu kita buat database di mysql dan config di file .env credential database. Contohnya seperti ini.</p>
+
+<h2 id="step-2-install-laravel-passport-library">Step 2 Install Laravel Passport Library</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require laravel/passport
+</code></pre></div></div>
+
+<p><img src="/assets/img/laravel-passport-authentication/env.png" alt="env" /></p>
+
+<h2 id="step-3-jalankan-migration">Step 3 Jalankan Migration</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate
+</code></pre></div></div>
+
+<p><img src="/assets/img/laravel-passport-authentication/migration.png" alt="env" /></p>
+
+<p>Karena kita sudah menginstall passport maka laravel menjalankan migration tambahan untuk membuat table oauth.</p>
+
+<p><img src="/assets/img/laravel-passport-authentication/table.png" alt="table" /></p>
+
+<h2 id="step-4-generate-keys">Step 4 Generate Keys</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan passport:install
+</code></pre></div></div>
+
+<p>Command ini akan membuat encryption keys untuk men-generate access token.</p>
+
+<p><img src="/assets/img/laravel-passport-authentication/generate-key.png" alt="generate key" /></p>
+
+<blockquote>
+  <p>In addition, the command will create “personal access” and “password grant” clients which will be used to generate access tokens. <a href="https://laravel.com/docs/5.8/passport#installation">Laravel Docs</a></p>
+</blockquote>
+
+<h2 id="step-5-passport-config">Step 5 Passport Config</h2>
+
+<p>Pada model user, buka file <code class="highlighter-rouge">app/User.php</code> dan tambahkan kode berikut.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+
+<span class="kn">namespace</span> <span class="nn">App</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nn">Laravel\Passport\HasApiTokens</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">User</span> <span class="k">extends</span> <span class="nx">Authenticatable</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nn">HasApiTokens</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lalu buka file <code class="highlighter-rouge">app/Providers/AuthServiceProvider.php</code>, dan panggil <code class="highlighter-rouge">Laravel\Passport</code> dan juga tambahkan kode <code class="highlighter-rouge">Passport::routes()</code> pada function <code class="highlighter-rouge">boot</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+
+<span class="kn">namespace</span> <span class="nn">App\Providers</span><span class="p">;</span>
+
+
+<span class="kn">use</span> <span class="nn">Laravel\Passport\Passport</span><span class="p">;</span>
+
+
+<span class="kd">class</span> <span class="nc">AuthServiceProvider</span> <span class="k">extends</span> <span class="nx">ServiceProvider</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">boot</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">Passport</span><span class="o">::</span><span class="na">routes</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>This method will register the routes necessary to issue access tokens and revoke access tokens, clients, and personal access tokens. <a href="https://laravel.com/docs/5.8/passport#installation">Laravel Docs</a></p>
+</blockquote>
+
+<p>Setelah itu pada file <code class="highlighter-rouge">config/auth.php</code>, set api driver ke <code class="highlighter-rouge">passport</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'guards'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'api'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="s1">'passport'</span><span class="p">,</span>
+        <span class="s1">'provider'</span> <span class="o">=&gt;</span> <span class="s1">'users'</span><span class="p">,</span>
+        <span class="s1">'hash'</span> <span class="o">=&gt;</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>This will instruct your application to use Passport’s <em>TokenGuard</em> when authenticating incoming API requests. <a href="https://laravel.com/docs/5.8/passport#installation">Laravel Docs</a></p>
+</blockquote>
+
+<h2 id="step-6-membuat-api-routes">Step 6 Membuat API Routes</h2>
+
+<p>Kita akan membuat rooting yang di butuhkan dengan menulis kode berikut pada file <code class="highlighter-rouge">routes/api.php</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">group</span><span class="p">([</span>
+    <span class="s1">'prefix'</span> <span class="o">=&gt;</span> <span class="s1">'auth'</span>
+<span class="p">],</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">post</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="s1">'AuthController@login'</span><span class="p">);</span>
+    <span class="nx">Route</span><span class="o">::</span><span class="na">post</span><span class="p">(</span><span class="s1">'signup'</span><span class="p">,</span> <span class="s1">'AuthController@signup'</span><span class="p">);</span>
+
+
+    <span class="nx">Route</span><span class="o">::</span><span class="na">group</span><span class="p">([</span>
+        <span class="s1">'middleware'</span> <span class="o">=&gt;</span> <span class="s1">'auth:api'</span>
+    <span class="p">],</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'logout'</span><span class="p">,</span> <span class="s1">'AuthController@logout'</span><span class="p">);</span>
+        <span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="s1">'AuthController@user'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="step-7-membuat-controller">Step 7 Membuat Controller</h2>
+
+<p>Kita akan provide controller dan method apa saja yang di butuhkan pada routes yang sudah kita define sebelumnya. Buat file <code class="highlighter-rouge">app/AuthController.php</code> dan ketikan kode berikut.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+
+<span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+
+<span class="kn">use</span> <span class="nn">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Illuminate\Support\Facades\Auth</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">Carbon\Carbon</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nn">App\User</span><span class="p">;</span>
+
+
+<span class="kd">class</span> <span class="nc">AuthController</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">signup</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
+            <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'required|string'</span><span class="p">,</span>
+            <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'required|string|email|unique:users'</span><span class="p">,</span>
+            <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="s1">'required|string'</span>
+        <span class="p">]);</span>
+
+
+        <span class="nv">$user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">([</span>
+            <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span>
+            <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">,</span>
+            <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="nx">bcrypt</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">password</span><span class="p">)</span>
+        <span class="p">]);</span>
+
+
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+
+
+        <span class="k">return</span> <span class="nx">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">([</span>
+            <span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="s1">'Successfully created user!'</span>
+        <span class="p">],</span> <span class="mi">201</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">login</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">validate</span><span class="p">([</span>
+            <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">'required|string|email'</span><span class="p">,</span>
+            <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="s1">'required|string'</span><span class="p">,</span>
+            <span class="s1">'remember_me'</span> <span class="o">=&gt;</span> <span class="s1">'boolean'</span>
+        <span class="p">]);</span>
+
+
+        <span class="c1">// ambil array value email dan password</span>
+        <span class="nv">$credentials</span> <span class="o">=</span> <span class="nx">request</span><span class="p">([</span><span class="s1">'email'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">]);</span>
+
+
+        <span class="c1">// cek credential cocok gak dgn yg di database</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Auth</span><span class="o">::</span><span class="na">attempt</span><span class="p">(</span><span class="nv">$credentials</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">([</span>
+                <span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="s1">'Unauthorized'</span>
+            <span class="p">],</span> <span class="mi">401</span><span class="p">);</span>
+        <span class="p">}</span>
+
+
+        <span class="c1">// $request-&gt;user() returns an instance of the authenticated user..</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">();</span>
+
+
+        <span class="c1">// https://laravel.com/docs/5.8/passport#managing-personal-access-tokens</span>
+        <span class="nv">$tokenResult</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">createToken</span><span class="p">(</span><span class="s1">'Personal Access Token'</span><span class="p">);</span>
+        <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$tokenResult</span><span class="o">-&gt;</span><span class="na">token</span><span class="p">;</span>
+
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">remember_me</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// kasih expired seminggu</span>
+            <span class="nv">$token</span><span class="o">-&gt;</span><span class="na">expires_at</span> <span class="o">=</span> <span class="nx">Carbon</span><span class="o">::</span><span class="na">now</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">addWeeks</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+
+
+        <span class="c1">// save token expired kalo gak remember me expirednya default sekitar 5 jam</span>
+        <span class="nv">$token</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+
+
+        <span class="k">return</span> <span class="nx">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">([</span>
+            <span class="s1">'access_token'</span> <span class="o">=&gt;</span> <span class="nv">$tokenResult</span><span class="o">-&gt;</span><span class="na">accessToken</span><span class="p">,</span>
+            <span class="s1">'token_type'</span> <span class="o">=&gt;</span> <span class="s1">'Bearer'</span><span class="p">,</span>
+            <span class="s1">'expires_at'</span> <span class="o">=&gt;</span> <span class="nx">Carbon</span><span class="o">::</span><span class="na">parse</span><span class="p">(</span>
+                <span class="nv">$tokenResult</span><span class="o">-&gt;</span><span class="na">token</span><span class="o">-&gt;</span><span class="na">expires_at</span>
+            <span class="p">)</span><span class="o">-&gt;</span><span class="na">toDateTimeString</span><span class="p">()</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">user</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// jangan lupa kasih header authorization Bearer token</span>
+        <span class="k">return</span> <span class="nx">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">());</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">logout</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// unauthorized token</span>
+        <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">token</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">revoke</span><span class="p">();</span>
+
+
+        <span class="k">return</span> <span class="nx">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">([</span>
+            <span class="s1">'message'</span> <span class="o">=&gt;</span> <span class="s1">'Successfully logged out'</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Setelah itu bisa kalian coba di postman atau client api manapun yang kalian suka routing yang telah kita buat. Jika ada pertanyaan dan kesulitan kita diskusi di kolom komentar ya. Oh ya tutorial ini saya pelajari di medium <a href="https://medium.com/modulr/create-api-authentication-with-passport-of-laravel-5-6-1dc2d400a7f">Alfredo Barron</a> dan bisa juga kalo mau liat full sourcecode nya di <a href="https://github.com/ekaprasasti">github saya</a>.</p>
+:ET

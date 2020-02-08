@@ -1,0 +1,391 @@
+I"n<p>Tutorial kali ini, kita akan melanjutkan <a href="/angular-tour-of-heroes-tutorial">tutorial aplikasi Tour of Heroes</a> untuk menampilkan list heroes, dan memungkinkan user untuk memilih hero dan menampilkan detail hero.</p>
+
+<p>Akhir dari tutorial ini dapat kalian lihat di sini <a href="https://angular.io/resources/live-examples/toh-2/ts/eplnkr.html">live example</a> / <a href="https://angular.io/resources/zips/toh-2/toh-2.zip">downloadable example</a>.</p>
+
+<h2 id="displaying-heroes">Displaying heroes</h2>
+
+<p>Untuk menampilkan list dari heroes, kita harus menambahkan data heroes di view template.</p>
+
+<h3 id="create-heroes">Create heroes</h3>
+
+<p>Buat 10 heroes dalam array.</p>
+
+<h4 id="srcappappcomponentts-hero-array">src/app/app.component.ts (hero array)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">HEROES</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mr. Nice</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Narco</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bombasto</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Celeritas</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magneta</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">RubberMan</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dynama</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dr IQ</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magma</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Tornado</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Array heroes merupakan tipe dari Hero, sebuah class yang telah kita definisikan di tutorial sebelumnya.</p>
+
+<h3 id="expose-heroes">Expose heroes</h3>
+
+<p>Buat public property di dalam class AppComponent yang meng-expose heroes agar dapat kita binding.</p>
+
+<h4 id="appcomponentts-hero-array-property">app.component.ts (hero array property)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Type <code class="highlighter-rouge">heroes</code> tidak terdefinisi karena TypeScipt mengambilnya dari dari array <code class="highlighter-rouge">HEROES</code>.</p>
+
+<blockquote>
+  <p>Data hero terpisah dari class implementasi karena nanti pada akhirnya nama hero akan di ambil dari data service.</p>
+</blockquote>
+
+<h3 id="menampilkan-nama-hero-di-dalam-template">Menampilkan nama hero di dalam template</h3>
+
+<p>Untuk menampilkan nama heroes pada unordered list, masukan code HTML di bawah ini di bawah title dan di atas hero detail.</p>
+
+<h4 id="appcomponentts-heroes-template">app.component.ts (heroes template)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h2&gt;</span>My Heroes<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"heroes"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li&gt;</span>
+    <span class="c">&lt;!-- each hero goes here --&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<p>Dari html ini kita bisa mengisi template dengan nama hero.</p>
+
+<h3 id="list-heroes-dengan-ngfor">List heroes dengan ngFor</h3>
+
+<p>Tujuan dari bagian ini adalah unuk <em>bind</em> array dari heroes di dalam component template, dan menampilkannya secara individually.</p>
+
+<p>Modifikasi tag <code class="highlighter-rouge">&lt;li&gt;</code> dengan menambahkan <em>built-in</em> directive <code class="highlighter-rouge">*ngFor</code>.</p>
+
+<h4 id="appcomponentts-ngfor">app.component.ts (ngFor)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;li</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Baca lebih lanjut dengan <code class="highlighter-rouge">ngFor</code> dan input variabel template di sesi <a href="https://angular.io/docs/ts/latest/guide/displaying-data.html#ngFor">menampilkan array dengan *ngFor</a>, <a href="https://angular.io/docs/ts/latest/guide/displaying-data.html">Displaying Data</a>, sesi <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html#ngFor">ngFor</a>, dan <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">Template Syntax</a>.</p>
+
+<p>Didalam tag <code class="highlighter-rouge">&lt;li&gt;</code>, tambahkan content dengan menggunakan template <code class="highlighter-rouge">hero</code> variabel untuk menampilkan property hero.</p>
+
+<h4 id="appcomponentts-ngfor-template">app.component.ts (ngFor template)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;li</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>{{hero.id}}<span class="nt">&lt;/span&gt;</span> {{hero.name}}
+<span class="nt">&lt;/li&gt;</span>
+
+</code></pre></div></div>
+
+<p>Ketika browser me-refresh, list heroes akan tampil.</p>
+
+<h3 id="style-heroes">Style heroes</h3>
+
+<p>Untuk menambahkan style dari component kita, set <code class="highlighter-rouge">styles</code> property dalam <code class="highlighter-rouge">@Component</code> decorator dengan class CSS di bawah ini.</p>
+
+<h4 id="srcappappcomponentts-styles">src/app/app.component.ts (styles)</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">styles</span><span class="p">:</span> <span class="p">[</span><span class="s2">`
+  .selected {
+    background-color: #CFD8DC !important;
+    color: white;
+  }
+  .heroes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+  }
+  .heroes li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+  }
+  .heroes li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
+  }
+  .heroes li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
+  }
+  .heroes .text {
+    position: relative;
+    top: -3px;
+  }
+  .heroes .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+  }
+`</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Jangan lupa menggunakan notasi backtick untuk membuat multi-line string.</p>
+
+<p>Menambah style membuat file menjadi panjang. Di tutorial selanjutnya kita akan memindahkan style ke file terpisah.</p>
+
+<p>Ketika kita menambahkan style di dalam component, mereka akan terbatas hanya sebatas component tersebut. Style di atas hanya untuk AppComponent dan tidak berefek pada HTML di luar component tersebut.</p>
+
+<p>Template untuk menampilkan heroes akan terlihat seperti berikut ini</p>
+
+<h4 id="srcappappcomponentts-styled-heroes">src/app/app.component.ts (styled heroes)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;h2&gt;</span>My Heroes<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"heroes"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>{{hero.id}}<span class="nt">&lt;/span&gt;</span> {{hero.name}}
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+</code></pre></div></div>
+
+<h2 id="memilih-hero">Memilih hero</h2>
+
+<p>Aplikasi saat ini dapat menampilkan list hero dengan baik dengan single hero dalam details view. Tapi list dan detail view tidak saling terkoneksi. Ketika user memilih hero dari form list, hero yang di pilih harus menampilkan detail view. UI pattern ini di sebut dengan “master/detail”. Di dalam kasus, <em>master</em> adalah heroes list dan <em>detail</em> adalah detail hero yang di pilih.</p>
+
+<p>Selanjutnya kita akan mengkoneksikan master ke detail dengan component <code class="highlighter-rouge">selectedHero</code>, dengan event click.</p>
+
+<h3 id="menangani-click-event">Menangani click event</h3>
+
+<p>Tambahkan event click binding pada tag <code class="highlighter-rouge">&lt;li&gt;</code> seperti ini.</p>
+
+<h4 id="appcomponentts-template-excerpt">app.component.ts (template excerpt)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;li</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span> <span class="na">(click)=</span><span class="s">"onSelect(hero)"</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/li&gt;</span>
+</code></pre></div></div>
+
+<p>Ekspresi <code class="highlighter-rouge">onSelect(hero)</code> memanggil method pada <code class="highlighter-rouge">AppComponent</code> yaitu <code class="highlighter-rouge">onSelect()</code>, passing variabel template input <code class="highlighter-rouge">hero</code> sebagai argument.</p>
+
+<p>Pelajari lebih lanjut mengenai event binding pada <a href="https://angular.io/docs/ts/latest/guide/user-input.html">User Input</a> dan sesi <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html#event-binding">Event binding</a> pada page <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html#event-binding">Template Syntax</a>.</p>
+
+<h3 id="tambahkan-click-handler-untuk-mengakses-selected-hero">Tambahkan click handler untuk mengakses selected hero</h3>
+
+<p>Kita tidak perlu membuat property <code class="highlighter-rouge">hero</code> karena kita tidak menampilkan single hero, kita menampilkan list heroes. Tapi user dapat memilih salah satu heroes dengan mengkliknya. Jadi ganti property <code class="highlighter-rouge">hero</code> dengan property <code class="highlighter-rouge">selectedHero</code>.</p>
+
+<h4 id="srcappappcomponentts-selectedhero">src/app/app.component.ts (selectedHero)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">selectedHero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Tambahkan method <code class="highlighter-rouge">onSelect()</code> yang mengatur property <code class="highlighter-rouge">selectedHero</code> kepada <code class="highlighter-rouge">hero</code> yang user click.</p>
+
+<h4 id="srcappappcomponentts-onselect">src/app/app.component.ts (onSelect)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">onSelect</span><span class="p">(</span><span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Bind property <code class="highlighter-rouge">selectedHero</code> yang baru dengan code di bawah ini.</p>
+
+<h4 id="appcomponentts-template-excerpt-1">app.component.ts (template excerpt)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h2&gt;</span> details!<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;div&gt;&lt;label&gt;</span>id: <span class="nt">&lt;/label&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;label&gt;</span>name: <span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">[(ngModel)]=</span><span class="s">"selectedHero.name"</span> <span class="na">placeholder=</span><span class="s">"name"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="sembunyikan-empty-detail-dengan-ngif">Sembunyikan empty detail dengan ngIF</h3>
+
+<p>Ketika aplikasi di load, <code class="highlighter-rouge">selectedHero</code> tidak terdifinisi. Hero yang di pilih di inisiasi ketika user mengklik nama hero. Angular tidak bisa menampilkan property <code class="highlighter-rouge">selectedHero</code> yang tidak terfinisi dan menampilkan error yang terlihat pada console browser.</p>
+
+<blockquote>
+  <p>EXCEPTION: TypeError: Cannot read property ‘name’ of undefined in [null]</p>
+</blockquote>
+
+<p>Tambahkan built-in directive <code class="highlighter-rouge">ngIf</code> dan set pada property <code class="highlighter-rouge">selectedHero</code> pada component.</p>
+
+<h4 id="srcappappcomponentts-ngif">src/app/app.component.ts (ngIf)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">*ngIf=</span><span class="s">"selectedHero"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>{{selectedHero.name}} details!<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;div&gt;&lt;label&gt;</span>id: <span class="nt">&lt;/label&gt;</span>{{selectedHero.id}}<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;label&gt;</span>name: <span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">[(ngModel)]=</span><span class="s">"selectedHero.name"</span> <span class="na">placeholder=</span><span class="s">"name"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p>Sekarang aplikasi tidak lagi error dan list nama kembali muncul pada browser.</p>
+
+<p>Ketika tidak ada hero yang di pilih, directive <code class="highlighter-rouge">ngIf</code> membuang detail hero HTML dari DOM.</p>
+
+<p>Ketika user memilih hero, <code class="highlighter-rouge">selectedHero</code> menjadi terdefinisi dan <code class="highlighter-rouge">ngIf</code> mengambil content detail hero dan menampilkannya pada DOM.</p>
+
+<p>Baca lebih lanjut mengenai <code class="highlighter-rouge">ngIf</code> dan <code class="highlighter-rouge">ngFor</code> dalam halaman <a href="https://angular.io/docs/ts/latest/guide/structural-directives.html">Structural Directives</a> dan sesi <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html#directives">Built-in directive</a> dari halaman <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">Template Syntax</a>.</p>
+
+<h3 id="style-selected-hero">Style selected hero</h3>
+
+<p>Dalam <code class="highlighter-rouge">styles</code> metadata yang sudah kita buat di atas, disana ada CSS class dengan nama <code class="highlighter-rouge">selected</code>. Untuk membuat hero yang di pilih lebih terlihat, kita akan memakai class <code class="highlighter-rouge">selected</code> pada tag <code class="highlighter-rouge">&lt;li&gt;</code> ketika user mengklik pada nama hero. Sebagai contoh, ketika user klik “Magneta”, warna background akan menjadi seperti ini.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/heroes-list-selected.png" alt="style selected hero" />.</p>
+
+<p>Di dalam template, tambahkan <code class="highlighter-rouge">[class.selected]</code> binding dengan <code class="highlighter-rouge">&lt;li&gt;</code>.</p>
+
+<h4 id="appcomponentts-setting-the-css-class">app.component.ts (setting the CSS class)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="kd">class</span><span class="p">.</span><span class="nx">selected</span><span class="p">]</span><span class="o">=</span><span class="dl">"</span><span class="s2">hero === selectedHero</span><span class="dl">"</span>
+</code></pre></div></div>
+
+<p>Ketika ekspresi (<code class="highlighter-rouge">hero === selectedHero</code>) bernilai <code class="highlighter-rouge">true</code>, Angular menambahkan CSS class <code class="highlighter-rouge">selected</code>. Ketika ekspresi bernilai <code class="highlighter-rouge">false</code>, Angular menghilangkan class <code class="highlighter-rouge">selected</code>.</p>
+
+<p>Final version dari tag <code class="highlighter-rouge">&lt;li&gt;</code> akan terlihat seperti ini.</p>
+
+<h4 id="appcomponentts-styling-each-hero">app.component.ts (styling each hero)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;li</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span>
+  <span class="na">[class.selected]=</span><span class="s">"hero === selectedHero"</span>
+  <span class="na">(click)=</span><span class="s">"onSelect(hero)"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>{{hero.id}}<span class="nt">&lt;/span&gt;</span> {{hero.name}}
+<span class="nt">&lt;/li&gt;</span>
+
+</code></pre></div></div>
+
+<p>Setelah “Magneta”, list akan terlihat seperti ini.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/heroes-list-1.png" alt="list hero" /></p>
+
+<p>Berikut adalah file <code class="highlighter-rouge">app.component.ts</code> yang lengkap.</p>
+
+<h4 id="srcappappcomponentts">src/app/app.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">const</span> <span class="nx">HEROES</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mr. Nice</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Narco</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bombasto</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Celeritas</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magneta</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">RubberMan</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dynama</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dr IQ</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magma</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Tornado</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;h1&gt;{{title}}&lt;/h1&gt;
+    &lt;h2&gt;My Heroes&lt;/h2&gt;
+    &lt;ul class="heroes"&gt;
+      &lt;li *ngFor="let hero of heroes"
+			[class.selected]="hero === selectedHero"
+        (click)="onSelect(hero)"&gt;
+        &lt;span class="badge"&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div *ngIf="selectedHero"&gt;
+      &lt;h2&gt;{{selectedHero.name}} details!&lt;/h2&gt;
+      &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{selectedHero.id}}&lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;name: &lt;/label&gt;
+        &lt;input [(ngModel)]="selectedHero.name" placeholder="name"/&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span><span class="p">,</span>
+  <span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="s2">`
+    .selected {
+      background-color: #CFD8DC !important;
+      color: white;
+    }
+    .heroes {
+      margin: 0 0 2em 0;
+      list-style-type: none;
+      padding: 0;
+      width: 15em;
+    }
+    .heroes li {
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      background-color: #EEE;
+      margin: .5em;
+      padding: .3em 0;
+      height: 1.6em;
+      border-radius: 4px;
+    }
+    .heroes li.selected:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+    .heroes li:hover {
+      color: #607D8B;
+      background-color: #DDD;
+      left: .1em;
+    }
+    .heroes .text {
+      position: relative;
+      top: -3px;
+    }
+    .heroes .badge {
+      display: inline-block;
+      font-size: small;
+      color: white;
+      padding: 0.8em 0.7em 0 0.7em;
+      background-color: #607D8B;
+      line-height: 1em;
+      position: relative;
+      left: -1px;
+      top: -4px;
+      height: 1.8em;
+      margin-right: .8em;
+      border-radius: 4px 0 0 4px;
+    }
+  `</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
+  <span class="nl">selectedHero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+  <span class="nx">onSelect</span><span class="p">(</span><span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="apa-saja-yang-sudah-kita-pelajari">Apa saja yang sudah kita pelajari?</h2>
+
+<ul>
+  <li>
+    <p>Aplikasi tour of heroes menampilkan selectable list heroes.</p>
+  </li>
+  <li>
+    <p>Kita menambahkan kemampuan untuk memilih hero dan menampilkan detail hero.</p>
+  </li>
+  <li>
+    <p>Kita belajar menggunakan built-in directive <code class="highlighter-rouge">ngIf</code> dan <code class="highlighter-rouge">ngFor</code> dalam component template.</p>
+  </li>
+</ul>
+
+<p>Di tutorial selanjutnya, kita akan memisahkan aplikasi ke pada subcomponent dan membuat mereka dapat bekerja secara bersamaan.</p>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/tutorial/toh-pt2</li>
+</ul>
+:ET

@@ -1,0 +1,1355 @@
+I"ҫ<p>Pada tutorial lanjutan mengenai <a href="/angular-tour-of-heroes-tutorial">aplikasi Tour of Heroes</a> ini kita akan menambahkan requirement baru pada aplikasi.</p>
+
+<ul>
+  <li>
+    <p>Menambahkan <em>Dashboard</em> view.</p>
+  </li>
+  <li>
+    <p>Menambahkan kemampuan untuk navigasi antara <em>Heroes</em> dan <em>Dashboard</em> view.</p>
+  </li>
+  <li>
+    <p>Ketika user click nama hero, navigasi ke view detail dari hero yang di pilih.</p>
+  </li>
+  <li>
+    <p>Ketika user click link tautan di dalam email, buka detail view untuk hero tertentu.</p>
+  </li>
+</ul>
+
+<p>Ketika selesai nanti, user dapat menavigasi aplikasinya seperti berikut.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/nav-diagram.png" alt="Navigate Tour Of Heroes" /></p>
+
+<p>Untuk memenuhi requirement tersebut, kita akan menambahkan Angular route ke dalam aplikasi.</p>
+
+<blockquote>
+  <p>Untuk informasi lebih lanjut mengenai router, baca halaman <a href="https://angular.io/guide/router">Routing and Navigation</a></p>
+</blockquote>
+
+<p>Hasil dari tutorial ini dapat kita lihat di sini <a href="https://angular.io/generated/live-examples/toh-pt5/eplnkr.html">live example</a> / <a href="https://angular.io/generated/zips/toh-pt5/toh-pt5.zip">download example</a></p>
+
+<h2 id="action-plan">Action plan</h2>
+
+<p>Berikut adalah plan dari tutorial ini.</p>
+
+<ul>
+  <li>
+    <p>Buat <code class="highlighter-rouge">AppComponent</code> ke dalam shell aplikasi yang hanya menangani navigasi.</p>
+  </li>
+  <li>
+    <p>Relokasi ulang konsentrasi <em>Heroes</em> dengan <code class="highlighter-rouge">AppComponent</code> kepada <code class="highlighter-rouge">HeoresComponent</code> yang terpisah.</p>
+  </li>
+  <li>
+    <p>Tambahkan routing.</p>
+  </li>
+  <li>
+    <p>Buat component baru <code class="highlighter-rouge">DashboardComponent</code>.</p>
+  </li>
+  <li>
+    <p>Kaitkan <em>Dashboard</em> kedalam struktur navigaasi.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Routing adalah nama lain dari navigasi. Router adalah mekanisme untuk navigasi dari view ke view.</p>
+</blockquote>
+
+<h2 id="splitting-appcomponent">Splitting <em>AppComponent</em></h2>
+
+<p>Aplikasi kita saat ini me-load <code class="highlighter-rouge">AppComponent</code> dan menampilkan list heroes.</p>
+
+<p>Aplikasi yang di revisi harus menampilkan shell dengan pilihan tampilan (Dashboard dan Heroes) dan kemudian memilih default ke salah satu dari mereka.</p>
+
+<p><code class="highlighter-rouge">AppComponent</code> harus hanya bisa menangani navigasi, jadi kita akan memindahkan tampilan Heroes keluar dari <code class="highlighter-rouge">AppComponent</code> ke dalam componentnya <code class="highlighter-rouge">HeroesComponent</code>.</p>
+
+<h3 id="heroescomponent"><em>HeroesComponent</em></h3>
+
+<p><code class="highlighter-rouge">AppComponent</code> sudah di dedikasikan untuk <code class="highlighter-rouge">Heroes</code>. Daripada memindahkan kode dari <code class="highlighter-rouge">AppComponent</code>, ganti nama menjadi <code class="highlighter-rouge">HeroesComponent</code> dan buat <code class="highlighter-rouge">AppComponent</code> shell yang terpisah.</p>
+
+<p>Ikuti langkah berikut:</p>
+
+<ul>
+  <li>
+    <p>Rename file <code class="highlighter-rouge">app.component.ts</code> dengan <code class="highlighter-rouge">heroes.component.ts</code></p>
+  </li>
+  <li>
+    <p>Rename class <code class="highlighter-rouge">AppComponent</code> dengan <code class="highlighter-rouge">HeroesComponent</code> (<em>rename locally</em>, hanya pada file ini).</p>
+  </li>
+  <li>
+    <p>Renama selector my-app dengan <code class="highlighter-rouge">my-heroes</code>.</p>
+  </li>
+</ul>
+
+<h4 id="srcappheroescomponentts-showing-renamings-only">src/app/heroes.component.ts (showing renamings only)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+	<span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-heroes</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroesComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+	
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="membuat-appcomponent">Membuat <em>AppComponent</em></h3>
+
+<p><code class="highlighter-rouge">AppComponent</code> yang baru adalah aplikasi shell. Ia akan mempunyai beberapa navigasi link di atas dan menampilkan area di bawahnya.</p>
+
+<p>Lakukan langkah berikut</p>
+
+<ul>
+  <li>
+    <p>Buat file <code class="highlighter-rouge">src/app/app.component.ts</code>.</p>
+  </li>
+  <li>
+    <p>Definisikan export class <code class="highlighter-rouge">AppComponent</code>.</p>
+  </li>
+  <li>
+    <p>Tambahkan decorator <code class="highlighter-rouge">@Component</code> di atas class dengan selector <code class="highlighter-rouge">my-app</code>.</p>
+  </li>
+  <li>Pindahkan hal berikut dari <code class="highlighter-rouge">HeroesComponent</code> ke <code class="highlighter-rouge">AppComponent</code>:
+    <ul>
+      <li>class <code class="highlighter-rouge">title</code> property.</li>
+      <li><code class="highlighter-rouge">@Component</code> template <code class="highlighter-rouge">&lt;h1&gt;</code> element, yang berisi binding <code class="highlighter-rouge">title</code>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Tambahkan element <code class="highlighter-rouge">&lt;my-heroes&gt;</code> pada template app di bawah heading sehingga kita masih dapat melihat heroes.</p>
+  </li>
+  <li>
+    <p>Tambahkan <code class="highlighter-rouge">HeroesComponent</code> pada array <code class="highlighter-rouge">declarations</code> dari <code class="highlighter-rouge">AppModule</code> sehingga Angular mengenali tag <code class="highlighter-rouge">&lt;my-heroes&gt;</code>.</p>
+  </li>
+  <li>
+    <p>Tambahkan <code class="highlighter-rouge">HeroService</code> pada array <code class="highlighter-rouge">providers</code> dari <code class="highlighter-rouge">AppModule</code> karena kita akan membutuhkannya pada setiap view lain.</p>
+  </li>
+  <li>
+    <p>Hapus <code class="highlighter-rouge">HeroService</code> dari <code class="highlighter-rouge">HeroesComponent</code> array <code class="highlighter-rouge">providers</code> sejak di promoted.</p>
+  </li>
+  <li>Tambahkan dukungan statement <code class="highlighter-rouge">import</code> untuk <code class="highlighter-rouge">AppComponent</code>.</li>
+</ul>
+
+<p>Hasilnya akan menjadi seperti ini</p>
+
+<h4 id="srcappappcomponentts-v1">src/app/app.component.ts (v1)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;h1&gt;{{title}}&lt;/h1&gt;
+    &lt;my-heroes&gt;&lt;/my-heroes&gt;
+  `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h4 id="srcappappmodulets-v1">src/app/app.module.ts (v1)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;h1&gt;{{title}}&lt;/h1&gt;
+    &lt;my-heroes&gt;&lt;/my-heroes&gt;
+  `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Jalankan aplikasi dan akan menampilkan heroes.</p>
+
+<h2 id="menambahkan-routing">Menambahkan routing</h2>
+
+<p>Angular router merupakan bagian external, optional Angular NgModule disebut <code class="highlighter-rouge">RouterModule</code>. Router merupakan kombinasi dari beberapa service yang di sediakan (<code class="highlighter-rouge">RouterModule</code>), beberapa directives (<code class="highlighter-rouge">RouterOutlet</code>, <code class="highlighter-rouge">RouterLink</code>, <code class="highlighter-rouge">RouterLinkActive</code>), dan konfigurasi (<code class="highlighter-rouge">Routes</code>). Kita akan membuat konfigurasi terlebih dahulu.</p>
+
+<h3><base href="" /></h3>
+
+<p>Buka <code class="highlighter-rouge">index.html</code> dan pastikan disana terdapat element <code class="highlighter-rouge">&lt;base href="..."&gt;</code> (atau sebuah script yang secara dynamic mengatur element) pada bagian <code class="highlighter-rouge">&lt;head&gt;</code>.</p>
+
+<h4 id="srcindexhtml-base-href">src/index.html (base-href)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;base</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Untuk informasi lebih lanjut, lihat sesi <a href="https://angular.io/guide/router">Set the base href</a> pada halaman <a href="https://angular.io/guide/router">Routing and Navigation</a></p>
+</blockquote>
+
+<h3 id="konfigurasi-routes">Konfigurasi routes</h3>
+
+<p>Buat file konfigurasi untuk app routes.</p>
+
+<p><em>Routes</em> memberitahukan router untuk view mana yang akan di tampilkan ketika user klik lick atau paste URL ke dalam address bar browser.</p>
+
+<p>Definisikan route pertama kali sebagai route component heroes.</p>
+
+<h4 id="srcappappmodulets-heroes-route">src/app/app.module.ts (heroes route)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">RouterModule</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">([</span>
+  <span class="p">{</span>
+    <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">heroes</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">component</span><span class="p">:</span> <span class="nx">HeroesComponent</span>
+  <span class="p">}</span>
+<span class="p">])</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Routes</code> merupakan array dari <em>route definitions</em>.</p>
+
+<p>Mendefinisikan route mampunyai bagian seperti ini:</p>
+
+<ul>
+  <li>
+    <p><em>Path</em>: Router mencocokan <em>path route</em> pada URL di dalam address bar browser (<code class="highlighter-rouge">heroes</code>).</p>
+  </li>
+  <li>
+    <p><em>Component</em>: Component yang akan router gunakan ketika menuju navigasi route (<code class="highlighter-rouge">HeroesComponent</code>).</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p>Baca lebih lanjut mengenai pendefinisian route dengan <code class="highlighter-rouge">Routes</code> pada halaman <a href="https://angular.io/guide/router">Routing &amp; Navigation</a>.</p>
+</blockquote>
+
+<h3 id="available-router">Available router</h3>
+
+<p>Import <code class="highlighter-rouge">RouteModule</code> dan tambahkan ke dalam import array <code class="highlighter-rouge">AppModule</code>.</p>
+
+<h4 id="srcappappmodulets-app-routing">src/app/app.module.ts (app routing)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>       <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>    <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/forms</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">RouterModule</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>        <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero-detail.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>     <span class="k">from</span> <span class="dl">'</span><span class="s1">./heroes.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>         <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">([</span>
+      <span class="p">{</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">heroes</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">HeroesComponent</span>
+      <span class="p">}</span>
+    <span class="p">])</span>
+  <span class="p">],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span>
+  <span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">HeroService</span>
+  <span class="p">],</span>
+  <span class="na">bootstrap</span><span class="p">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Method <code class="highlighter-rouge">forRoot()</code> di panggil karena configurasi router ada pada app root. Method <code class="highlighter-rouge">forRoot()</code> mensupplay Router service providers dan directives yang di butuhkan oleh routing.</p>
+</blockquote>
+
+<h3 id="router-outlet">Router outlet</h3>
+
+<p>Jika kita paste path <code class="highlighter-rouge">/heroes</code>, ke dalam address bar browser di akhir URL, router harus mencocokan route <code class="highlighter-rouge">heroes</code> dan menampilkan <code class="highlighter-rouge">HeroesComponent</code>. Namun, kita harus memberitaukan router di mana untuk menampilkan component. Untuk melakukannya, kita akan menambahkan element <code class="highlighter-rouge">&lt;router-outlet&gt;</code> di akhri template. <code class="highlighter-rouge">RouterOutlet</code> adalah satu dari directive yang di sediakan oleh <code class="highlighter-rouge">RouterModule</code>. Router menampilkan setiap component tepat di bawah <code class="highlighter-rouge">&lt;router-outlet&gt;</code> saat user menavigasi melalui aplikasi.</p>
+
+<h3 id="router-link">Router link</h3>
+
+<p>User tidak harus paste route URL pada address bar. Tapi user bisa menambahkan tag anchor pada template, ketika di klik, mentrigger navigasi ke <code class="highlighter-rouge">HeroesComponent</code>.</p>
+
+<p>Revisi template menjadi seperti ini:</p>
+
+<h4 id="srcappappcomponentts-template-v2">src/app/app.component.ts (template-v2)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nx">template</span><span class="p">:</span> <span class="s2">`
+   &lt;h1&gt;{{title}}&lt;/h1&gt;
+   &lt;a routerLink="/heroes"&gt;Heroes&lt;/a&gt;
+   &lt;router-outlet&gt;&lt;/router-outlet&gt;
+ `</span>
+
+</code></pre></div></div>
+
+<p>Refresh browser. Browser akan menampilkan aplikasi dengan link title dan heroes, tapi bukan list heroes.</p>
+
+<blockquote>
+  <p>Adress bar browser menunjukan <code class="highlighter-rouge">/</code>. Route path <code class="highlighter-rouge">HeroesComponent</code> adalah <code class="highlighter-rouge">/heroes</code>, bukan <code class="highlighter-rouge">/</code>. Sebentar lagi kita akan menambahkan route yang mencocokan path <code class="highlighter-rouge">/</code>.</p>
+</blockquote>
+
+<p>Click link navigasi <em>Heroes</em>. Address bar terupdate ke <code class="highlighter-rouge">/heroes</code> dan list heroes akan di tampilkan. <code class="highlighter-rouge">AppComponent</code> sekarang terlihat seperti berikut.</p>
+
+<h4 id="srcappappcomponentts-v2">src/app/app.component.ts (v2)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+     &lt;h1&gt;{{title}}&lt;/h1&gt;
+     &lt;a routerLink="/heroes"&gt;Heroes&lt;/a&gt;
+     &lt;router-outlet&gt;&lt;/router-outlet&gt;
+   `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="menambahkan-dashboard">Menambahkan dashboard</h2>
+
+<p>Routing akan lebih masuk akal dengan multiple view. Untuk menambahkan view, buat <code class="highlighter-rouge">DashboarComponent</code>, yang mana user juga dapat menavigasinya.</p>
+
+<h4 id="srcappdashboardcomponentts-v1">src/app/dashboard.component.ts (v1)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-dashboard</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;h3&gt;My Dashboard&lt;/h3&gt;</span><span class="dl">'</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">DashboardComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Kita akan membuat component ini lebih berguna nanti.</p>
+
+<h3 id="konfigurasi-dashboard-route">Konfigurasi dashboard route</h3>
+
+<p>Untuk mengajarkan <code class="highlighter-rouge">app.module.ts</code> untuk menavigasi ke dashboard, import component dashboard dan tambahkan definisi route pada array <code class="highlighter-rouge">Routes</code>.</p>
+
+<h4 id="srcappappmodulets-dashboard-route">src/app/app.module.ts (Dashboard route)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">dashboard</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">component</span><span class="p">:</span> <span class="nx">DashboardComponent</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p>Juga import dan tambahkan <code class="highlighter-rouge">DashboardComponent</code> pada <code class="highlighter-rouge">declartions</code> <code class="highlighter-rouge">AppModule</code>.</p>
+
+<h4 id="srcappappmodulets-dashboard">src/app/app.module.ts (dashboard)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declarations</span><span class="p">:</span> <span class="p">[</span>
+  <span class="nx">AppComponent</span><span class="p">,</span>
+  <span class="nx">DashboardComponent</span><span class="p">,</span>
+  <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+  <span class="nx">HeroesComponent</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<h3 id="menambahkan-redirect-route">Menambahkan redirect route</h3>
+
+<p>Saat ini browser berjalan dengan <code class="highlighter-rouge">/</code> pada address bar. Ketika aplikasi berjalan, seharusnya menunjukan dashboard dan menampilkan URL <code class="highlighter-rouge">/dashboard</code>  pada address bar browser.</p>
+
+<p>Untuk melakukannya, gunakan redirect route. Tambahkan array route definitions:</p>
+
+<h4 id="srcappappmodulets-redirect">src/app/app.module.ts (redirect)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+  <span class="nx">redirectTo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">pathMatch</span><span class="p">:</span> <span class="dl">'</span><span class="s1">full</span><span class="dl">'</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Pelajari lebih lanjut mengenai <em>redirects</em> pada sesi <a href="https://angular.io/guide/router">Redirecting routes</a> pada halaman <a href="https://angular.io/guide/router">Routing &amp; Navigation</a>.</p>
+</blockquote>
+
+<h3 id="tambahkan-navigasi-ke-dalam-template">Tambahkan navigasi ke dalam template</h3>
+
+<p>Tambahkan link navigasi dashboard ke dalam template, di atas link <em>Heroes</em>.</p>
+
+<h4 id="srcappappcomponentts-template-v3">src/app/app.component.ts (template-v3)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nx">template</span><span class="p">:</span> <span class="s2">`
+   &lt;h1&gt;{{title}}&lt;/h1&gt;
+   &lt;nav&gt;
+     &lt;a routerLink="/dashboard"&gt;Dashboard&lt;/a&gt;
+     &lt;a routerLink="/heroes"&gt;Heroes&lt;/a&gt;
+   &lt;/nav&gt;
+   &lt;router-outlet&gt;&lt;/router-outlet&gt;
+ `</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>Tag <code class="highlighter-rouge">&lt;nav&gt;</code> tidak berpengaruh apa-apa, tapi ia akan berguna nanti ketika kita membuat style pada link.</p>
+</blockquote>
+
+<p>Pada browser, pergi ke root aplikasi (<code class="highlighter-rouge">/</code>) dan reload. Aplikasi akan menampilkan dashboard dan kita bisa menavigasi antara dashboard dan heroes.</p>
+
+<h2 id="menambahkan-hero-ke-dalam-dashboard">Menambahkan hero ke dalam dashboard</h2>
+
+<p>Untuk membuat dashboard lebih menarik, kita akan menampilkan 4 heroes.</p>
+
+<p>Ganti metadata <code class="highlighter-rouge">template</code> dengan property <code class="highlighter-rouge">templateUrl</code> yang merupakan point kepada file template baru.</p>
+
+<h4 id="srcappdashboardcomponentts-metadata">src/app/dashboard.component.ts (metadata)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-dashboard</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./dashboard.component.html</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Buat file dan isikan dengan konten.</p>
+
+<h4 id="srcappdashboardcomponenthtml">src/app/dashboard.component.html</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;h3&gt;</span>Top Heroes<span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"grid grid-pad"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span> <span class="na">class=</span><span class="s">"col-1-4"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"module hero"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h4&gt;</span>{{hero.name}}<span class="nt">&lt;/h4&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">*ngFor</code> di gunakan kembali untuk mengiterasi list heroes dan menampilkan nama. Tambahan element <code class="highlighter-rouge">&lt;div&gt;</code> akan berguna untuk styling nanti.</p>
+
+<h3 id="berbagi-heroservice">Berbagi <em>HeroService</em></h3>
+
+<p>Untuk mengisi array <code class="highlighter-rouge">heroes</code>, kita bisa menggunakan kembali <code class="highlighter-rouge">HeroService</code>.</p>
+
+<p>Sebelumnya, kita menghapus <code class="highlighter-rouge">HeroService</code> dari array <code class="highlighter-rouge">provides</code> pada <code class="highlighter-rouge">HeroesComponent</code> dan menambahkan pada array <code class="highlighter-rouge">provides</code> pada <code class="highlighter-rouge">AppModule</code>. Hal itu memindahkan pembuatan <em>singleton</em> instance <code class="highlighter-rouge">HeroService</code> dapat di gunakan pada seluruh component di aplikasi. Angular meng-inject <code class="highlighter-rouge">HeroService</code> dan kita bisa menggunakannya di dalam <code class="highlighter-rouge">DashboardComponent</code>.</p>
+
+<h3 id="get-heroes">Get heroes</h3>
+
+<p>Di dalam <code class="highlighter-rouge">dashboard.component.ts</code>, tambahkan statement <code class="highlighter-rouge">import</code> berikut.</p>
+
+<h4 id="srcappdashboardcomponentts-imports">src/app/dashboard.component.ts (imports)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Sekarang buat class <code class="highlighter-rouge">DashboardComponent</code> seperti berikut.</p>
+
+<h4 id="srcappdashboardcomponentts-class">src/app/dashboard.component.ts (class)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">DashboardComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+
+  <span class="nl">heroes</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="p">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Logic yang di gunakan pada <code class="highlighter-rouge">HeroesComponent</code> adalah.</p>
+
+<ul>
+  <li>
+    <p>Mendefinisikan array property <code class="highlighter-rouge">heroes</code>.</p>
+  </li>
+  <li>
+    <p>Inject <code class="highlighter-rouge">HeroService</code> ke dalam constructor dan memasukannya ke dalam private field <code class="highlighter-rouge">heroService</code>.</p>
+  </li>
+  <li>
+    <p>Panggil service untuk mendapatkan heroes di dalam Angular <code class="highlighter-rouge">ngOnInit()</code> lifecycle hook.</p>
+  </li>
+</ul>
+
+<p>Di dalam dashboard kita menspesifikasikan 4 heroes dengan method <code class="highlighter-rouge">Array.slice</code>. Refresh browser dan lihat 4 nama hero di dalam dashboard yang baru.</p>
+
+<h2 id="navigasi-detail-hero">Navigasi detail hero</h2>
+
+<p>Sementara detail hero yang di pilih di tampilkan di bawah dari <code class="highlighter-rouge">HeroesComponent</code>, users harus bisa menavigasi kedalam <code class="highlighter-rouge">HeroDetailComponent</code> di dalam cara berikut.</p>
+
+<ul>
+  <li>
+    <p>Dari dashboard ke hero yang di pilih.</p>
+  </li>
+  <li>
+    <p>Dari list heroes ke hero yang di pilih.</p>
+  </li>
+  <li>
+    <p>Dari link URL yang di pastekan ke dalam address bar browser.</p>
+  </li>
+</ul>
+
+<h3 id="routing-detail-hero">Routing detail hero</h3>
+
+<p>Kita bisa menambahkan route <code class="highlighter-rouge">HeroDetailComponent</code> di dalam <code class="highlighter-rouge">app.module.ts</code>, di mana route lain di konfigurasikan.</p>
+
+<p>Route baru ini tidak seperti biasa, di mana kita harus memberitahukan <code class="highlighter-rouge">HeroDetailComponent</code> mana hero yang akan di tampilkan. Kita tidak perlu memberi tahu <code class="highlighter-rouge">HeroesComponent</code> atau <code class="highlighter-rouge">DashboardComponent</code> apa pun.</p>
+
+<p>Saat ini parent <code class="highlighter-rouge">HeroesComponent</code> mengatur property component menjadi object hero dengan binding seperti ini:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;hero-detail</span> <span class="na">[hero]=</span><span class="s">"selectedHero"</span><span class="nt">&gt;&lt;/hero-detail&gt;</span>
+</code></pre></div></div>
+
+<p>Tapi binding seperti ini tidak bekerja pada skenario routing.</p>
+
+<h3 id="parameterized-route">Parameterized route</h3>
+
+<p>Kita bisa menambahkan <code class="highlighter-rouge">id</code> hero pada URL. Ketikan routing ke hero yang mempunyai <code class="highlighter-rouge">id</code> 11, kita berharap melihat URL seperti berikut</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/detail/11
+</code></pre></div></div>
+
+<p>Part <code class="highlighter-rouge">/detail/</code> pada URL merupkan constant. Numerik <code class="highlighter-rouge">id</code> berubah dari hero ke hero.</p>
+
+<h3 id="konfigurasi-route-dengan-parameter">Konfigurasi route dengan parameter</h3>
+
+<p>Gunakan <em>route definition</em> berikut.</p>
+
+<h4 id="srcappappmodulets-hero-detail">src/app/app.module.ts (hero detail)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">detail/:id</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">component</span><span class="p">:</span> <span class="nx">HeroDetailComponent</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">:id</code> adalah placeholder untuk <code class="highlighter-rouge">id</code> hero yang spesifik ketika navigasi ke <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<blockquote>
+  <p>Pastikan untuk import hero detail component sebelum membuat route ini.</p>
+</blockquote>
+
+<p>Kita tidak menambahkan link <code class="highlighter-rouge">'Hero Detail'</code> pada template karena users tidak klik link navigasi untuk melihat detail hero, tetapi mereka meng-klik nama, yang di mana nama di tampilkan di dalam dashboard di dalam list heroes.</p>
+
+<p>Kita tidak ingin menambahkan klik hero sampai <code class="highlighter-rouge">HeroDetailComponent</code> di revisi dan siap menavigasi.</p>
+
+<h2 id="revisi-herodetailcomponent">Revisi <em>HeroDetailComponent</em></h2>
+
+<p>Berikut <code class="highlighter-rouge">HeroDetailComponent</code> saat ini:</p>
+
+<h4 id="srcapphero-detailcomponentts-current">src/app/hero-detail.component.ts (current)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">hero-detail</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;div *ngIf="hero"&gt;
+      &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+      &lt;div&gt;
+        &lt;label&gt;id: &lt;/label&gt;{{hero.id}}
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;name: &lt;/label&gt;
+        &lt;input [(ngModel)]="hero.name" placeholder="name"/&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>Template tidak berubah. Nama hero akan di tampilkan dengan cara yang sama. Perubahan utama di pengaruhi oleh bagaimana kita <em>get</em> nama hero.</p>
+
+<p>Kita tidak lagi menerima hero di dalam binding property parent component. <code class="highlighter-rouge">HeroDetailComponent</code> baru harus mengambil peramter <code class="highlighter-rouge">id</code> dari <em>params Observable</em> di service <code class="highlighter-rouge">ActivatedRoute</code> dan menggunakan <code class="highlighter-rouge">HeroService</code> mengambil id hero.</p>
+
+<h4 id="srcapphero-detailcomponentts">src/app/hero-detail.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Keep the Input import for now, you'll remove it later:</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">ActivatedRoute</span><span class="p">,</span> <span class="nx">Params</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Location</span> <span class="p">}</span>                 <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/common</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Inject <code class="highlighter-rouge">ActivatedRoute</code>, <code class="highlighter-rouge">HeroService</code>, dan <code class="highlighter-rouge">Location</code> service kedalam constructor, simpan nilainya dengan <em>private fields</em>.</p>
+
+<h4 id="srcapphero-detailcomponentts-constructor">src/app/hero-detail.component.ts (constructor)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">constructor</span><span class="p">(</span>
+  <span class="kr">private</span> <span class="nx">heroService</span><span class="p">:</span> <span class="nx">HeroService</span><span class="p">,</span>
+  <span class="kr">private</span> <span class="nx">route</span><span class="p">:</span> <span class="nx">ActivatedRoute</span><span class="p">,</span>
+  <span class="kr">private</span> <span class="nx">location</span><span class="p">:</span> <span class="nx">Location</span>
+<span class="p">)</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Import operator <code class="highlighter-rouge">switchMap</code> untuk di gunakan nanti pada parameter route <code class="highlighter-rouge">Observable</code>.</p>
+
+<h4 id="srcapphero-detailcomponentts-switchmap-import">src/app/hero-detail.component.ts (switchMap import)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="dl">'</span><span class="s1">rxjs/add/operator/switchMap</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Beritahu class untuk mempresentasikan interface <code class="highlighter-rouge">OnInit</code>.</p>
+
+<h4 id="srcapphero-detailcomponentts-1">src/app/hero-detail.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroDetailComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Di dalam lifecycle hook <code class="highlighter-rouge">ngOnInit()</code>, gunakan parameter Observable untuk ekstrak nilai parameter <code class="highlighter-rouge">id</code> dari service <code class="highlighter-rouge">ActivateRoute</code> untuk mengambil <code class="highlighter-rouge">id</code> hero.</p>
+
+<h4 id="srcapphero-detailcomponentts-2">src/app/hero-detail.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">params</span>
+    <span class="p">.</span><span class="nx">switchMap</span><span class="p">((</span><span class="na">params</span><span class="p">:</span> <span class="nx">Params</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHero</span><span class="p">(</span><span class="o">+</span><span class="nx">params</span><span class="p">[</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">]))</span>
+    <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">hero</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">hero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Operator <code class="highlighter-rouge">switchMap</code> memetakan <code class="highlighter-rouge">id</code> di dalam Observable route parameter kepada <code class="highlighter-rouge">Observable</code> yang baru, hasil dari method <code class="highlighter-rouge">HeroService.getHero()</code>.</p>
+
+<p>Jika user menavigasi ulang ke dalam component ini, request <code class="highlighter-rouge">getHero</code> masih tetap berjalan, <code class="highlighter-rouge">switchMap</code> cancel request lama dan lalu memanggil lagi <code class="highlighter-rouge">HeroService</code>.</p>
+
+<p><code class="highlighter-rouge">id</code> hero merupakan nomor. Parameter route selalu string. Jadi nilai parameter route di convert ke dalam number dengan operator Javascript.</p>
+
+<h3 id="tambahkan-heroservicegethero">Tambahkan <em>HeroService.getHero</em></h3>
+
+<p>Di code sebelumnya, <code class="highlighter-rouge">HeroService</code> tidak mempunyai method <code class="highlighter-rouge">getHero</code>. Untuk menyelesaikan masalah ini, buka <code class="highlighter-rouge">HeroService</code> dan tambahkan method <code class="highlighter-rouge">getHero()</code> yang memfilter list heroes dari <code class="highlighter-rouge">getHeroes()</code> dengan <code class="highlighter-rouge">id</code>.</p>
+
+<h4 id="srcappheroservicets-gethero">src/app/hero.service.ts (getHero)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getHero</span><span class="p">(</span><span class="nx">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()</span>
+             <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="o">=&gt;</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">hero</span> <span class="o">=&gt;</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">id</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="temukan-cara-kembali">Temukan cara kembali</h3>
+
+<p>User mempunyai beberapa cara untuk menavigasi ke <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<p>Untuk navigasi ke tempat lainnya, user bisa klik satu atau dua link di dalam <code class="highlighter-rouge">AppComponent</code> atau klik tombol back. Sekarang tambahkan opsi ke tiga, method <code class="highlighter-rouge">goBack()</code> yang menavigasi mundur satu step ke belakang di dalam browser history menggunakan service <code class="highlighter-rouge">Location</code> yang sebelum kita inject.</p>
+
+<h4 id="srcapphero-detailcomponentts-goback">src/app/hero-detail.component.ts (goBack)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">goBack</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Kembali terlalu jauh bisa membawa user keluar dari aplikasi. Dalam aplikasi nyata, kita dapat mencegah masalah ini dengan <em>CanDeactivate</em> guard. Baca lebih lanjut pada halaman <a href="https://angular.io/api/router/CanDeactivate">CanDeactivate</a>.</p>
+</blockquote>
+
+<p>Kita bisa menerapkan method ini dengan event binding pada button <em>Back</em> yang kita tambahkan pada component template.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">(click)=</span><span class="s">"goBack()"</span><span class="nt">&gt;</span>Back<span class="nt">&lt;/button&gt;</span>
+</code></pre></div></div>
+
+<p>Migrasi template ke pada file yang bernama <code class="highlighter-rouge">hero-detail.component.html</code>.</p>
+
+<h4 id="srcapphero-detailcomponenthtml">src/app/hero-detail.component.html</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">*ngIf=</span><span class="s">"hero"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>{{hero.name}} details!<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;label&gt;</span>id: <span class="nt">&lt;/label&gt;</span>{{hero.id}}<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    <span class="nt">&lt;label&gt;</span>name: <span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">[(ngModel)]=</span><span class="s">"hero.name"</span> <span class="na">placeholder=</span><span class="s">"name"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">(click)=</span><span class="s">"goBack()"</span><span class="nt">&gt;</span>Back<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p>Update metadata component dengan <code class="highlighter-rouge">templateUrl</code> dengan pointing pada file yang baru saja kita buat.</p>
+
+<h4 id="srcapphero-detailcomponentts-metadata">src/app/hero-detail.component.ts (metadata)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">hero-detail</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./hero-detail.component.html</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Refresh browser dan lihat hasilnya.</p>
+
+<h2 id="memilih-dashboard-hero">Memilih dashboard hero</h2>
+
+<p>Ketika user memilih hero di dalam dashboard, aplikasi harus menavigasi pada <code class="highlighter-rouge">HeroDetailComponent</code> untuk view dan edit hero yang di pilih.</p>
+
+<p>Meskipun dashboard heores di presentasikan sebagai button, mereka harus bersikap seperti tag anchor. Ketika di hover di atas block hero, target URL harus muncul di dalam status bar browser dan user harus  bisa men-copy link atau membuka detail hero pada tab baru.</p>
+
+<p>Untuk melakukan effect ini, buka <code class="highlighter-rouge">dashboard.component.html</code> dan ganti pengulangan  <code class="highlighter-rouge">&lt;div *ngFor...&gt;</code> dengan tag <code class="highlighter-rouge">&lt;a&gt;</code>.</p>
+
+<h4 id="srcappdashboardcomponenthtml-repeated-a-tag">src/app/dashboard.component.html (repeated <code class="highlighter-rouge">&lt;a&gt;</code> tag)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span>  <span class="na">[routerLink]=</span><span class="s">"['/detail', hero.id]"</span>  <span class="na">class=</span><span class="s">"col-1-4"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Perhatikan binding <code class="highlighter-rouge">[routerLink]</code>. Seperti yang sudah di jelaskan di bagian <code class="highlighter-rouge">Router Link</code> pada bagian ini, navigasi di template <code class="highlighter-rouge">AppComponent</code> memiliki link router yang fixed path dari tujuan routes “/dashboard” dan “/heroes”.</p>
+
+<p>Saat ini, kita binding pada expresi yang berisi <em>array link parameter</em>. Array mempunyai 2 element: tujuan route <em>path</em> dan <em>router parameter</em> di set pada value <code class="highlighter-rouge">id</code> hero.</p>
+
+<p>Dua items array dengn <em>path</em> dan <em>:id</em> token di dalam parameterized hero detail route yang kita tambahkan pada <code class="highlighter-rouge">app.module.ts</code> sebelumnya:</p>
+
+<h4 id="srcappappmodulets-hero-detail-1">src/app/app.module.ts (hero detail)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">detail/:id</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">component</span><span class="p">:</span> <span class="nx">HeroDetailComponent</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<h2 id="refactor-routes-pada-routing-module">Refactor routes pada <em>Routing Module</em></h2>
+
+<p>Hampir 20 baris pada <code class="highlighter-rouge">AppModule</code> yang di khususkan untuk mengkonfigurasi 4 routes. Merupakan ide yang baik untuk merefactor konfigurasi routing ke dalam classnya masing-masing. Sekarang <code class="highlighter-rouge">RouterModule.forRoot()</code> menghasilkan Angular <code class="highlighter-rouge">ModuleWithProviders</code>, sebuah class untuk routing. Untuk informasi lebih jauh lihat sesi <a href="https://angular.io/guide/router#routing-module">Milestone #2: The Routing Module</a> pada halaman <a href="https://angular.io/guide/router">Routing &amp; Navigation</a>.</p>
+
+<p>Buat file <code class="highlighter-rouge">app-routing.module.ts</code> sebagai persamaan dengan <code class="highlighter-rouge">app.module.ts</code>. Berikan content, ekstrak dari class <code class="highlighter-rouge">AppModule</code>.</p>
+
+<h4 id="srcappapp-routingmodulets">src/app/app-routing.module.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>             <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">RouterModule</span><span class="p">,</span> <span class="nx">Routes</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">./dashboard.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="k">from</span> <span class="dl">'</span><span class="s1">./heroes.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero-detail.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="kd">const</span> <span class="nx">routes</span><span class="p">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span> <span class="na">redirectTo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span> <span class="na">pathMatch</span><span class="p">:</span> <span class="dl">'</span><span class="s1">full</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">dashboard</span><span class="dl">'</span><span class="p">,</span>  <span class="na">component</span><span class="p">:</span> <span class="nx">DashboardComponent</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">detail/:id</span><span class="dl">'</span><span class="p">,</span> <span class="na">component</span><span class="p">:</span> <span class="nx">HeroDetailComponent</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">heroes</span><span class="dl">'</span><span class="p">,</span>     <span class="na">component</span><span class="p">:</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>
+<span class="p">];</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span> <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">routes</span><span class="p">)</span> <span class="p">],</span>
+  <span class="na">exports</span><span class="p">:</span> <span class="p">[</span> <span class="nx">RouterModule</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Point berikut adalah tipikal dari module routing:</p>
+
+<ul>
+  <li>
+    <p>Module routing pull route ke dalam variable. Varibel ini menjelaskan pattern module routing jika kita export module di masa depan.</p>
+  </li>
+  <li>
+    <p>Module routing menambahkan <code class="highlighter-rouge">RouterModule.forRoot(routes)</code> untuk mengimport.</p>
+  </li>
+  <li>
+    <p>Module routing menambahkan <code class="highlighter-rouge">RouterModule</code> ke <code class="highlighter-rouge">exports</code> sehingga components di dalam pasangan modulenya untuk mengakses <em>Router declarables</em>, seperti <code class="highlighter-rouge">RouterLink</code> dan <code class="highlighter-rouge">RouterOutlet</code>.</p>
+  </li>
+  <li>
+    <p>Tidak ada <code class="highlighter-rouge">declarations</code>. Pendeklarasian merupakan tanggung jawab module yang berkaitan.</p>
+  </li>
+  <li>
+    <p>Jika kita memiliki <em>guard services</em>, module routing menambahkan module <code class="highlighter-rouge">providers</code>. (Tidak ada dalm contoh ini).</p>
+  </li>
+</ul>
+
+<h3 id="update-appmodule">Update <em>AppModule</em></h3>
+
+<p>Hapus konfigurasi routing pada <code class="highlighter-rouge">AppModule</code> dan import <code class="highlighter-rouge">AppRoutingModule</code>. gunakan statement <code class="highlighter-rouge">import</code> dari ES2015 dan tambahkan pada list <code class="highlighter-rouge">NgModule.imports</code>.</p>
+
+<p>Berikut adalah revisi <code class="highlighter-rouge">AppModule</code>, perbandingan antara refactor dan yang belum di refactor.</p>
+
+<h4 id="srcappappmodulets-after">src/app/app.module.ts (after)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>       <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>    <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/forms</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>         <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">./dashboard.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero-detail.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="k">from</span> <span class="dl">'</span><span class="s1">./heroes.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>          <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span>     <span class="k">from</span> <span class="dl">'</span><span class="s1">./app-routing.module</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">AppRoutingModule</span>
+  <span class="p">],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">DashboardComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span>
+  <span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
+  <span class="na">bootstrap</span><span class="p">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="srcappappmodulets-before">src/app/app.module.ts (before)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>       <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>    <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/forms</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">RouterModule</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>        <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero-detail.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">./dashboard.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>     <span class="k">from</span> <span class="dl">'</span><span class="s1">./heroes.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>         <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">([</span>
+      <span class="p">{</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="na">redirectTo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/dashboard</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">pathMatch</span><span class="p">:</span> <span class="dl">'</span><span class="s1">full</span><span class="dl">'</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">dashboard</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">DashboardComponent</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">detail/:id</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">HeroDetailComponent</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="na">path</span><span class="p">:</span> <span class="dl">'</span><span class="s1">heroes</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">component</span><span class="p">:</span> <span class="nx">HeroesComponent</span>
+      <span class="p">}</span>
+    <span class="p">])</span>
+  <span class="p">],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">DashboardComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span>
+  <span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">HeroService</span>
+  <span class="p">],</span>
+  <span class="na">bootstrap</span><span class="p">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Revisi dan simpel <code class="highlighter-rouge">AppModule</code> fokus pada identifikasi <em>key pieces</em> dari aplikasi.</p>
+
+<h2 id="memilih-hero-dari-heroescomponent">Memilih hero dari <em>HeroesComponent</em></h2>
+
+<p>Di dalam <code class="highlighter-rouge">HeroesComponent</code>, template saat ini memperlihatkan style “master/detail” dengan list heroes teratas dan detail dari hero yang dipilih.</p>
+
+<h4 id="srcappheroescomponentts-current-template">src/app/heroes.component.ts (current template)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nx">template</span><span class="p">:</span> <span class="s2">`
+  &lt;h1&gt;{{title}}&lt;/h1&gt;
+  &lt;h2&gt;My Heroes&lt;/h2&gt;
+  &lt;ul class="heroes"&gt;
+    &lt;li *ngFor="let hero of heroes"
+      [class.selected]="hero === selectedHero"
+      (click)="onSelect(hero)"&gt;
+      &lt;span class="badge"&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;hero-detail [hero]="selectedHero"&gt;&lt;/hero-detail&gt;
+`</span><span class="p">,</span>
+
+</code></pre></div></div>
+
+<p>Hapus <code class="highlighter-rouge">&lt;h1&gt;</code> di paling atas.</p>
+
+<p>Hapus baris terakhir dari template dengan tag <code class="highlighter-rouge">&lt;hero-detail&gt;</code>.</p>
+
+<p>Kita tidak lagi menampilkan full <code class="highlighter-rouge">HeroDetailComponent</code> disini. Sebagai gantinya kita akan menampilakan detail hero di halamannya sendiri dan route ke sana seperti yang kita lakukan di dashboard.</p>
+
+<p>Namun, ketika user memilih hero dari list, mereka tidak masuk ke halaman detail. Sebagi gantinya, kita akan melihat detail mini di halaman ini dan harus klik button untuk menavigasi ke halaman detail lengkap.</p>
+
+<h3 id="menambahkan-mini-detail">Menambahkan mini detail</h3>
+
+<p>Tambahkan HTML berikut di bagian bawah template.</p>
+
+<h4 id="srcappheroescomponentts">src/app/heroes.component.ts</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">*ngIf=</span><span class="s">"selectedHero"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>
+    {{selectedHero.name | uppercase}} is my hero
+  <span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">(click)=</span><span class="s">"gotoDetail()"</span><span class="nt">&gt;</span>View Details<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<p>Setelah klik hero, user seharusnya melihati seperti di ini di bawah list hero.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/mini-hero-detail.png" alt="detail mini" /></p>
+
+<h3 id="format-dengan-pipe-uppercase">Format dengan pipe uppercase</h3>
+
+<p>Nama hero di tampilkan dengan huruf besar, karena pipe <code class="highlighter-rouge">uppercase</code> di sertakan pada binding, setelah operator pipe <code class="highlighter-rouge">(|)</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{{selectedHero.name | uppercase}} is my hero
+
+</code></pre></div></div>
+
+<p>Pipe merupakan cara terbaik untuk memformat string, currency, dates dan banyak data lain. Angular menyediakan beberapa pipe dan kita juga bisa menulis pipe kita sendiri.</p>
+
+<blockquote>
+  <p>Baca lebih lanjut mengenai pipe di halaman <a href="https://angular.io/guide/pipes">Pipes</a></p>
+</blockquote>
+
+<h3 id="pindahkan-content-dari-component-file">Pindahkan content dari component file</h3>
+
+<p>Component file terlalu besar. Sulit untuk menemukan component logic dengan <em>noise</em> dari HTML dan CSS. Sebelum kita membuat perubahan, migrasi template dan style kepada filenya masing-masing.</p>
+
+<p>Pertama pindahkan content template dari <code class="highlighter-rouge">heroes.component.ts</code> ke dalam file baru <code class="highlighter-rouge">heroes.component.html</code>. Jangan copy <em>backticks</em>. Kembali ke <code class="highlighter-rouge">heroes.component.ts</code>, selanjutnya pindahkan content style ke dalam file baru <code class="highlighter-rouge">heroes.component.css</code>.</p>
+
+<p>Dua file tersebut akan terlihat seperti berikut.</p>
+
+<h4 id="srcappheroescomponenthtml">src/app/heroes.component.html</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;h2&gt;</span>My Heroes<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"heroes"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">*ngFor=</span><span class="s">"let hero of heroes"</span>
+    <span class="na">[class.selected]=</span><span class="s">"hero === selectedHero"</span>
+    <span class="na">(click)=</span><span class="s">"onSelect(hero)"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge"</span><span class="nt">&gt;</span>{{hero.id}}<span class="nt">&lt;/span&gt;</span> {{hero.name}}
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">*ngIf=</span><span class="s">"selectedHero"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>
+    {{selectedHero.name | uppercase}} is my hero
+  <span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">(click)=</span><span class="s">"gotoDetail()"</span><span class="nt">&gt;</span>View Details<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+
+<h4 id="srcappheroescomponentcss">src/app/heroes.component.css</h4>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.selected</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#CFD8DC</span> <span class="cp">!important</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heroes</span> <span class="p">{</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span> <span class="m">2em</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">15em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heroes</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">left</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#EEE</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">.5em</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">.3em</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">1.6em</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">4px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heroes</span> <span class="nt">li</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#607D8B</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#DDD</span><span class="p">;</span>
+  <span class="nl">left</span><span class="p">:</span> <span class="m">.1em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heroes</span> <span class="nt">li</span><span class="nc">.selected</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#BBD8DC</span> <span class="cp">!important</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heroes</span> <span class="nc">.text</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">-3px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heroes</span> <span class="nc">.badge</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="n">small</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">0.8em</span> <span class="m">0.7em</span> <span class="m">0</span> <span class="m">0.7em</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#607D8B</span><span class="p">;</span>
+  <span class="nl">line-height</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">left</span><span class="p">:</span> <span class="m">-1px</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">-4px</span><span class="p">;</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">1.8em</span><span class="p">;</span>
+  <span class="nl">margin-right</span><span class="p">:</span> <span class="m">.8em</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">4px</span> <span class="m">0</span> <span class="m">0</span> <span class="m">4px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span> <span class="p">{</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#eee</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="n">hand</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#cfd8dc</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sekarang, kemabali ke metadata component dari <code class="highlighter-rouge">heroes.component.ts</code>, hapus <code class="highlighter-rouge">template</code> dan <code class="highlighter-rouge">styles</code>, ganti masing-masing dengan <code class="highlighter-rouge">templateUrl</code> dan <code class="highlighter-rouge">styleUrls</code>. Set propertinya pada file yang baru saja kita buat.</p>
+
+<h4 id="srcappheroescomponentts-revised-metadata">src/app/heroes.component.ts (revised metadata)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-heroes</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">templateUrl</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./heroes.component.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">styleUrls</span><span class="p">:</span> <span class="p">[</span> <span class="dl">'</span><span class="s1">./heroes.component.css</span><span class="dl">'</span> <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Property <code class="highlighter-rouge">styleUrls</code> merupakan sebuah array dari nama file (dengan path). Kita bisa list multiple style file dari lokasi yang berbeda jika kita membutuhkannya.</p>
+</blockquote>
+
+<h3 id="update-class-heroescomponent">Update class <em>HeroesComponent</em></h3>
+
+<p><code class="highlighter-rouge">HeroesComponent</code> menavigasi ke <code class="highlighter-rouge">HeroesDetailComponent</code> sebagai respon terhadap klik button. Event klik button terikat pada method <code class="highlighter-rouge">gotoDetail()</code> yang menavigasi secara imperatif dengan memberi tahu router mana yang harus pergi.</p>
+
+<p>Pendekatan ini membutuhkan perubahan berikut pada class component.</p>
+
+<ol>
+  <li>Import <code class="highlighter-rouge">Router</code> dari Angular router library.</li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/router</span><span class="dl">'</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>Inject <code class="highlighter-rouge">Router</code> ke dalam constructor, bersama dengan <code class="highlighter-rouge">HeroService</code>.</p>
+  </li>
+  <li>
+    <p>Implementasikan <code class="highlighter-rouge">gotoDetail()</code> dengan memamnggil method router <code class="highlighter-rouge">navigate()</code>.</p>
+  </li>
+</ol>
+
+<h4 id="srcappheroescomponentts-gotodetail">src/app/heroes.component.ts (gotoDetail)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">gotoDetail</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="dl">'</span><span class="s1">/detail</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span><span class="p">.</span><span class="nx">id</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Catat bahwa kita mempassing 2 element <em>link parameters array</em> (sebuah path dan route parameter) kepada method router <code class="highlighter-rouge">navigate()</code>. Berikut adalah refisi dari class <code class="highlighter-rouge">HeroesComponent</code>.</p>
+
+<h4 id="srcappheroescomponentts-class">src/app/heroes.component.ts (class)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroesComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="nl">heroes</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[];</span>
+  <span class="nl">selectedHero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+<span class="err"> </span>
+  <span class="kd">constructor</span><span class="p">(</span>
+    <span class="kr">private</span> <span class="nx">router</span><span class="p">:</span> <span class="nx">Router</span><span class="p">,</span>
+    <span class="kr">private</span> <span class="nx">heroService</span><span class="p">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">getHeroes</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">onSelect</span><span class="p">(</span><span class="na">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">gotoDetail</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="dl">'</span><span class="s1">/detail</span><span class="dl">'</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span><span class="p">.</span><span class="nx">id</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Refresh browser dan mulai meng-klik. User bisa menavigasi di sekitar aplikasi, dari dashboard ke detail hero dan kembali, dari list heroes ke detail mini ke detail hero dan kembali lagi ke heroes.</p>
+
+<p>Kita sudah menerapkan semua <em>navigational requirements</em> dengan baik pada halaman ini.</p>
+
+<h2 id="style-aplikasi">Style aplikasi</h2>
+
+<p>Aplikasi sudah functional tapi butuh untuk di styling. Dashboard heroes harus di tampilkan di dalam persegi. Kita telah menerima sekitar 60 baris CSS untuk tujuan ini, termasuk beberapa media query untuk responsive design.</p>
+
+<p>Seperti yang kita ketahui, menambahkan CSS ke metadata component <code class="highlighter-rouge">styles</code> akan mengaburkan logika component. Sebagai gantinya, edit CSS di dalam file <code class="highlighter-rouge">*.css</code> terpisah.</p>
+
+<p>Tambahkan file <code class="highlighter-rouge">dashboard.component.css</code> ke folder <code class="highlighter-rouge">app</code> dan referensikan file tersebut di dalam component metadata property array <code class="highlighter-rouge">styleUrls</code> seperti berikut.</p>
+
+<h4 id="srcappdashboardcomponentts-styleurls">src/app/dashboard.component.ts (styleUrls)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">styleUrls</span><span class="p">:</span> <span class="p">[</span> <span class="dl">'</span><span class="s1">./dashboard.component.css</span><span class="dl">'</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<h3 id="menambahkan-detail-hero-style">Menambahkan detail hero style</h3>
+
+<p>Tambahkan <code class="highlighter-rouge">hero-detail.component.css</code> ke folder <code class="highlighter-rouge">app</code> dan referensikan file tersebut di dalam array <code class="highlighter-rouge">styleUrls</code> seperti yang kita lakukan untuk <code class="highlighter-rouge">DashboardComponent</code>. Juga, di dalam <code class="highlighter-rouge">hero-detail.component.ts</code>, hilangkan property <code class="highlighter-rouge">hero</code> decorator <code class="highlighter-rouge">@input</code> dan importnya.</p>
+
+<p>Berikut konten dari file component css.</p>
+
+<h4 id="srcapphero-detailcomponentcss">src/app/hero-detail.component.css</h4>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">label</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">3em</span><span class="p">;</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">.5em</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#607D8B</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">input</span> <span class="p">{</span>
+  <span class="nl">height</span><span class="p">:</span> <span class="m">2em</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1em</span><span class="p">;</span>
+  <span class="nl">padding-left</span><span class="p">:</span> <span class="m">.4em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span> <span class="p">{</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#eee</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">4px</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span> <span class="nl">cursor</span><span class="p">:</span> <span class="n">hand</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#cfd8dc</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span><span class="nd">:disabled</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#eee</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#ccc</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="srcappdashboardcomponentcss">src/app/dashboard.component.css</h4>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s2">'col-'</span><span class="o">]</span> <span class="p">{</span>
+  <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s2">'col-'</span><span class="o">]</span><span class="nd">:last-of-type</span> <span class="p">{</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span> <span class="p">{</span>
+  <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">*,</span> <span class="o">*</span><span class="nd">:after</span><span class="o">,</span> <span class="o">*</span><span class="nd">:before</span> <span class="p">{</span>
+  <span class="nl">-webkit-box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+  <span class="nl">-moz-box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+  <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h3</span> <span class="p">{</span>
+  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span> <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h4</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.grid</span> <span class="p">{</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.col-1-4</span> <span class="p">{</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">25%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.module</span> <span class="p">{</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#eee</span><span class="p">;</span>
+  <span class="nl">max-height</span><span class="p">:</span> <span class="m">120px</span><span class="p">;</span>
+  <span class="nl">min-width</span><span class="p">:</span> <span class="m">120px</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#607D8B</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.module</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#EEE</span><span class="p">;</span>
+  <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#607d8b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.grid-pad</span> <span class="p">{</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.grid-pad</span> <span class="o">&gt;</span> <span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s2">'col-'</span><span class="o">]</span><span class="nd">:last-of-type</span> <span class="p">{</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@media</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">600px</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.module</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">max-height</span><span class="p">:</span> <span class="m">75px</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">@media</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">1024px</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.grid</span> <span class="p">{</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.module</span> <span class="p">{</span>
+    <span class="nl">min-width</span><span class="p">:</span> <span class="m">60px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="style-navigation-link">Style navigation link</h3>
+
+<p>CSS yang disediakan membuat link navigasi di <code class="highlighter-rouge">AppComponent</code> terlihat lebih seperti tombol yang dapat di pilih.</p>
+
+<p>Tambahkan file <code class="highlighter-rouge">app.component.css</code> pada folder <code class="highlighter-rouge">app</code> dengan konten berikut.</p>
+
+<h4 id="srcappappcomponentcss-navigation-styles">src/app/app.component.css (navigation styles)</h4>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2em</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#999</span><span class="p">;</span>
+  <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h2</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">2em</span><span class="p">;</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">padding-top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">margin-top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#eee</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">4px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span><span class="nd">:visited</span><span class="o">,</span> <span class="nt">a</span><span class="nd">:link</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#607D8B</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#039be5</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#CFD8DC</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span><span class="nc">.active</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#039be5</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Directive <em>routerLinkActive</em></p>
+
+  <p>Angular router menyediakan <code class="highlighter-rouge">routerLinkActive</code> yang dapat kita gunakan untuk menambahkan class ke elemen navigasi HTML yang routenya sesuai dengan route yang aktiv. Yang harus kita lakukan adalah mendefinisikan style untuk itu.</p>
+</blockquote>
+
+<h4 id="srcappappcomponentts-active-router-links">src/app/app.component.ts (active router links)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+template: `
+  <span class="nt">&lt;h1&gt;</span>{{title}}<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">routerLink=</span><span class="s">"/dashboard"</span> <span class="na">routerLinkActive=</span><span class="s">"active"</span><span class="nt">&gt;</span>Dashboard<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">routerLink=</span><span class="s">"/heroes"</span> <span class="na">routerLinkActive=</span><span class="s">"active"</span><span class="nt">&gt;</span>Heroes<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;/nav&gt;</span>
+  <span class="nt">&lt;router-outlet&gt;&lt;/router-outlet&gt;</span>
+`,
+
+</code></pre></div></div>
+
+<h4 id="srcappappcomponentts">src/app/app.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">styleUrls</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">./app.component.css</span><span class="dl">'</span><span class="p">],</span>
+</code></pre></div></div>
+
+<h3 id="global-aplikasi-style">Global aplikasi style</h3>
+
+<p>Ketika kita menambahkan style pada component, kita menahan semua yang di butuhkan (HTML, CSS, code) bersama dalam tempat yang nyaman. Ini mudah untuk semua package dan menggunakan component untuk menggunakan package tersebut di luar sana.</p>
+
+<p>Designer menyediakan beberapa style dasar untuk di terapkan ke elemen di keseluruhan aplikasi. Ini sesuai dengan <em>full set of master styles</em> yang kita install sebelumnya sebelum setup. Berikut kutipannya:</p>
+
+<h4 id="srcstylescss-excerpt">src/styles.css (excerpt)</h4>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Master Styles */</span>
+<span class="nt">h1</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#369</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">250%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#444</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+  <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">lighter</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">2em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">body</span><span class="o">,</span> <span class="nt">input</span><span class="o">[</span><span class="nt">text</span><span class="o">],</span> <span class="nt">button</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#888</span><span class="p">;</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Cambria</span><span class="p">,</span> <span class="n">Georgia</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/* everywhere else */</span>
+<span class="o">*</span> <span class="p">{</span>
+  <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Buat file <code class="highlighter-rouge">styles.css</code>. Pastikan file tersebut berisi master style yang tersedia <a href="https://raw.githubusercontent.com/angular/angular/master/aio/tools/examples/shared/boilerplate/src/styles.css">di sini</a>. Juga edit index.html untuk mereferensikan stylesheet.</p>
+
+<h4 id="srcindexhtml-link-ref">src/index.html (link ref)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"styles.css"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Lihat aplikasi sekarang. Dashboard, heros, dan navigasi link sudah selesai di lakukan style.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/heroes-dashboard-1.png" alt="tour of heroes navigation" /></p>
+
+<h2 id="struktur-code-dan-aplikasi">Struktur code dan aplikasi</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>angular-tour-of-heroes
+|
+ -src
+| |
+| -app
+| | |
+| | -app.component.css
+| | |
+| | -app.compponent.ts
+| | |
+| | -app.module.ts
+| | |
+| | -app-routing.module.ts
+| | |
+| | -dashboard.component.css
+| | |
+| | -dashboard.component.html
+| | |
+| | -dashboard.component.ts
+| | |
+| | -hero.service.ts
+| | |
+| | -hero.ts
+| | |
+| | -hero-detail.component.css
+| | |
+| | -hero-detail.component.html
+| | |
+| | -hero-detail.component.ts
+| | |
+| | -heroes.component.css
+| | |
+| | -heroes.component.html
+| | |
+| | -heroes.component.ts
+| | |
+| | -mock-heroes.ts
+| |
+| -main.ts
+| |
+| -index.html
+| |
+| -styles.css
+| |
+| -systemjs.config.js
+| |
+| -tsconfig.json
+|
+-node_modules
+|
+-package.json
+</code></pre></div></div>
+
+<h2 id="apa-saja-yang-sudah-kita-pelajari">Apa saja yang sudah kita pelajari?</h2>
+
+<ul>
+  <li>
+    <p>Kita menambahkan router Angular untuk menavigasi component yang berbeda.</p>
+  </li>
+  <li>
+    <p>Kita belajar bagaimana membuat router links pada navigation menu items.</p>
+  </li>
+  <li>
+    <p>Kita menggunakan parameter route link untuk menavigasi pada detail dari hero yang di pilih user.</p>
+  </li>
+  <li>
+    <p>Kita berbagai <code class="highlighter-rouge">HeroService</code> di antara berbagi sempat.</p>
+  </li>
+  <li>
+    <p>Kita memindahkan HTML dan CSS keluar file component dan memasukannya kedalam filenya masing-masing.</p>
+  </li>
+  <li>
+    <p>Kita menambahkan pipe untuk memformat data menjadi <code class="highlighter-rouge">uppercased</code>.</p>
+  </li>
+</ul>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/tutorial/toh-pt5</li>
+</ul>
+:ET

@@ -1,0 +1,154 @@
+I"�@<p>Di seri My Daily Bug kali ini saya mau ngebahas proses ketika saya membuat input tahun yang di mana di validasi dan di pastikan yang di input adalah format tahun saja tidak lebih dari 4 digit tipe number, seperti itu sederhananya. Di html kita bisa menemukan input dengan tipe date yaitu <code class="highlighter-rouge">tahun-bulan-tanggal</code> dan <strong>monthyear</strong> yaitu <code class="highlighter-rouge">bulan-tahun</code>, tetapi kita tidak menemukan di html tipe yang hanya tahun saja, jadi mau tidak mau kita harus membuat field input tersebut secara manual.</p>
+
+<p><img src="/assets/img/mask-input-year-vue/the-mask.gif" alt="the mask" /></p>
+
+<p>Setelah saya research saya menemukan satu library untuk mask input yang paling sering muncul di urutan teratas pencarian google dan sepertinya memang paling sering di pakai oleh developer lain, yaitu <a href="https://github.com/RobinHerbots/Inputmask">Inputmask karya Robin Herbots</a>. Saat ini saya menggunakan Vue, dan saya “sedang” menghindari pemakaian jQuery di dalam kodingan vue saya, alasannya sederhana supaya semua plain javascript dan meninggalkan jQuery library yang saat ini sudah “usang”. Sehingga saya memutuskan untuk tidak memakai library tersebut (walaupun akhirnya nanti saya baru ngeh kalo plugin ini ada juga untuk plain javascript).</p>
+
+<p>Saya kembali melakukan pencarian apakah ada library atau  algoritma yang bisa saya pakai untuk mask input 4 digit untuk tahun ini. Saya menemukan kembali satu buah library yang mungkin bisa saya pakai, yaitu <a href="https://unmanner.github.io/imaskjs/">imask js</a>. Selain bisa memakai plain javascript, library ini juga mendukung frontend framework seperti react, angular, dan tentu saja vue js. Tidak fikir panjang langsung saya pakai yang versi vue nya.</p>
+
+<p>Ada 2 tipe yang bisa kita pakai menggunakan library ini yaitu dengan component atau directive. Dengan contoh kode seperti ini,</p>
+
+<p><strong>component</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">imask</span><span class="o">-</span><span class="nx">input</span>
+    <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="dl">"</span><span class="s2">numberModel</span><span class="dl">"</span>
+    <span class="p">:</span><span class="nx">mask</span><span class="o">=</span><span class="dl">"</span><span class="s2">Number</span><span class="dl">"</span>
+    <span class="nx">radix</span><span class="o">=</span><span class="dl">"</span><span class="s2">.</span><span class="dl">"</span>
+    <span class="p">:</span><span class="nx">unmask</span><span class="o">=</span><span class="dl">"</span><span class="s2">true</span><span class="dl">"</span>
+    <span class="p">@</span><span class="nd">accept</span><span class="o">=</span><span class="dl">"</span><span class="s2">onAccept</span><span class="dl">"</span>  <span class="c1">// first argument will be `value` or `unmaskedValue` depending on prop above</span>
+    <span class="c1">// ...and more mask props in a guide</span>
+
+    <span class="c1">// other input props</span>
+    <span class="nx">placeholder</span><span class="o">=</span><span class="dl">'</span><span class="s1">Enter number here</span><span class="dl">'</span>
+  <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="k">import</span> <span class="p">{</span><span class="nx">IMaskComponent</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-imask</span><span class="dl">'</span><span class="p">;</span>
+
+  <span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">numberModel</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="nx">onAccept</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">components</span><span class="p">:</span> <span class="p">{</span>
+      <span class="dl">'</span><span class="s1">imask-input</span><span class="dl">'</span><span class="p">:</span> <span class="nx">IMaskComponent</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p><strong>directive</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">input</span>
+    <span class="p">:</span><span class="nx">value</span><span class="o">=</span><span class="dl">"</span><span class="s2">value</span><span class="dl">"</span>
+    <span class="nx">v</span><span class="o">-</span><span class="nx">imask</span><span class="o">=</span><span class="dl">"</span><span class="s2">mask</span><span class="dl">"</span>
+    <span class="p">@</span><span class="nd">accept</span><span class="o">=</span><span class="dl">"</span><span class="s2">onAccept</span><span class="dl">"</span>
+    <span class="p">@</span><span class="nd">complete</span><span class="o">=</span><span class="dl">"</span><span class="s2">onComplete</span><span class="dl">"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="k">import</span> <span class="p">{</span><span class="nx">IMaskDirective</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vue-imask</span><span class="dl">'</span><span class="p">;</span>
+
+  <span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+        <span class="na">mask</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">mask</span><span class="p">:</span> <span class="dl">'</span><span class="s1">{8}000000</span><span class="dl">'</span><span class="p">,</span>
+          <span class="na">lazy</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="nx">onAccept</span> <span class="p">(</span><span class="nx">maskRef</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">accept</span><span class="dl">'</span><span class="p">,</span> <span class="nx">maskRef</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">onComplete</span> <span class="p">(</span><span class="nx">maskRef</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">complete</span><span class="dl">'</span><span class="p">,</span> <span class="nx">maskRef</span><span class="p">.</span><span class="nx">unmaskedValue</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="na">directives</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">imask</span><span class="p">:</span> <span class="nx">IMaskDirective</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Saya coba menggunakan directive karena menurut saya lebih mudah dan saya juga sudah memisahkan component input tersebut sebetulnya di dalam project saya, jadi sepertinya jadi sangat tidak intuitif sekali jika di dalam component terdapat component library (walaupun sebenarnya tidak masalah).</p>
+
+<p>Ok setelah saya implementasikan dan works! ada satu kendala, yaitu masalah id. Jadi begini input tersebut saya jadikan component dan di component parentnya yaitu di form yang menggunakan input tersebut, saya menggukan 2 input year, tetapi karena id itu harus unik jadi saya mempasing props id berbeda, dan cara itu pun juga tetap tidak bisa, jadi intinya dengan directive kita tidak bisa menggunakan 2 component input yang sama.</p>
+
+<p>Saya beralih ke penggunaan library dengan component, setelah jadi dan benar works juga bisa di gunakan multiple form, muncul lagi kendala yaitu dengan component dari <code class="highlighter-rouge">imask js</code> ini, kita tidak bisa menggunakan global vue object <code class="highlighter-rouge">$emit</code> yang berguna untuk mengirim data ke component parentnya yaitu form. hufh…!! Setalah saya mencari2 lagi dan debug sana sini akhrinya saya memutuskan untuk tidak memakai library ini. Hahaaaa..</p>
+
+<p>Hmm, pencarian saya berlanjut. Saya menemukan kembali library yang bisa menggunakan plain javascript tetapi ketika saya menggunakan <code class="highlighter-rouge">document.getElementById</code> di created pada vue yang terbaca di console hanya satu.</p>
+
+<blockquote>
+  <p>untuk <code class="highlighter-rouge">document.getElementById</code> setelah beberapa lama akhirnya saya mengerti untuk menaruhnya tidak di create karena create itu lifecycle di vue yang mana di eksekusi ketika template belum di jalankan. Untuk penggantinya bisa kita gunakan mounted, untuk lebih jelasnya bisa baca tulisan saya di medium mengenai <a href="https://medium.com/@ekaprasasti/mengenal-lifecycle-hooks-pada-vue-js-78cd2225a69">Lifecycle Vue JS</a></p>
+</blockquote>
+
+<p>Saya mencoba untuk membuat dengan javascript secara manual, ada beberapa solusi yang saya temukan di stackoverflow maupun di beberapa website. Tetapi saya akhirnya memutuskan untuk memakai logika saya sendiri (haha setelah menyerah dengan library buatan orang lain ujung2nya ya mikir sendiri).</p>
+
+<p>Saya menggukan event input <code class="highlighter-rouge">@input</code> pada vue untuk mendeteksi input yang di ketik pada keyboard dan mempasing hasilnya pada sebuah function, di function tersebut saya validasi jika panjang inputnya lebih dari 4 maka sisanya akan di slice. Berikut contoh kodenya.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">form-group</span><span class="dl">"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;&lt;</span><span class="sr">/label</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">input</span>
+      <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">year</span><span class="dl">"</span>
+      <span class="p">:</span><span class="nx">disabled</span><span class="o">=</span><span class="dl">"</span><span class="s2">disabled</span><span class="dl">"</span>
+      <span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="dl">"</span><span class="s2">year</span><span class="dl">"</span>
+      <span class="p">@</span><span class="nd">input</span><span class="o">=</span><span class="dl">"</span><span class="s2">maxLengthCheck</span><span class="dl">"</span>
+      <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">form-control</span><span class="dl">"</span>
+      <span class="p">:</span><span class="nx">placeholder</span><span class="o">=</span><span class="dl">"</span><span class="s2">placeholder</span><span class="dl">"</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">InputYear</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">props</span><span class="p">:</span> <span class="p">[</span>
+    <span class="dl">'</span><span class="s1">label</span><span class="dl">'</span><span class="p">,</span>
+    <span class="dl">'</span><span class="s1">placeholder</span><span class="dl">'</span>
+  <span class="p">],</span>
+  <span class="nx">data</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="na">year</span><span class="p">:</span> <span class="dl">''</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">dataModel</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="nx">value</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nx">maxLengthCheck</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">year</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">year</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Kode di atas adalah component asli yang saya buat di sana sudah ada campuran kode dari vuex, dan libarary validasi <code class="highlighter-rouge">vee-validate</code>. Yang perlu di perhatikan mungkin <code class="highlighter-rouge">@input</code> pada input field di template, yang mengakses method <code class="highlighter-rouge">maxLengthCheck</code>. Akhirnya berhasil, dan ternyata sangat sederhana. Hikmah yang bisa di ambil adalah jangan patah semangat untuk trial dan error!</p>
+
+<h2 id="good-resources">Good Resources</h2>
+
+<ul>
+  <li>
+    <p><a href="https://stackoverflow.com/questions/2632137/why-is-document-getelementbyid-returning-null">stackoverflow “Why is document.getElementById returning null”</a></p>
+  </li>
+  <li>
+    <p><a href="https://stackoverflow.com/questions/46289311/vue-limit-characters-in-text-area-input-truncate-filter">stackoverflow “Vue limit characters in text area input truncate filter”</a></p>
+  </li>
+  <li>
+    <p><a href="http://jsfiddle.net/DRSDavidSoft/zb4ft1qq/1/">jsfiddle</a></p>
+  </li>
+</ul>
+:ET

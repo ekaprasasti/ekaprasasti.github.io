@@ -1,0 +1,24 @@
+I"�<p>Hari ini saya dapet bug yang menurut saya lumayan aneh, setidaknya ada 2 error yang sederhana (seharusnya juga gak perlu ada) tapi nyarinya lumayan menyita waktu saya siang ini. Oke satu per satu saya bahas.</p>
+
+<h2 id="problem-write-access-di-folder-yang-tidak-ada-keberadaannya">Problem write access di folder yang tidak ada keberadaannya</h2>
+
+<p>Yang pertama ketika saya mau menginstall library sweetalert di project laravel saya, gak tau kenapa tiba2 mucul error. <code class="highlighter-rouge">Missing write access to /path/node_modules/laravel-elixir-vue-2</code>.</p>
+
+<p><img src="/assets/img/npm-missing-write-access-and-permission-denied/missing-write-access.png" alt="Missing write access" /></p>
+
+<p>Saya coba pake sudo untuk akses admin, gak bisa juga. Ternyata saya periksa di folder <code class="highlighter-rouge">node_modules</code> gak ada folder laravel-elixir-vue-2. Loh kok aneh ya! Saya coba pake npm install atau pun sudo npm install, hasilnya sama aja. Wah bahaya masak saya gak bisa akses npm! Sungguh aneh.</p>
+
+<p>Setelah saya ingat-ingat lagi ternyata beberapa waktu lalu saya pernah menginstall library <em>laravel-elixir-vue2</em>, dan seingat saya pun sudah saya hapus dengan benar. Gak nyangka di kemudian harinya library yang gak jadi saya pake ini bikin saya pusing. Saya kepikiran hapus folder ini pake <code class="highlighter-rouge">rm</code> di terminal, agak aneh sih, ngapain gak ada folder nya kok tapi di hapus? yaudah lah apa salahnya saya coba. Daaaannn., jenjreng BERHASIL..!! There’s so weird part dude…!!</p>
+
+<p><img src="/assets/img/npm-missing-write-access-and-permission-denied/missing-write-access.png" alt="Missing write access" /></p>
+
+<h2 id="digital-ocean-permission-denied-public-key">Digital Ocean permission denied (public key)</h2>
+
+<p>Okeh, lanjut daily error yang ke 2. Macbook saya abis di upgrade ssd, dan di install ulang jadi osx baru lagi (dan saya harus install ulang semua environment di laptop saya, dan gak lama saya baru tau kalo gak perlu install ulang baru dari awal sebenernya cukup cloning aja pake timemachine. Hmm!). Dan otomatis saya harus configurasiin lagi ssh key saya, untuk akses ke server.</p>
+
+<p>Saya pakai droplet di DigitalOcean, saya sudah daftarkan ssh key saya yang baru di akun saya di digitalocean tapi anehnya ketika saya mau masuk ke server lewat ssh muncul error <code class="highlighter-rouge">permission denied (public key)</code>. Hmm, aneh bin nyata. Oke saya coba reboot server, dan tetap gak berhasil masuk. Saya coba masuk ke console yang di sediakan di digital ocean dan berhasil, saya periksa file <code class="highlighter-rouge">~/.ssh/authorized_keys</code> dan isinya ternyata beda dengan <code class="highlighter-rouge">id_rsa.pub</code> saya. Hmm..</p>
+
+<p>Yasudah saya replace saja isinya, tinggal edit. Muncul masalah baru, console dari digitalocean gak ada fitur paste, ya masa saya harus ngetik ssh key saya manual? setelah googling dan paling mendekati referensi di link ini <a href="https://www.digitalocean.com/community/questions/copy-and-paste-into-console">ini</a> ada yang menyarankan pakai curl, pakai putty, dll. Saya fikir cukup ribet, akhirnya saya pakai cara saya sendiri.</p>
+
+<p>Dengan menaruh file authorized_keys di salah satu project saya lewat git, dan saya git pull di server setelah itu saya move ke folder <code class="highlighter-rouge">~/.ssh/</code> dan akhirnya Alhamdulillah saya bisa masuk server di terminal kembali dengan ssh.</p>
+:ET

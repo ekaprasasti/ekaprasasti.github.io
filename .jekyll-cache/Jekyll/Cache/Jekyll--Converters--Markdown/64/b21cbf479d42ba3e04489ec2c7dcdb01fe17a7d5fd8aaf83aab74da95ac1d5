@@ -1,0 +1,304 @@
+I"�<p><img src="/assets/img/memulai-reactjs-dan-dasar-jsx/react-jsx.jpg" alt="ReactJS JSX" /></p>
+
+<p>Sebelumnya saya mau cerita dulu nih kenapa jadi kepengen belajar ReactJS. Awalnya untuk framework frontend saya menggunakan AngularJS versi 1, kira-kira sudah setahun ini saya pakai semenjak develop aplikasi web <a href="http://erabelajar.com">erabelajar.com</a> yang pake teknologi MEAN Stack. Waktu itu sebenernya sudah ada Angular versi 2 tapi saat itu masih release beta (padahal sekarang udah versi 4 aja ya. hehehee), jadi dari pada belum stabil dan dokumentasinya berubah-ubah saya putuskan pake AngularJS versi 1.</p>
+
+<h2 id="kenapa-reactjs">Kenapa ReactJS</h2>
+
+<p>Jadi gini beberapa waktu lalu saya sempet belajar Angular 2, ya karena versinya sudah stable pastinya dan saya memang sudah tau kalo Angular versi 1 dan 2 ini bagai bumi dan langit, jauh banget beda nya. Ya bisa di bilang walaupun udah bisa dan paham AngularJS 1 ya harus belajar dari ulang dan dari basic lagi kalo mau bisa Angular 2. Setelah belajar saya menemukan beberapa kendala, yang paling berasa adalah Angular 2 pake bahasa pemrograman Typescript, yaitu pengembangan dari Javascript buatan microsoft, dan typescript ini membutuhkan sebuah compiler yang menjadikan kode typescript berubah menjadi kode javascript agar terbaca oleh browser. Maka dari itu Angular 2 butuh yang namanya CLI. Ini yang membuat saya agak gimana gitu, ya kan jadi dobel belajarnya, Typescript juga Angular juga. Masalahnya Typescript itu menurut saya secara syntaks berbeda dari Javascript dan butuh pemahaman khusus mengenai syntaks nya.</p>
+
+<p>Setelah cari sana sini, akhirnya saya menemukan library <a href="https://facebook.github.io/react/">ReactJS</a> (sebenernya udah tau lama sih, hehe), yang memang kayanya lagi hype banget di Indonesia juga udah lumayan banyak yang pake, awalnya saya ikut group telegram React Native ID, yang kayanya lagi rame banget, terus saya nonton webinar dari codepolitan bahas masalah ReactJS sama curiculum directornya Hactive8, mas <a href="https://twitter.com/rizafahmi22">Riza Fahmi</a>. Sekilas memang mirip sama Angular 2 karena mindsetnya sama-sama component, tapi beda Angular 2 itu adalah framework sedangkan kalo ReactJS itu adalah library. Dan yang pasti ReactJS pakai bahasa pemrogrammanya pure Javascript.</p>
+
+<p>Pertama kali belajar saya langsung nyoba di <a href="https://www.codecademy.com/learn/react-101">codecademy.com</a>, di situ memang saya biasanya belajar kalo mau nyoba-nyoba teknologi baru atau kalo ada framework dan bahasa pemrograman terbaru, karena simpel gak perlu buka dokumentasi official nya, lewat codecademy kita sudah bisa melihat gambaran besarnya. Nah artikel ini kira-kira bisa jadi seperti rangkuman hasil pembelajaran saya di codecademy maupun di tempat-tempat lain.</p>
+
+<p>Pertama dari beberapa keunggulan dari ReactJS,</p>
+
+<ul>
+  <li>ReactJS adalah library javascript yang sangat cepat. Aplikasi yang di buat menggunakan ReactJS dapat menangani perubahan tampilan yang kompleks dan sangat cepat, serta responsive.</li>
+  <li>ReactJS menggunakan konsep modular. Untuk membuat aplikasi dengan skala besar, kita dapat menulis kode-kode dengan skala yang lebih kecil untuk di satukan menjadi aplikasi utuh, dan dapat di gunakan kembali (reusable).</li>
+  <li>ReactJS sangat scalable, artinya ReactJS dapat menangani dengan sangat baik sebuah program dengan skala yang besar yang dapat menampilkan perubahan data yang sangat kompleks.</li>
+  <li>ReactJS sangat fleksibel. Dengan belajar 1 libary saja kita dapat membuat aplikasi Web, Moblie, maupun Desktop.</li>
+  <li>ReactJS merupakan library yang sangat populer. Seperti yang sudah saya katakan sebelumnya di Indonesia sendiri sudah lumayan banyak developer dan website-website serta aplikasi yang menggunakan ReactJS.</li>
+</ul>
+
+<h2 id="apa-itu-jsx">Apa itu JSX</h2>
+
+<p>Jika kita lihat definisi pada wikipedia, bisa kita dapat definisi JSX adalah seperti ini</p>
+
+<blockquote>
+  <p>React components are typically written in JSX, a JavaScript extension syntax allowing quoting of HTML and using HTML tag syntax to render subcomponents. This is a React-specific grammar extension to JavaScript like now defunct. HTML syntax is processed into JavaScript calls of the React framework. Developers may also write in pure JavaScript.</p>
+</blockquote>
+
+<p>Nah coba sekarang kita bahas lebih lanjut langsung ke contoh kodenya, biar cepet faham. Apa kalian pernah lihat kode javascript seperti ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">h1</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<p>Jika kita jalankan kode seperti ini di file javascript bisa di pastikan program akan langsung error. Kenapa demikian karena pada kode javascript tidak dapat di sisipkan kode HTML, kita tahu bahwa kode <code class="highlighter-rouge">&lt;h1&gt;Hello world&lt;/h1&gt;</code> adalah kode html yang di simpan dalam variabel h1. Baris kode di atas merupakan baris kode JSX.</p>
+
+<p>JSX merupakan sebuah sintaks extension pada javascript, untuk di gunakan pada React. Sintaks kode JSX merupakan kode HTML yang di sematkan pada kode javascript. JSX bukanlah sintaks javascript, sehingga browser tidak bisa membaca sintaks ini, di butuh kan sebuah JSX compiler yang di gunakan untuk menterjemahkan JSX kedalama bahasa regular javascript agar bisa terbaca oleh browser.</p>
+
+<blockquote>
+  <p>JSX terlihat sama dengan kode HTML, satu-satunya yang membuat berbeda dengan kode HTML adalah bahwa JSX berada di dalam kode javascript</p>
+</blockquote>
+
+<p>Element JSX dapat di perlakukan seperti ekspresi pada javascript, artinya elemen JSX dapat di simpan dalam variabel, function, object, array, dan lain-lain seperti pada umumnya javascript.</p>
+
+<p>JSX dalam variabel</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">navBar</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">nav</span><span class="o">&gt;</span><span class="nx">I</span> <span class="nx">am</span> <span class="nx">a</span> <span class="nx">nav</span> <span class="nx">bar</span><span class="o">&lt;</span><span class="sr">/nav&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<p>JSX dalam object</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Pistons2004</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="na">center</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Ben</span> <span class="nx">Wallace</span><span class="o">&lt;</span><span class="sr">/li&gt;</span><span class="err">,
+</span>	<span class="na">powerForward</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Rasheed</span> <span class="nx">Wallace</span><span class="o">&lt;</span><span class="sr">/li&gt;</span><span class="err">,
+</span>	<span class="na">smallForward</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Tayshaun</span> <span class="nx">Prince</span><span class="o">&lt;</span><span class="sr">/li&gt;</span><span class="err">,
+</span>	<span class="na">shootingGuard</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Richard</span> <span class="nx">Hamilton</span><span class="o">&lt;</span><span class="sr">/li&gt;</span><span class="err">,
+</span>	<span class="na">pointGuard</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Chauncey</span> <span class="nx">Billups</span><span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>JSX dapat mempunyai attribute sama seperti pada umumnya tag HTML</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">title</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Introduction</span> <span class="nx">to</span> <span class="nx">React</span><span class="p">.</span><span class="nx">js</span><span class="p">:</span> <span class="nx">Part</span> <span class="nx">I</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<p>Sama seperti HTML, JSX juga dapat menyimpan nested element (element di dalam element)</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">myDiv</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Jika JSX terdapat lebih dari 1 baris maka harus di beri tanda kurung, nested JSX juga harus memiliki tag terluar, bisa di contohkan dengan sintaks JSX yang salah seperti ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">paragraphs</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">I</span> <span class="nx">am</span> <span class="nx">a</span> <span class="nx">paragraph</span><span class="p">.</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">I</span><span class="p">,</span> <span class="nx">too</span><span class="p">,</span> <span class="nx">am</span> <span class="nx">a</span> <span class="nx">paragraph</span><span class="p">.</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Kode diatas akan error karena JSX tidak memiliki tag terluar, solusinya adalah selalu memberikan tag div di awal dan di akhir untuk membungkus sintaks JSX</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">paragraphs</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">I</span> <span class="nx">am</span> <span class="nx">a</span> <span class="nx">paragraph</span><span class="p">.</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">I</span><span class="p">,</span> <span class="nx">too</span><span class="p">,</span> <span class="nx">am</span> <span class="nx">a</span> <span class="nx">paragraph</span><span class="p">.</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="rendering-jsx">Rendering JSX</h2>
+
+<p>Merender JSX artinya menampilkan output kode JSX ke browser. Dalam kasus ini kita menggunakan library ReactDOM, berikut adalah contoh sintaks nya</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;, document.getElementById</span><span class="se">(</span><span class="sr">'app'</span><span class="se">))</span><span class="err">;
+</span></code></pre></div></div>
+
+<p><a href="https://facebook.github.io/react/docs/react-dom.html">ReactDOM</a> adalah nama dari library javascript yang terdapat beberapa method yang dapat berkomunikasi dengan DOM (Document Object Model). Dalam contoh ini kita menggunakan method ReactDOM.render, di mana parameter pertama adalah tag html atau JSX yang akan kita render dan yang kedua adalah di element apa pada file html kita akan merubahnya melalui DOM.</p>
+
+<p>Sebuah JSX dapat di simpan ke sebuah variabel dalam javascript, sehingga kita bisa mensematkan sebuah variabel dalam parameter pertama method ReactDOM.render untuk menampilkan JSX pada isi variabel tersebut, perhatikan contoh berikut</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">myList</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+			<span class="nx">Eka</span>
+		<span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+			<span class="nx">Prasasti</span>
+		<span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span><span class="p">);</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">myList</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h2 id="jsx-lebih-lanjut">JSX lebih lanjut</h2>
+
+<h3 id="atribute-class">Atribute class</h3>
+
+<p>Penggunaan nama atribute <em>class</em> dalam JSX di bedakan menjadi <em>className</em>, ini di karenakan keyword <em>class</em> adalah reserved word dalam javascript, artinya kata ini di larang pemakaiannya dalam penggunaan nama variabel atau data dalam javascript. Contohnya bisa kita lihat dalam kode berikut ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">className</span><span class="o">=</span><span class="dl">"</span><span class="s2">big</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Hey</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Ketika JSX telah di render, atribute <em>className</em> secara otomatis akan terender sebagai atribute <em>class</em>.</p>
+
+<h3 id="penggunaan-self-closing-tag">Penggunaan self-closing tag</h3>
+
+<p>Element HTML yang paling sering di jumpai menggunakan dua tag, yaitu tag pembuka (<code class="highlighter-rouge">&lt;div&gt;</code>) dan tag penutup (<code class="highlighter-rouge">&lt;/div&gt;</code>). Namun pada beberapa element seperti <code class="highlighter-rouge">&lt;img&gt;</code> dan <code class="highlighter-rouge">&lt;input&gt;</code>, tag seperti ini hanya menggunakan satu tag, tidak ada tag penutup atau biasa yang di sebut <em>self-closing tag</em>.</p>
+
+<p>Walaupun dalam HTML kita tidak di wajib kan menutup tag seperti ini, ketika kita menuliskan tag HTML self-closing tag dalam JSX, tag wajib di beri tanda slash di penghujung tag.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">profile</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">I</span> <span class="nx">AM</span> <span class="nx">JENKINS</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">images/jenkins.png</span><span class="dl">"</span> <span class="o">/&gt;</span>
+		<span class="o">&lt;</span><span class="nx">article</span><span class="o">&gt;</span>
+			<span class="nx">I</span> <span class="nx">LIKE</span> <span class="nx">TO</span> <span class="nx">SIT</span>
+			<span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span>
+			<span class="nx">JENKINS</span> <span class="nx">IS</span> <span class="nx">MY</span> <span class="nx">NAME</span>
+			<span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span>
+			<span class="nx">THANKS</span> <span class="nx">HA</span> <span class="nx">LOT</span>
+		<span class="o">&lt;</span><span class="sr">/article</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="jsx-expression">JSX expression</h3>
+
+<p>Kode JSX dapat kita sisipkan sebuah kode regular javascript, perhatikan contoh berikut</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">,
+</span>	<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Jika kita melihat kode di atas, kira-kira akan tampil seperti apa ya di browser? Yups, akan tampil angka 5, kenapa begitu? karena <code class="highlighter-rouge">2 + 3</code> adalah sama dengan 5, dan kita menggunakan kurung kurawal <code class="highlighter-rouge">{}</code> agar JSX mengerti kode yang berada dalam kurung kurawal tersebut akan di berlakukan seperti kode javascript. Apa jadinya jika tidak memakai kurung kurawal? Yups, kalian bener lagi! yang tampil di browser kita adalah apa adanya pada JSX yaitu <code class="highlighter-rouge">2 + 3</code>.</p>
+
+<h3 id="akses-variabel-pada-kode-jsx">Akses variabel pada kode JSX</h3>
+
+<p>Ketika kita inject javascript pada kode JSX, maka javascript adalah kode yang juga berada dalam file tersebut. Ini artinya kita juga bisa menyisipkan sebuah variabel pada kode JSX. Perhatikan contoh berikut,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Deklarasikan sebuah variabel:</span>
+<span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span>  <span class="err">‘</span><span class="nx">Eka</span> <span class="nx">Prasasti</span><span class="err">’</span><span class="p">;</span>
+
+<span class="c1">// Akses variable</span>
+<span class="c1">// dari dalam JSX expression:</span>
+<span class="kd">var</span> <span class="nx">greeting</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/p&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<p>Lihat apa yang akan tampil pada browser, ya akan tampil Hello, Eka Prasasti! Ini di karenakan variabel <code class="highlighter-rouge">name</code> sudah kita sisipkan data Eka Prasasti.</p>
+
+<p>Sebuah variabel juga dapat di sisipkan pada nilai sebuah attribute, contoh</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Gunakan variabel untuk memberi nilai atribute height dan width pada JSX berikut:</span>
+
+<span class="kd">var</span> <span class="nx">sideLength</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">200px”;
+
+var panda = (
+    &lt;img
+        src=</span><span class="dl">"</span><span class="nx">images</span><span class="o">/</span><span class="nx">panda</span><span class="p">.</span><span class="nx">jpg</span><span class="dl">"</span><span class="s2">
+        alt=</span><span class="dl">"</span><span class="nx">panda</span><span class="dl">"</span><span class="s2">
+        height={sideLength}
+        width={sideLength} /&gt;
+);  
+</span></code></pre></div></div>
+
+<h3 id="event-listener-pada-jsx">Event listener pada JSX</h3>
+
+<p>Seperti pada kode HTML, element pada JSX juga dapat di sisipkan sebuah event.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">myFunc</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Make myFunc the pFunc... omg that was horrible i am so sorry’);
+}
+
+&lt;img onClick={myFunc} /&gt;
+</span></code></pre></div></div>
+
+<p>Pada kode diatas, function myFunc() akan di eksekusi setiap kali tag html <code class="highlighter-rouge">&lt;img&gt;</code> di klik. Ada banyak event listener pada HTML seperti <em>onclick</em>, <em>onmouseover</em>, dll. Pada JSX event listener pada HTML di tulis dengan camelCase, contohnya <em>onClick</em> atau <em>onMouseOver</em>.</p>
+
+<p>Kita dapat melihat semua list event listener pada JSX <a href="http://facebook.github.io/react/docs/events.html#supported-events">di sini</a>.</p>
+
+<h3 id="penggunaan-if-statement-pada-jsx">Penggunaan if statement pada JSX</h3>
+
+<p>Statement If pada JSX tidak dapat di lakukan, sebagai gantinya kita dapat menggunakan if dan else di luar JSX pada file yang sama. Lihat contoh berikut ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">age</span> <span class="o">&gt;=</span> <span class="nx">drinkingAge</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hey</span><span class="p">,</span> <span class="nx">check</span> <span class="nx">out</span> <span class="k">this</span> <span class="nx">alcoholic</span> <span class="nx">beverage</span><span class="o">!&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>	<span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hey</span><span class="p">,</span> <span class="nx">check</span> <span class="nx">out</span> <span class="nx">these</span> <span class="nx">earrings</span> <span class="nx">I</span> <span class="nx">got</span> <span class="nx">at</span> <span class="nx">Claire</span><span class="dl">'</span><span class="s1">s!&lt;/h1&gt;
+	);
+}
+
+ReactDOM.render(
+	message,
+	document.getElementById(</span><span class="dl">'</span><span class="nx">app</span><span class="dl">'</span><span class="s1">)
+);
+</span></code></pre></div></div>
+
+<h3 id="ternary-operator">Ternary operator</h3>
+
+<p>Juga sebagai solusi pengganti kondisional if dan else, JSX mendukung apa yang di sebut dengan <em>ternary operator</em> yang dapat mendeteksi kondisi <em>true</em> atau <em>false</em>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">headline</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span>
+		<span class="p">{</span> <span class="nx">age</span> <span class="o">&gt;=</span> <span class="nx">drinkingAge</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">Buy Drink</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">Do Teen Stuff</span><span class="dl">'</span> <span class="p">}</span>
+	<span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pada contoh di atas apabila <em>age</em> lebih dari <em>drinkingAge</em> maka berkondisi <em>true</em> dan akan mengesekusi <code class="highlighter-rouge">&lt;h1&gt;Buy Drink&lt;/h1&gt;</code>, sebaliknya jika kondisi bernilai <em>false</em> maka akan mengesekusi <code class="highlighter-rouge">&lt;h1&gt;Do Teen Stuff&lt;/h1&gt;</code>.</p>
+
+<h3 id="-operator">&amp;&amp; operator</h3>
+
+<p>Operator kondisi pada JSX juga mengenal operator &amp;&amp;. Perhatikan contoh berikut ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">tasty</span> <span class="o">=</span> <span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Applesauce</span><span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>		<span class="p">{</span> <span class="o">!</span><span class="nx">baby</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Pizza</span><span class="o">&lt;</span><span class="sr">/li&gt; </span><span class="err">}
+</span>		<span class="p">{</span> <span class="nx">age</span> <span class="o">&gt;</span> <span class="mi">15</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Brussels</span> <span class="nx">Sprouts</span><span class="o">&lt;</span><span class="sr">/li&gt; </span><span class="err">}
+</span>		<span class="p">{</span> <span class="nx">age</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Oysters</span><span class="o">&lt;</span><span class="sr">/li&gt; </span><span class="err">}
+</span>		<span class="p">{</span> <span class="nx">age</span> <span class="o">&gt;</span> <span class="mi">25</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="nx">Grappa</span><span class="o">&lt;</span><span class="sr">/li&gt; </span><span class="err">}
+</span>	<span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="menampilkan-isi-array-dengan-map">Menampilkan isi array dengan .map</h3>
+
+<p>Array method .map juga dapat di gunakan pada React untuk menampilkan atau melooping semua isi array kedalam browser.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">strings</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">Home</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Shop</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">About Me’];
+
+var listItems = strings.map(function(string){
+    return &lt;li&gt;{string}&lt;/li&gt;;
+});
+
+&lt;ul&gt;{listItems}&lt;/ul&gt;
+</span></code></pre></div></div>
+
+<p>Pada contoh di atas array pada variabel strings akan di looping menggunakan .map yang disimpan pada variabel listItems. Maka jika kita eksekusi listItems akan menampilkan semua isi dari array strings pada browser.</p>
+
+<h3 id="menulis-react-tanpa-menggunakan-jsx">Menulis React tanpa menggunakan JSX</h3>
+
+<p>Kita bisa menulis kode React tanpa menggunakan kode JSX sama sekali. Tetapi kebanyakan dari programmer menggunakan JSX, dan memang di sarankan menggunakan JSX. Semua kembali kepada anda ingin menggunakan yang mana.</p>
+
+<p>Di bawah ini adalah sebuah kode JSX,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">h1</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<p>Kode di atas dapat di tulis tanpa menggunakan kode JSX seperti ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">h1</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+	<span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">,</span>
+	<span class="kc">null</span><span class="p">,</span>
+	<span class="dl">"</span><span class="s2">Hello, world</span><span class="dl">"</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>dengan method React.createElement() kita dapat mengubah kode menjadi sebuah HTML persis dengan apa yang di lakukan oleh JSX. Untuk dokumentasi lanjut mengenai method React.createElement() dapat di jumpai <a href="http://facebook.github.io/react/docs/top-level-api.html#react.createelement">di sini</a>.</p>
+
+<p>Ok, semoga bermanfaat hasil pembelajaran saya mengenai ReactJS di codecademy. Untuk disikusi lebih lanjut boleh meninggalkan komentar di bawah ya.</p>
+:ET

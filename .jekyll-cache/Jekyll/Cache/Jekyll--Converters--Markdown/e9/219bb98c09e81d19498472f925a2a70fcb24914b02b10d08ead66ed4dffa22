@@ -1,0 +1,274 @@
+I"Mg<p><img src="/assets/img/state-react/state-react.png" alt="state react" /></p>
+
+<p style="text-align: center;">React state illustration by <a href="http://chibicode.com/static/images/react-for-designers/react-style-3.png">chibicode.com</a></p>
+
+<p>Yuk kita belajar ReactJS lagi, setelah kemarin saya membahas <a href="/mengenal-props-react">props pada ReactJS</a> sekarang kita akan berkenalan dengan namanya State. Tulisan ini merupakan kelanjutan jurnal catatan saya belajar di <a href="https://www.codecademy.com/learn/react-101">codecademy</a>.</p>
+
+<p>Aplikasi React sering kali membutuhkan informasi yang dinamis agar bisa di render. Ada 2 cara component untuk menerapkan informasi yang dinamis, yaitu dengan <code class="highlighter-rouge">props</code> dan <code class="highlighter-rouge">state</code>. Antara <code class="highlighter-rouge">props</code> dan <code class="highlighter-rouge">state</code> setiap nilai yang di gunakan di dalam component harus selalu sama.</p>
+
+<p>Kemarin kita sudah panjang lebar membahas <code class="highlighter-rouge">props</code> saatnya sekarang kita belajar <code class="highlighter-rouge">state</code>. <code class="highlighter-rouge">props</code> dan <code class="highlighter-rouge">state</code> adalah semua yang kita butuhkan untuk mengatur ecosystem dalam interaksi dengan component React.</p>
+
+<h2 id="setting-initial-state">Setting Initial State</h2>
+
+<p>Tidak seperti <code class="highlighter-rouge">props</code>, sebuah component <code class="highlighter-rouge">state</code> tidak di lewatkan di luar component. Sebuah component dapat menentukan <code class="highlighter-rouge">state</code> nya sendiri.</p>
+
+<p>Agar sebuah component mempunyai <code class="highlighter-rouge">state</code>, kita akan memberikan sebuah <em>state property</em>. Property ini harus di deklarasikan di dalam method constructor, perhatikan contoh berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">mood</span><span class="p">:</span> <span class="dl">'</span><span class="s1">decent</span><span class="dl">'</span> <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">&lt;</span><span class="nx">Example</span> <span class="o">/&gt;</span>
+</code></pre></div></div>
+
+<p>Apa itu method constructor? <code class="highlighter-rouge">super(props)</code>? Mari kita bahas satu persatu kode yang tidak familiar ini.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">mood</span><span class="p">:</span> <span class="dl">'</span><span class="s1">decent</span><span class="dl">'</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">this.state</code> harus bernilai sebuah object, seperti contoh di atas. Object ini mempresentasikan initial “state” pada setiap component instance. Kita akan membahas ini lebih jauh sebentar lagi!</p>
+
+<p><code class="highlighter-rouge">constructor</code> dan <code class="highlighter-rouge">super</code> keduanya merupakan fitur dari ES6, bukan kode unik dari React. Penjelasan lengkap tentang fungsionalitas ini silahkan baca-baca <a href="https://hacks.mozilla.org/2015/07/es6-in-depth-classes/">disini</a>. Penting untuk di catat bahwa component React selalu mempunyai dan memanggil <code class="highlighter-rouge">super</code> di dalam <code class="highlighter-rouge">constructor</code> agar program berjalan dengan benar.</p>
+
+<p>Pada baris terakhir kode, <code class="highlighter-rouge">&lt;Example /&gt;</code> merupakan sebuah <code class="highlighter-rouge">state</code>, dan <code class="highlighter-rouge">state</code> tersebut sama dengan <code class="highlighter-rouge">{ mood: 'decent' }</code>.</p>
+
+<p>Pastikan method <code class="highlighter-rouge">constructor</code> dan <code class="highlighter-rouge">render</code> tidak di pisahkan dengan koma! Method jangan di pisahkan dengan koma jika berada di dalam body class. Ini untuk menekankan fakta bahwa antara class dan object adalah berbeda.</p>
+
+<h2 id="mengakses-component-state">Mengakses Component state</h2>
+
+<p>Untuk mengakses component state, gunakan ekspresi <code class="highlighter-rouge">this.state.name-of-property</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">TodayImFeeling</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">mood</span><span class="p">:</span> <span class="dl">'</span><span class="s1">decent</span><span class="dl">'</span> <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span>
+        <span class="nx">I</span><span class="dl">'</span><span class="s1">m feeling {this.state.mood}!
+      &lt;/h1&gt;
+    );
+  }
+}
+</span></code></pre></div></div>
+
+<p>Contoh di atas component class membaca property di dalam <code class="highlighter-rouge">state</code> dari dalam function <code class="highlighter-rouge">render</code>. Seperti <code class="highlighter-rouge">this.props</code>, kita bisa menggunakan <code class="highlighter-rouge">this.state</code> dari semua property yang di definisikan di dalam body component class.</p>
+
+<h2 id="update-state-dengan-thissetstate">Update state dengan <code class="highlighter-rouge">this.setstate</code></h2>
+
+<p>Sebuah component dapat melakukan lebih dari sekedar membaca <code class="highlighter-rouge">state</code>nya sendiri. Sebuah component juga dapat mengubah <code class="highlighter-rouge">state</code>nya sendiri. Component merubah <code class="highlighter-rouge">state</code> dengan memanggil <code class="highlighter-rouge">this.setState</code>.</p>
+
+<p><code class="highlighter-rouge">this.setState</code> mengambil 2 argumen: sebuah object akan mengupdate sebuah component, dan sebuah callback. Kita pada dasarnya tidak membutuhkan callback.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  	<span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="na">mood</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">great</span><span class="dl">'</span><span class="p">,</span>
+      <span class="na">hungry</span><span class="p">:</span> <span class="kc">false</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">&lt;</span><span class="nx">Example</span> <span class="o">/&gt;</span>
+</code></pre></div></div>
+
+<p>Pada kode diatas, <code class="highlighter-rouge">&lt;Example /&gt;</code> mempunyai state sebagai berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">mood</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">great</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">hungry</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sekarang katakanlah kita akan memanggil <code class="highlighter-rouge">&lt;Example /&gt;</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">hungry</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Setelah di jalankan kode diatas, maka state <code class="highlighter-rouge">&lt;Example /&gt;</code> akan menjadi seperti ini:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="nl">mood</span><span class="p">:</span>   <span class="dl">'</span><span class="s1">great</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">hungry</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">this.setState</code> mengambil sebuah object, dan menggabungkan object dengan component <code class="highlighter-rouge">state</code> tersebut.</p>
+
+<h2 id="memanggil-thissetstate-dari-function-lain">Memanggil <code class="highlighter-rouge">this.setState</code> dari function lain</h2>
+
+<p>Cara yang paling umum untuk memanggil <code class="highlighter-rouge">this.setState</code> adalah dengan memanggil custom function yang membungkus panggilan <code class="highlighter-rouge">this.setState</code>. Function <code class="highlighter-rouge">makeSomeFog</code> dibawah ini adalah contohnya:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">weather</span><span class="p">:</span> <span class="dl">'</span><span class="s1">sunny</span><span class="dl">'</span> <span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">makeSomeFog</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">makeSomeFog</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">makeSomeFog</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="na">weather</span><span class="p">:</span> <span class="dl">'</span><span class="s1">foggy</span><span class="dl">'</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Perhatikan bagaimana method <code class="highlighter-rouge">makeSomeFog()</code> berisi pemanggilan <code class="highlighter-rouge">this.setState()</code>. Dan dan mungkin anda memperhatikan kode berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">makeSomeFog</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">makeSomeFog</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Baris ini di butuhkan karena body <code class="highlighter-rouge">makeSomeFog()</code> berisi kata <code class="highlighter-rouge">this</code>. Kita akan membahasnya sebentar lagi.</p>
+
+<p>Mari kita bahas bagaimana sebuah function membungkus <code class="highlighter-rouge">this.setState()</code> dengan latihan pada state <code class="highlighter-rouge">&lt;Mood /&gt;</code> berikut ini:</p>
+
+<p>File <code class="highlighter-rouge">Mood.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Mood</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">mood</span><span class="p">:</span> <span class="dl">'</span><span class="s1">good</span><span class="dl">'</span> <span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">toggleMood</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toggleMood</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">toggleMood</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">newMood</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">mood</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">good</span><span class="dl">'</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">bad</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">good</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">mood</span><span class="p">:</span> <span class="nx">newMood</span> <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">I</span><span class="dl">'</span><span class="s1">m feeling {this.state.mood}!&lt;/h1&gt;
+        &lt;button onClick={this.toggleMood}&gt;
+          Click Me
+        &lt;/button&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+ReactDOM.render(&lt;Mood /&gt;, document.getElementById(</span><span class="dl">'</span><span class="nx">app</span><span class="dl">'</span><span class="s1">));
+</span></code></pre></div></div>
+
+<p>Berikut bagaimana state <code class="highlighter-rouge">&lt;Mood /&gt;</code> di bentuk:</p>
+
+<ol>
+  <li>
+    <p>User mentriger event dengan mengklik <code class="highlighter-rouge">&lt;button&gt;&lt;/button&gt;</code>.</p>
+  </li>
+  <li>
+    <p>Event pada step pertama akan di eksekusi, pada hal ini menggunakan attribute <code class="highlighter-rouge">onClick</code> pada baris ke 20.</p>
+  </li>
+  <li>
+    <p>Ketika event terjadi, maka akan memanggil <em>event handler</em> function, dalam hal ini <code class="highlighter-rouge">this.setState</code> pada baris 20.</p>
+  </li>
+  <li>
+    <p>Di dalam body dari <em>event handler</em>, <code class="highlighter-rouge">this.setState()</code> di panggil.</p>
+  </li>
+  <li>
+    <p>Sekarang state component berubah.</p>
+  </li>
+</ol>
+
+<p>Instance <code class="highlighter-rouge">&lt;Mood /&gt;</code> akan menampilkan “I’m feeling good!” pada button. Klik button maka akan berubah menjadi “I’m feeling bad!”. Klik lagi maka akan kembali menjadi “I’m feeling good!” dan seterusnya.</p>
+
+<p>Satu catatan penting, kita tidak bisa memanggil <code class="highlighter-rouge">this.setState()</code> dari dalam function render!</p>
+
+<h2 id="thissetstate-automatisasi-pemanggilan-render"><code class="highlighter-rouge">this.setState</code> automatisasi pemanggilan render</h2>
+
+<p>Lihat kode berikut pada file yang kita beri nama <code class="highlighter-rouge">Toggle.js</code> dan <code class="highlighter-rouge">Mood.js</code>:</p>
+
+<p>File <code class="highlighter-rouge">Toggle.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+
+<span class="kd">const</span> <span class="nx">green</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">#39D1B4</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">yellow</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">#FFD712</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Toggle</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span>
+          <span class="nx">Change</span> <span class="nx">my</span> <span class="nx">color</span>
+        <span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>File <code class="highlighter-rouge">Mood.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Mood</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">mood</span><span class="p">:</span> <span class="dl">'</span><span class="s1">good</span><span class="dl">'</span> <span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">toggleMood</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toggleMood</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">toggleMood</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">newMood</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">mood</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">good</span><span class="dl">'</span> <span class="p">?</span> <span class="dl">'</span><span class="s1">bad</span><span class="dl">'</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">good</span><span class="dl">'</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="na">mood</span><span class="p">:</span> <span class="nx">newMood</span> <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">I</span><span class="dl">'</span><span class="s1">m feeling {this.state.mood}!&lt;/h1&gt;
+        &lt;button onClick={this.toggleMood}&gt;
+          Click Me
+        &lt;/button&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+ReactDOM.render(&lt;Mood /&gt;, document.getElementById(</span><span class="dl">'</span><span class="nx">app</span><span class="dl">'</span><span class="s1">));
+</span></code></pre></div></div>
+
+<p>Ketika user mengklik tag <code class="highlighter-rouge">&lt;button&gt;&lt;/button&gt;</code> , function <code class="highlighter-rouge">changeColor</code> di panggil. Lihat pada <code class="highlighter-rouge">changeColor</code>. <code class="highlighter-rouge">changeColor</code> memanggil <code class="highlighter-rouge">this.setState</code>, yang mana mengupdate <code class="highlighter-rouge">this.state.color</code>. Namun, bahkan jika <code class="highlighter-rouge">this.state.color</code> merubahnya dari <code class="highlighter-rouge">green</code> ke `kuning, itu saja tidak membuat warna screen berubah!</p>
+
+<p>Warna screen tidak bisa di rubah sampai <code class="highlighter-rouge">Toggle</code> di renders. Di dalam render function, pada line berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">style</span><span class="o">=</span><span class="p">{{</span><span class="na">background</span><span class="p">:</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">color</span><span class="p">}}</span><span class="o">&gt;</span>
+
+</code></pre></div></div>
+
+<p>Hal itu merubah virtual DOM warna object kepada <code class="highlighter-rouge">this.state.color</code> baru, akhirnya menyebabkan perubahan pada screen.</p>
+
+<h2 id="kesimpulan-interaksi-component">Kesimpulan Interaksi Component</h2>
+
+<p>Dalam tulisan kali ini kita belajar bagaimana menggunakan <code class="highlighter-rouge">import</code> dan <code class="highlighter-rouge">export</code> untuk mengakses satu file ke file yang lain.</p>
+
+<p>Sebuah aplikasi React secara dasar merupakan sebuah kumpulan component yang banyak, mensetting <code class="highlighter-rouge">state</code> dan melewatkan <code class="highlighter-rouge">props</code> dari satu ke yang lain. Sekarang dengan mengerti bagaimana menggunakan <code class="highlighter-rouge">props</code> dan <code class="highlighter-rouge">state</code>, kita mempunya tools penting yang sangat kita butuhkan dalam membuat aplikasi.</p>
+:ET

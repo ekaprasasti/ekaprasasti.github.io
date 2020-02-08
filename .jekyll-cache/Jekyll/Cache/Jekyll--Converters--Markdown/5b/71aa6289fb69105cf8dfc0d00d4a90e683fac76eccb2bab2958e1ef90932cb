@@ -1,0 +1,46 @@
+I"=<p><img src="/assets/img/berkontribusi-di-dunia-open-source/simon-abrams-k_T9Zj3SE8k-unsplash.jpg" alt="cover" /></p>
+
+<p style="text-align: center;">Photo by <a href="https://unsplash.com/@flysi3000" target="_blank">Simon Abrams</a> on <a href="https://unsplash.com/photos/k_T9Zj3SE8k" target="_blank">Unsplash</a></p>
+
+<p>Berawal dari dengerin podcastnya mas Riza Fahmi di <a href="https://ceritanyadeveloper.com/">ceritanya developer</a> yang mewancarai mas <a href="https://github.com/ariya">Ariya Hidayat</a> seorang rock star developer dari indonesia berdomisili di California yang secara gak sadar karya opensource nya sering saya pakai di berbagai project yaitu <a href="https://github.com/ariya/phantomjs">PhantomJs</a>. Ada bagian menarik yang sayang banget kalo gak saya bagikan lagi, tentang bagaimana sih cara kita berkontribusi terhadap dunia opensource. Ternyata banyak cara loh, dan gak melulu selalu berkontribusi dengan cara ngoding dan di push atau pull request ke github. Berikut beberapa cara yang saya dapat setelah mendengarkan mas Aria Hidayat di <a href="https://open.spotify.com/episode/10ejgbyRTSFy8CB1VpjbC9">podcast</a> ceritanya developer dan beberapa tambahan dari berbagai sumber.</p>
+
+<blockquote>
+  <p>open source adalah sistem pengembangan yang tidak dikoordinasi oleh suatu individu / lembaga pusat, tetapi oleh para pelaku yang bekerja sama dengan memanfaatkan kode sumber (source-code) yang tersebar dan tersedia bebas (biasanya menggunakan fasilitas komunikasi internet). - <a href="https://id.wikipedia.org/wiki/Sumber_terbuka">Wikipedia</a></p>
+</blockquote>
+
+<p><img src="/assets/img/berkontribusi-di-dunia-open-source/merakist-CNbRsQj8mHQ-unsplash.jpg" alt="cover" /></p>
+
+<p style="text-align: center;">Photo by <a href="https://unsplash.com/@merakist?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Merakist</a> on <a href="https://unsplash.com/s/photos/social-media?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Unsplash</a></p>
+
+<h2 id="buat-tutorial">Buat Tutorial</h2>
+
+<p>Sekarang jamannya sosial media, setiap orang berlomba ingin menjadi influencer, ketika kita ingin mencari atau menggunaan sesuatu yang belum kita tahu apapun itu hampir bisa kita temui di sosial media youtube misalnya. Dan tidak hanyak dalam bentuk audio visual, tapi bisa melalui tulisan. Kita bisa menulis tutorial mengenai apapun dan bisa kita upload atau tulis di youtube, facebook, instagram, medium atau blog misalnya.</p>
+
+<p><img src="/assets/img/berkontribusi-di-dunia-open-source/bram-naus-n8Qb1ZAkK88-unsplash.jpg" alt="documentation" /></p>
+
+<p style="text-align: center;">Photo by <a href="https://unsplash.com/@bramnaus?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_balnk">Bram Naus</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">Unsplash</a></p>
+
+<h2 id="menerjemahkan-dokumentasi">Menerjemahkan Dokumentasi</h2>
+
+<p>Jika kita membaca dokumentasi ada baiknya selagi belajar sembari kita menerjemahkan dokumentasi yang kita baca. Dengan begitu cara belajar kita bukan hanya efektif dan efisien tapi juga terjemahan kita mungkin dapat membantu orang lain dalam memahami dokumentasi tersebut.</p>
+
+<p><img src="/assets/img/berkontribusi-di-dunia-open-source/jakartajs.jpeg" alt="jakartajs" /></p>
+
+<p style="text-align: center;">Dokumentasi <a href="https://www.meetup.com/JakartaJS/photos/30522341/" target="_blank">JakartaJS</a></p>
+
+<h2 id="aktif-di-komunitas">Aktif di komunitas</h2>
+
+<p>Sering hadir di event sebuah komunitas baik online maupun offline atau bahkan bisa berkontribusi lebih jauh maka kita pun sudah berkontribusi pula pada dunia opensource. Karena opensource sejatinya adalah sebuah budaya gotong royong yang terjadi pada sebuah komunitas, dan seringkali proyek opensource lahir dari sebuah komunitas.</p>
+
+<p><img src="/assets/img/berkontribusi-di-dunia-open-source/stackoverflow.png" alt="stackoverflow" /></p>
+
+<p style="text-align: center;"><a href="https://stackoverflow.com/" target="_blank">Stackoverflow</a></p>
+
+<h2 id="menjawab-pertanyaan">Menjawab pertanyaan</h2>
+
+<p>Suka membantu dan berbagi dengan orang lain? maka bantulah orang2 dengan cara menjawab pertanyaan di stackoverflow, forum2, atau bantu jawab pertanyaan teman sekantor mu jika mereka mengalami kesulitan dalam pekerjaannya.</p>
+
+<p>Pada intinya opensource bukan melulu hanya sekedar kontribusi kita terhadap dunia perkodingan yang bisa di pakai atau di lihat banyak orang, atau tentang suatu hal yang berkaitan dengan perangkat lunak dan semacamnya, tetapi lebih luas tentang bagaimana cara kita bermanfaat dengan orang lain.</p>
+
+<p>Jika kalian ingin terjun lebih jauh ke dunia opensource, bagaimana memulai dan apa saja yang harus di lakukan, ada artikel menarik yang bisa kalian baca https://opensource.guide/id/how-to-contribute/. Semoga tulisan saya kali ini bermanfaat, jika ada saran dan komentar atau kalian ingin bagikan link proyek opensource kalian di gituhub atau tempat lainnya silahkan tinggalkan di kolom komentar ya.</p>
+:ET

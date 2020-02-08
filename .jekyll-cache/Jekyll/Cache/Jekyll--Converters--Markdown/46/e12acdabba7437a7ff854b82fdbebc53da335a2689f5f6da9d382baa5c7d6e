@@ -1,0 +1,300 @@
+I"‹²<p>Akhirnya setelah sekian lama beberapa bulan terakhir ini saya kembali menulis blog, hampa rasanya tanpa mengabadikan moment lewat tulisan, tapi apalah daya waktu dan prioritas yang menentukan. Halah, kita sudahi saja dulu puitisnya kita langsung aja ke inti topik pembahasan (eh tapi bener loh hampir 3 bulan ini saya super sibuk dengan project yang saya jalani).</p>
+
+<p>Jadi gini ceritanya, di project saya sekarang menggunakan vue js sebagai frontend frameworknya, kenapa vue js? Ceritanya agak lumayan panjang, jadi baiknya saya ceritakan di postingan tersendiri saja. Saya sedang mengimplementasikan fitur upload video menggunakan vue, saya mengadopsi codenya dari <a href="https://codepen.io/Atinux/pen/qOvawK">sini</a> yang sebetulnya itu adalah script untuk upload image tapi tentu saya sesuaikan dengan kebutuhan saya untuk impelement fitur upload video.</p>
+
+<p>Logic sederhananya adalah, saya menggunakan input file html biasa yang mengambil file video yang di validasi ekstensinya menggunakan library vee-validate, lalu file video tersebut saya simpan di dalam cache browser yang di gunakan sebagai embed preview sebelum di upload, setelah itu data form saya submit menggunakan object javascript FormData. Kurang lebih scriptnya seperti ini,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">ElementImageFile</span><span class="dl">"</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">input</span> 
+			<span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">!videoData</span><span class="dl">"</span>
+			<span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">video</span><span class="dl">"</span>
+			<span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">file</span><span class="dl">"</span> 
+			<span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">file</span><span class="dl">"</span> 
+			<span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="p">:</span><span class="nx">change</span><span class="o">=</span><span class="dl">"</span><span class="s2">onFileChange</span><span class="dl">"</span>
+			<span class="nx">v</span><span class="o">-</span><span class="nx">validate</span><span class="o">=</span><span class="dl">"</span><span class="s2">'required|ext:mp4,mov,m4v,avi,mpg'</span><span class="dl">"</span>
+			<span class="nx">data</span><span class="o">-</span><span class="nx">vv</span><span class="o">-</span><span class="nx">delay</span><span class="o">=</span><span class="dl">"</span><span class="s2">1000</span><span class="dl">"</span>
+			<span class="p">:</span><span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">{'input': true, 'is-danger': errors.has('video') }</span><span class="dl">"</span> <span class="o">/&gt;</span>
+		<span class="o">&lt;</span><span class="nx">span</span> <span class="nx">v</span><span class="o">-</span><span class="nx">show</span><span class="o">=</span><span class="dl">"</span><span class="s2">errors.has('video')</span><span class="dl">"</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">is-danger-notif</span><span class="dl">"</span><span class="o">&gt;</span>
+			
+		<span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">image</span><span class="dl">"</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">img</span> <span class="p">:</span><span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">image</span><span class="dl">"</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">img-thumbnail</span><span class="dl">"</span> <span class="o">/&gt;</span>
+		<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">!video &amp;&amp; videoData</span><span class="dl">"</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">a</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">btn btn-danger btn-sm btn-remove</span><span class="dl">"</span> <span class="p">@</span><span class="nd">click</span><span class="o">=</span><span class="dl">"</span><span class="s2">removeImage</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Remove</span> <span class="nx">Image</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>			<span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">img</span> <span class="p">:</span><span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">imageData</span><span class="dl">"</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">img-thumbnail</span><span class="dl">"</span> <span class="o">/&gt;</span>
+		<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+	<span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ElementImageFile</span><span class="dl">'</span><span class="p">,</span>
+	<span class="na">props</span><span class="p">:</span> <span class="p">[</span>
+		<span class="dl">'</span><span class="s1">dataModel</span><span class="dl">'</span>
+	<span class="p">],</span>
+	<span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="p">{</span>
+			<span class="na">video</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+			<span class="na">videoData</span><span class="p">:</span> <span class="dl">''</span>
+		<span class="p">}</span>
+	<span class="p">},</span>
+	<span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nx">dataModel</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">// mengambil data dari parent component</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">videoData</span> <span class="o">=</span> <span class="nx">value</span> 
+		<span class="p">}</span>
+	<span class="p">},</span>
+	<span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nx">onFileChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">files</span> <span class="o">||</span> <span class="nx">e</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">files</span><span class="p">;</span>
+			
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">return</span><span class="p">;</span>
+			<span class="p">}</span>
+
+			<span class="k">this</span><span class="p">.</span><span class="nx">createVideo</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>	
+
+			<span class="c1">// mengirim data ke parent component</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">eventChange</span><span class="dl">'</span><span class="p">,</span> <span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+		<span class="p">},</span>
+		<span class="nx">createImage</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span> <span class="p">{</span>
+      		<span class="kd">let</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+      		<span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+      		<span class="kd">let</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+     		 
+      		<span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+				<span class="nx">vm</span><span class="p">.</span><span class="nx">image</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+      		<span class="p">};</span>
+      
+      		<span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+    	<span class="p">},</span>	
+		<span class="nx">removeImage</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">imageData</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+		<span class="p">},</span>
+	<span class="p">},</span>
+	<span class="na">inject</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$validator</span><span class="dl">'</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Code di atas merupakan component file upload saja, saya pisahkan dengan component input lainnya di parent component. Untuk pembahasan mengenai penggunaan component pada vue saya bahas di kesempatan berikutnya. Untuk validasi menggunakan <code class="highlighter-rouge">vee-validate</code> bisa di baca2 <a href="http://vee-validate.logaretm.com/">di sini</a>.</p>
+
+<p>Sampai disini fitur pun berhasil di implementasikan. Tidak ada masalah sampai ada kebutuhan untuk mengupload file lebih dari 20mb sampai ratusan megabyte, lalu upload pun menjadi memakan waktu, client menunggu sekian lama tanpa ada kejelasan di akhir file sukses terupload atau gagal, lalu client meminta di buatkan indikator progress sudah berapa persen data terupload. Dan jika seperti ini <code class="highlighter-rouge">bottleneck</code> nya pun sudah terlihat jelas, dari menyimpan file di cache browser untuk menampilkan preview sudah pasti lama, apa lagi setelahnya harus mengupload ke server. Mau tidak mau saya pun harus merubah flow data.</p>
+
+<p>Flow saya rubah menjadi, video harus terupload dulu sebelum saya mensubmit data form. Jadi di data form saya tinggal menyimpan deskripsi video dan nama filenya saja. Sehingga preview video yang semula saya ambil sourcenya dari cache browser sekarang saya langsung mengambilnya dari server karena sudah di simpan dan di kirim sebelumnya ke backend. Kebayang kan?</p>
+
+<p>Sebelum di upload saya harus mentracking berapa data yang sudah di kirim kan ke server. Untuk ini ada 2 cara sebetulnya, pertama merubah fitur dengan menggunakan library upload seperti jquery upload, atau membuat sendiri indikator progress bar menggunakan mekanisme ajax. Pilihan pun jatuh kepada menggunakan mekanisme ajax, dengan pertimbangan jika menggunakan library mungkin effortnya lebih besar untuk mengcustom library tersebut, karena kita tahu bahwa library sangat kompleks fitur yang sebetulnya tidak kita butuhkan. Juga saya sendiri ingin mengurangi penggunaan library untuk sebuah fitur yang krusial agar tidak terlalu ter-dependency.</p>
+
+<p>Untuk mentracking byte yang terupload saya mengadopsi kodenya dari <a href="http://christopher5106.github.io/web/2015/12/13/HTML5-file-image-upload-and-resizing-javascript-with-progress-bar.html">sini</a>, dan yang sebelumnya saya menggunakan axios untuk mengakses http request, sekarang saya harus menggunakan ajax untuk mengirim data ke server.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">progress</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">lengthComputable</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">let</span> <span class="nx">percentComplete</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">loaded</span> <span class="o">/</span> <span class="nx">e</span><span class="p">.</span><span class="nx">total</span><span class="p">;</span>
+		<span class="kd">let</span> <span class="nx">progressValue</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">percentComplete</span><span class="o">*</span><span class="mi">100</span><span class="p">);</span>
+
+		<span class="c1">// tracking persentase upload</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">progressValue</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">responseType</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">json</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+	<span class="p">}</span>	
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
+<span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://menuju/endpoint/api</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ada satu masalah muncul menggunakan ajax, yaitu variabel tidak bisa di akses di luar function ajax, sementara kita harus men-assign data empty agar dapat di gunakan kembali dan di tampilkan pada template. Untuk mengakses dom kita masih bisa menggunakan innerHtml di dalam function ajax untuk mengakses data dan menampilkannya pada indikator progress bar.</p>
+
+<p>Tapi saya harus mengirim data filename kepada parent component agar bisa di submit bersama data lainya, hmm, menarik. Ini bukan memanipulasi dom, tetapi memang mau tidak mau saya harus mengeluarkan data hasil response keluar function ajax, sedangkan menggunakan object bawaan vue di dalam ajax pun di indikasikan sebagai undefined.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">progress</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">lengthComputable</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">let</span> <span class="nx">percentComplete</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">loaded</span> <span class="o">/</span> <span class="nx">e</span><span class="p">.</span><span class="nx">total</span><span class="p">;</span>
+		<span class="kd">let</span> <span class="nx">progressValue</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">percentComplete</span><span class="o">*</span><span class="mi">100</span><span class="p">);</span>
+		<span class="kd">let</span> <span class="nx">progressStyle</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">width: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">progressValue</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">%</span><span class="dl">'</span><span class="p">;</span>
+		<span class="kd">let</span> <span class="nx">progressText</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Upload </span><span class="dl">'</span><span class="o">+</span> <span class="nx">progressValue</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">% complete.</span><span class="dl">'</span><span class="p">;</span>	
+		<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">progressBar</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">progressText</span><span class="p">;</span>
+		<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">progressBar</span><span class="dl">'</span><span class="p">).</span><span class="nx">style</span> <span class="o">=</span> <span class="nx">progressStyle</span><span class="p">;</span>
+
+		<span class="c1">// tracking persentase upload</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">progressValue</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">responseType</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">json</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">filename</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">filename</span><span class="p">;</span>
+	<span class="p">}</span>	
+<span class="p">}</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">filename</span><span class="p">)</span> <span class="c1">// hasilnya adalah undefined</span>
+</code></pre></div></div>
+
+<p>Setelah googling, berkutat dengan stackoverflow dan bertapa di gunung kidul (yang ini emang agak lebay, serius!) saya menemukan jawabanya. Adalah menggunakan method bind yang di sematkan kepada function ajax yang mau kita assign datanya ke data vue. Karena usut punya usut keyword this di dalam function ajax adalah kepunyaan ajax sehingga jika kita ingin menggukan keyword this yang mengakses suatu instance di luar ajax kita bisa menggunakan method bind pada vue.</p>
+
+<p>Nah akhirnya berhasil juga deh ya, ini dia code lengkap component vue upload file video yang saya implementasikan dalam project yang sedang saya kerjakan,</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">ElementVideoFile</span><span class="dl">"</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="nx">input</span> 
+			<span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">formatValidation &amp;&amp; !videoData</span><span class="dl">"</span>
+			<span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">video</span><span class="dl">"</span>
+			<span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">file</span><span class="dl">"</span> 
+			<span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">file</span><span class="dl">"</span> 
+			<span class="nx">v</span><span class="o">-</span><span class="nx">on</span><span class="p">:</span><span class="nx">change</span><span class="o">=</span><span class="dl">"</span><span class="s2">onFileChange</span><span class="dl">"</span>
+			<span class="nx">v</span><span class="o">-</span><span class="nx">validate</span><span class="o">=</span><span class="dl">"</span><span class="s2">'required|ext:mp4,mov,m4v,avi,mpg'</span><span class="dl">"</span>
+			<span class="p">:</span><span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">{'input': true, 'is-danger': errors.has('video') }</span><span class="dl">"</span> <span class="o">/&gt;</span>
+		<span class="o">&lt;</span><span class="nx">span</span> <span class="nx">v</span><span class="o">-</span><span class="nx">show</span><span class="o">=</span><span class="dl">"</span><span class="s2">errors.has('video')</span><span class="dl">"</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">is-danger-notif</span><span class="dl">"</span><span class="o">&gt;</span>
+			
+		<span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">progressActive</span><span class="dl">"</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">progress</span><span class="dl">"</span><span class="o">&gt;</span>
+  			<span class="o">&lt;</span><span class="nx">div</span> 
+				<span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">progressBar</span><span class="dl">"</span>
+				<span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">progress-bar progress-bar-success</span><span class="dl">"</span> 
+				<span class="nx">aria</span><span class="o">-</span><span class="nx">valuemin</span><span class="o">=</span><span class="dl">"</span><span class="s2">0</span><span class="dl">"</span> 
+				<span class="nx">aria</span><span class="o">-</span><span class="nx">valuemax</span><span class="o">=</span><span class="dl">"</span><span class="s2">100</span><span class="dl">"</span> 
+				<span class="nx">style</span><span class="o">=</span><span class="dl">"</span><span class="s2">width:0%</span><span class="dl">"</span><span class="o">&gt;</span>
+					<span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">Upload</span> <span class="mi">0</span><span class="o">%</span> <span class="nx">complete</span><span class="p">.</span><span class="o">&lt;</span><span class="sr">/span</span><span class="err">&gt;
+</span>  			<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">video &amp;&amp; !formatValidation</span><span class="dl">"</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">a</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">btn btn-danger btn-sm btn-remove</span><span class="dl">"</span> <span class="p">@</span><span class="nd">click</span><span class="o">=</span><span class="dl">"</span><span class="s2">removeVideo</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Remove</span> <span class="nx">Video</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>			<span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">video</span> <span class="nx">width</span><span class="o">=</span><span class="dl">"</span><span class="s2">400</span><span class="dl">"</span> <span class="nx">controls</span><span class="o">&gt;</span>
+  				<span class="o">&lt;</span><span class="nx">source</span> <span class="p">:</span><span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">video</span><span class="dl">"</span><span class="o">&gt;</span>
+    			<span class="nx">Your</span> <span class="nx">browser</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">support</span> <span class="nx">HTML5</span> <span class="nx">video</span><span class="p">.</span>
+			<span class="o">&lt;</span><span class="sr">/video</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="nx">div</span> <span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="dl">"</span><span class="s2">!video &amp;&amp; videoData</span><span class="dl">"</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">a</span> <span class="kd">class</span><span class="o">=</span><span class="dl">"</span><span class="s2">btn btn-danger btn-sm btn-remove</span><span class="dl">"</span> <span class="p">@</span><span class="nd">click</span><span class="o">=</span><span class="dl">"</span><span class="s2">removeVideoExist</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Remove</span> <span class="nx">Video</span><span class="o">&lt;</span><span class="sr">/a</span><span class="err">&gt;
+</span>			<span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="nx">video</span> <span class="nx">width</span><span class="o">=</span><span class="dl">"</span><span class="s2">400</span><span class="dl">"</span> <span class="nx">controls</span><span class="o">&gt;</span>
+				<span class="o">&lt;</span><span class="nx">source</span> <span class="p">:</span><span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">videoData</span><span class="dl">"</span><span class="o">&gt;</span>
+				<span class="nx">Your</span> <span class="nx">browser</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">support</span> <span class="nx">HTML5</span> <span class="nx">video</span><span class="p">.</span>
+			<span class="o">&lt;</span><span class="sr">/video</span><span class="err">&gt;
+</span>		<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>	<span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/template</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+	<span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ElementVideoFile</span><span class="dl">'</span><span class="p">,</span>
+	<span class="na">props</span><span class="p">:</span> <span class="p">[</span>
+		<span class="dl">'</span><span class="s1">dataModel</span><span class="dl">'</span><span class="p">,</span>
+		<span class="dl">'</span><span class="s1">artikelType</span><span class="dl">'</span>
+	<span class="p">],</span>
+	<span class="nx">data</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="p">{</span>
+			<span class="na">video</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+			<span class="na">videoData</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+			<span class="na">formatValidation</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+			<span class="na">filename</span><span class="p">:</span> <span class="dl">''</span><span class="p">,</span>
+			<span class="na">progressActive</span><span class="p">:</span> <span class="kc">false</span>
+		<span class="p">}</span>
+	<span class="p">},</span>
+	<span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nx">dataModel</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">// mengambil data dari parent component</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">videoData</span> <span class="o">=</span> <span class="nx">value</span> 
+		<span class="p">}</span>
+	<span class="p">},</span>
+	<span class="na">methods</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nx">onFileChange</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">files</span> <span class="o">||</span> <span class="nx">e</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">files</span><span class="p">;</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">progressActive</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+			
+			<span class="k">this</span><span class="p">.</span><span class="nx">$validator</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+				<span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+					<span class="kd">let</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+					<span class="nx">xhr</span><span class="p">.</span><span class="nx">upload</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">progress</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      					<span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">lengthComputable</span><span class="p">)</span> <span class="p">{</span>
+							<span class="kd">let</span> <span class="nx">percentComplete</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">loaded</span> <span class="o">/</span> <span class="nx">e</span><span class="p">.</span><span class="nx">total</span><span class="p">;</span>
+							<span class="kd">let</span> <span class="nx">progressValue</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">percentComplete</span><span class="o">*</span><span class="mi">100</span><span class="p">);</span>
+							<span class="kd">let</span> <span class="nx">progressStyle</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">width: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">progressValue</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">%</span><span class="dl">'</span><span class="p">;</span>
+							<span class="kd">let</span> <span class="nx">progressText</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Upload </span><span class="dl">'</span><span class="o">+</span> <span class="nx">progressValue</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">% complete.</span><span class="dl">'</span><span class="p">;</span>	
+							<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">progressBar</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">progressText</span><span class="p">;</span>
+							<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">progressBar</span><span class="dl">'</span><span class="p">).</span><span class="nx">style</span> <span class="o">=</span> <span class="nx">progressStyle</span><span class="p">;</span>
+      					<span class="p">}</span>
+    				<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+					<span class="nx">xhr</span><span class="p">.</span><span class="nx">responseType</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">json</span><span class="dl">'</span><span class="p">;</span>
+					<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">vm</span><span class="p">)</span> <span class="p">{</span>
+						<span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+							<span class="kd">let</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
+
+							<span class="c1">// vue di luar function ajax dapat mengakses this.filename</span>
+							<span class="nx">vm</span><span class="p">.</span><span class="nx">filename</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">filename</span><span class="p">;</span>
+
+							<span class="c1">// mengirim data ke parent component</span>
+							<span class="nx">vm</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="dl">'</span><span class="s1">eventChange</span><span class="dl">'</span><span class="p">,</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">filename</span><span class="p">);</span>
+
+							<span class="nx">vm</span><span class="p">.</span><span class="nx">progressActive</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+							<span class="nx">vm</span><span class="p">.</span><span class="nx">createVideo</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">filename</span><span class="p">);</span>
+						<span class="p">}</span>	
+					<span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span> <span class="c1">// menggunakan method bind dari vue untuk dapat mengakses this bawaan vue</span>
+				
+					<span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">();</span>
+					<span class="nx">data</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="dl">'</span><span class="s1">video</span><span class="dl">'</span><span class="p">,</span> <span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+
+					<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">http://menuju/endpoint/api</span><span class="dl">'</span><span class="p">);</span>
+					<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+
+					<span class="k">this</span><span class="p">.</span><span class="nx">formatValidation</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">});</span>
+		<span class="p">},</span>
+		<span class="nx">createVideo</span><span class="p">(</span><span class="nx">filename</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">video</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">http://menuju/upload/path/</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">filename</span><span class="p">;</span>
+    	<span class="p">},</span>	
+		<span class="nx">removeVideo</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">video</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">videoData</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">formatValidation</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+		<span class="p">},</span>
+		<span class="nx">removeVideoExist</span><span class="p">()</span> <span class="p">{</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">video</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">videoData</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+			<span class="k">this</span><span class="p">.</span><span class="nx">formatValidation</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">},</span>
+	<span class="na">inject</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$validator</span><span class="dl">'</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">style</span><span class="o">&gt;</span>
+<span class="p">.</span><span class="nx">btn</span><span class="o">-</span><span class="nx">remove</span> <span class="p">{</span>
+	<span class="na">color</span><span class="p">:</span> <span class="err">#</span><span class="nx">fff</span> <span class="o">!</span><span class="nx">important</span><span class="p">;</span>
+    <span class="nx">margin</span><span class="o">-</span><span class="na">bottom</span><span class="p">:</span> <span class="mi">7</span><span class="nx">px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nx">progress</span> <span class="p">{</span>
+  <span class="na">position</span><span class="p">:</span> <span class="nx">relative</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nx">progress</span> <span class="nx">span</span> <span class="p">{</span>
+    <span class="na">position</span><span class="p">:</span> <span class="nx">absolute</span><span class="p">;</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nx">block</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="nl">color</span><span class="p">:</span> <span class="err">#</span><span class="mi">7</span><span class="nx">d7d7d</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;</span><span class="sr">/style</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Nah segitu dulu ketak ketik curhatan dan pengalaman saya dalam membuat fitur upload menggunakan progress bar pada vue dan ajax. Jika ada yang ingin bertanya kita diskusikan di kolom komentar ya.</p>
+:ET

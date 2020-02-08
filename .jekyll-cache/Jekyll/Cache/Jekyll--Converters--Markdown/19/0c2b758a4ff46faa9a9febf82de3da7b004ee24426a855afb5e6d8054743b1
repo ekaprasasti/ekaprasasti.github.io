@@ -1,0 +1,198 @@
+I"W<p><img src="/assets/img/dasar-react-component/react-component.jpg" alt="ReactJS Component" /></p>
+
+<p style="text-align: center;">React component illustration by <a href="https://www.kirupa.com/react/images/c_c_c_c_c_c_144.png">kirupa.com</a></p>
+
+<p>Melanjutkan catatan saya <a href="http://ekaprasasti.com/memulai-reactjs-dan-dasar-jsx">sebelumnya</a> mengenai pembelajaran ReactJS di <a href="https://www.codecademy.com/learn/react-101">codecademy.com</a>
+kali ini kita akan belajar mengenai dasar dari react component. Tidak hanya mengenai react component, tapi kita juga akan sedikit mereview apa yang sudah kita pelajari di tulisan saya <a href="http://ekaprasasti.com/memulai-reactjs-dan-dasar-jsx">sebelumnya</a>.</p>
+
+<p>Sebelumnya apa sih react component itu? Jika kita membuat aplikasi dengan react kita pasti selalu menggunakan component. Component adalah potongan kode kecil yang dapat di gunakan kembali (reusable) yang bertujuan agar user interface terpisah menjadi bagian-bagian kecil dan di satukan dan di render menjadi sebuah kode HTML.</p>
+
+<h2 id="component-class">Component Class</h2>
+
+<p>Ok sekarang kita akan langsung masuk ke contoh koding untuk membuat component class. Setiap component selalu di awali dengan component class, yang merupakan sebuah method yang dapat membuat component pada react. Untuk membuat component react kita menggunakan <code class="highlighter-rouge">React.createClass</code>. Perhatikan kode berikut.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">MyComponentClass</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">MyComponentClass</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Kode diatas adalah contoh sederhana dalam membuat component pada react dengan method <code class="highlighter-rouge">React.createClass</code> yang di simpan dalam sebuah variabel <code class="highlighter-rouge">MyComponentClass</code>. Tetapi sebelum kita membahas lebih jauh mengenai component class ini, untuk mereview tulisan <a href="http://ekaprasasti.com/memulai-reactjs-dan-dasar-jsx">sebelumnya</a> saya juga akan menjelaskan struktur dan sintaks lain pada kode diatas.</p>
+
+<h3 id="import-react">Import React</h3>
+
+<p>Pada baris kode pertama <code class="highlighter-rouge">var React = require('react');</code> akan mengembalikan sebuah object javascript yang di simpan dalam sebuah variabel yang dinamakan <code class="highlighter-rouge">React</code>, object ini berisi beberapa method yang dapat di gunakan pada project react kita.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">React</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pengembalian object ini disebut dengan React <em>library</em>. Pada tulisan saya <a href="http://ekaprasasti.com/memulai-reactjs-dan-dasar-jsx">sebelumnya</a>, kita sudah belajar bagaimana menggunakan React <em>library</em> seperti <code class="highlighter-rouge">React.createElement</code>. Yang memanggil elemen JSX untuk di compile. Untuk alasan ini kita harus me-<em>require</em> React <em>library</em> dan menyimpannya dalam sebuah variabel yang dinamakan <code class="highlighter-rouge">React</code>.</p>
+
+<h3 id="import-reactdom">Import ReactDOM</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ReactDOM</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Sama seperti <code class="highlighter-rouge">require('react')</code>, <code class="highlighter-rouge">require('react-dom')</code> juga mengembalikan sebuah object javascript. Namun keduanya berisi react method yang berbeda, <code class="highlighter-rouge">require('react-dom')</code> di khsuskan untuk berinteraksi dengan DOM, pada kode di atas kita menggunakan method <code class="highlighter-rouge">ReactDOM.render</code>.</p>
+
+<h3 id="render-component">Render Component</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">MyComponentClass</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pada kode diatas kita merender component react yang sudah kita buat. Untuk membuat memanggil <code class="highlighter-rouge">render</code> function pada sebuah component, passing component tersebut kepada method <code class="highlighter-rouge">ReactDOM.render</code>. <code class="highlighter-rouge">ReactDOM.render</code> akan menampilkan <code class="highlighter-rouge">&lt;h1&gt;Hello world&lt;/h1&gt;</code> yang di <code class="highlighter-rouge">return</code> pada component class ke sebuah virtual DOM, dan akan terlihat pada browser <code class="highlighter-rouge">Hello world</code>.</p>
+
+<h2 id="membuat-component-class">Membuat Component Class</h2>
+
+<p>Untuk membuat component class, kita gunakan salah satu methods dalam <em>library</em> React, <code class="highlighter-rouge">React.createClass</code>. Method <code class="highlighter-rouge">React.createClass</code> adalah merupakan salah satu method dari object yang di definisikan dari <code class="highlighter-rouge">require(‘react’)</code> pada baris pertama.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">MyComponentClass</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="component-class-naming-convesion">Component Class Naming Convesion</h3>
+
+<p>Ketika kita membuat sebuah component class baru, kita harus menyimpannya pada sebuah variabel, sehingga kita dapat menggunakan kembali component class tersebut. Pada contoh kode di atas kita membuat component class yang di simpan pada variabel yang kita namai <code class="highlighter-rouge">MyComponentClass</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">MyComponentClass</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">();</span>
+</code></pre></div></div>
+<p>Nama variabel pada component class harus menggunakan huruf besar pada huruf di kata pertama. Ini merupakan <em>naming convention</em> pada react yang harus kita ikuti. Nama class harus di tulis dengan cara UpperCamelCase.</p>
+
+<h3 id="instruksi-component-class">Instruksi Component Class</h3>
+
+<p><code class="highlighter-rouge">React.createClass</code> akan mengesekusi sebuah argument. Yang mana argument tersebut harus merupakan sebuah javascript object. Object ini akan berperan sebagai instruksi dan menjelaskan kepada component class bagaimana membuat react component. Pada contoh <code class="highlighter-rouge">React.createClass</code> akan mengambil nilai sebuah JSX. Berikut adalah object pada contoh kode di atas.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+   <span class="nl">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="render-function">Render Function</h4>
+
+<p>Sekarang saya akan menjelaskan instruksi apa yang sebenarnya di kirimkan oleh <code class="highlighter-rouge">React.createClass</code>. Pertama, instruksi ini harus di simpan sebagai object. Untuk contoh kita akan membuat sebuah variabel yang berisi object.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">instruction</span> <span class="o">=</span> <span class="p">{};</span>
+</code></pre></div></div>
+<p>Hanya ada satu property yang bisa kita masukan pada object tersebut. yaitu render function. Render function adalah sebuah properti yang dapat di namai <code class="highlighter-rouge">render</code> dan nilainya adalah sebuah function. Istilah “render function” dapat merujuk ke keseluruhan properti, atau hanya bagian fungsi.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">instructions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Untuk dapat merender, sebuah function harus mempunyai sebuah <code class="highlighter-rouge">return</code> statement. Biasanya statement ini me-<em>return</em> ekspressi JSX.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">instructions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="mendifinisikan-instruksi-pada-sebuah-function">Mendifinisikan Instruksi pada sebuah Function</h4>
+
+<p>Menyimpan instruksi object ke dalam sebuah variabel seperti contoh di atas adalah cara yang baik untuk mengilustrasikan bagaimana ia bekerja, namun pada prakteknya itu sangat jarang terjadi. Biasanya kita langsung memasukan object di dalam method <code class="highlighter-rouge">React.createClass</code>.</p>
+
+<h3 id="membuat-component-instance">Membuat Component Instance</h3>
+
+<p><code class="highlighter-rouge">MyComponentClass</code> sekarang sudah bekerja sebagai component class dan dapat di gunakan untuk membuat sebuah react component. Sebuah instance component pada react dibuat dengan hanya satu baris:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">MyComponentClass</span> <span class="o">/&gt;</span>
+</code></pre></div></div>
+
+<p>Untuk membuat sebuah react component, kita dapat menuliskan dalam format elemen JSX. Elemen JSX bisa berupa HTML atau component instance. JSX menggunakan kapitalisasi untuk membedakan keduanya. Itulah sebabnya nama class component harus di awali dengan huruf besar. Dalam elemen JSX, huruf pertama yang di kapitalisasi itu artinya merupakan component instance bukan tag HTML.</p>
+
+<h2 id="jsx-pada-react-component">JSX pada React Component</h2>
+
+<p>Nah sekarang kita sudah bisa membuat sebuah component pada react. Component react biasanya me-<em>return</em> kode JSX, aturan penulisan kode JSX ini pun sama seperti yang sudah saya jelaskan pada tulisan <a href="http://ekaprasasti.com/memulai-reactjs-dan-dasar-jsx">sebelumnya</a>. Tapi ada beberapa hal penting yang juga mengikuti aturan penulisan pada component react.</p>
+
+<h3 id="operasi-logika-pada-render-function">Operasi Logika pada Render Function</h3>
+
+<p>Function <code class="highlighter-rouge">render</code> harus mempunya sebuah <code class="highlighter-rouge">return</code> statement. Namun, tidak hanya itu kemampuannya. Function <code class="highlighter-rouge">render</code> juga dapat di jadikan tempat untuk menaruh kode kalkulasi sederhana ataupun sebuah proses logika. Lihat dua contoh kode berikut.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Random</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+        <span class="c1">// First, some logic that must happen</span>
+        <span class="c1">// before rendering:</span>
+        <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+
+         <span class="c1">// Next, a return statement</span>
+        <span class="c1">// using that logic:</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">The</span> <span class="nx">number</span> <span class="nx">is</span> <span class="p">{</span><span class="nx">n</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">task</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">apocalypse</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">task</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">learn React.js</span><span class="dl">"</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">task</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">run around</span><span class="dl">"</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Today</span> <span class="nx">I</span> <span class="nx">am</span> <span class="nx">going</span> <span class="nx">to</span> <span class="p">{</span><span class="nx">task</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<h3 id="menggunakan-keyword-this-pada-component">Menggunakan Keyword this pada Component</h3>
+
+<p>Keyword <code class="highlighter-rouge">this</code> dapat di gunakan pada React. Kita akan sering melihat <code class="highlighter-rouge">this</code> di dalam objet yang di <em>pass</em> pada <code class="highlighter-rouge">React.createClass</code>. Perhatikan contoh berikut.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">IceCreamGuy</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">food</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ice cream</span><span class="dl">'</span><span class="p">,</span>
+
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">I</span> <span class="nx">like</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">food</span><span class="p">}.</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="event-listener-di-dalam-component">Event Listener di dalam Component</h3>
+
+<p>Function render biasanya juga terdapat <em>event listener</em> seperti ini:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onHover</span><span class="o">=</span><span class="p">{</span><span class="nx">myFunc</span><span class="p">}</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Contoh <em>event handler</em> diatas adalah sebuah function, pada contoh di atas function <em>event handler</em> dinamakan dengan <code class="highlighter-rouge">myFunc</code>. Dalam React kita mendefinisikan <em>event handlers</em> sebagai property value dari sebuah instruksi pada object. Lihat contoh di bawah ini.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="na">myFunc</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Stop it. Stop hovering.</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onHover</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">myFunc</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Pada contoh di atas object pada <code class="highlighter-rouge">React.createClass</code> mempunyai dua properti yaitu <code class="highlighter-rouge">myFunc</code> dan <code class="highlighter-rouge">render</code>. <code class="highlighter-rouge">myFunc</code> di gunakan sebagai event handler. <code class="highlighter-rouge">myFunc</code> akan di panggil setiap kali user hovers diatas <code class="highlighter-rouge">&lt;div&gt;&lt;/div&gt;</code> yang di render.</p>
+
+<h2 id="penutup">Penutup</h2>
+
+<p>Ok, sampai sini dulu ya catatan pembelajaran saya mengenai ReactJS di <a href="https://www.codecademy.com/learn/react-101">codecademy.com</a>. Semoga juga bisa bermanfaat buat temen-temen programmer. Buat yang mau belajar bareng dan diskusi boleh langsung tinggalin komentarnya di bawah.</p>
+:ET

@@ -1,0 +1,278 @@
+I"�R<p>Morgan adalah sebuah HTTP request logger middleware untuk NodeJS, yang berfungsi sebagai pencatatan setiap request ke server. Pencatatan ini di sebut dengan istilah Logger yang dapat di akses melalui terminal.</p>
+
+<p>Untuk dokumentasi selengkapnya silahkan anda menuju <a href="https://github.com/expressjs/morgan">github morgan</a>.</p>
+
+<h3 id="install-morgan">Install Morgan</h3>
+
+<p>Untuk menginstall morgan pada sebuah project, buka terminal lalu ketikan command berikut :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>morgan
+</code></pre></div></div>
+
+<p>Setelah morgan terinstall selanjutnya load modul morgan pada server file dengan kode berikut ini</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">morgan</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">morgan</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="setup-middleware">Setup Middleware</h3>
+
+<p>Buat sebuah file dalam directory local anda dengan nama server.js</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>server.js
+</code></pre></div></div>
+
+<p>Selanjutnya kita akan install ExpressJs. Express merupakan framework bagi NodeJS. Ketikan perintah berikut pada terminal anda :</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>express <span class="nt">--save</span>
+</code></pre></div></div>
+<p>Setelah expressjs dan morgan di install dalam directory menggunakan npm, saatnya kita mensetup middleware aplikasi kita.</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/install-modul.jpg" alt="install modul" /></p>
+
+<p>Buka server.js dengan editor kesukaan anda. Setelah itu load module expressjs dan morgan dengan mengetikan command berikut :</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">morgan</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">morgan</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Buat sebuah middleware morgan dengan sebuah parameter dev, kita akan membahasnya ini nanti.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Dan kita tambahkan route untuk root aplikasi kita.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello, world!</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Terakhir kita akan membuat server dengan express pada port 3000, tambahkan kode berikut ini</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// aplikasi berjalan pada port 3000</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+<span class="c1">// buat sebuah notifikasi aplikasi kita sudah dapat di jalankan</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server running on port 3000</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Sehingga code lengkapnya menjadi seperti ini</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">morgan</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">morgan</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span><span class="p">));</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello, world!</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server running on port 3000</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Jalankan aplikasi kita dengan command berikut</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node server.js
+</code></pre></div></div>
+
+<p><img src="/assets/img/tukang-catat-morgan/node-running.jpg" alt="node-running" /></p>
+
+<p>Akan muncul notifikasi yang sudah kita buat “Server running on port 3000”, setelah itu buka browser dan arahkan ke url http://localhost:3000</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/buka-browser.jpg" alt="browser-open" /></p>
+
+<p>Akan muncul hello, world!, yang berasal dari kode berikut <code class="highlighter-rouge">res.send('hello, world!');</code></p>
+
+<p>Buka kembali terminal anda</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/morgan-result.jpg" alt="morgan-result" /></p>
+
+<p>Lihat hasil dari setup middleware morgan, ia mencatat semua request dan response apa yang sudah kita lakukan. Terlihat kita mengakses root / dengan status 200 dengan 4.411ms. Juga mengakses favicon.ico, karena favicon.ico belum kita definisikan maka ia akan berstatus 404 atau not found.</p>
+
+<h3 id="parameter-morganformat-options">Parameter morgan(format, options)</h3>
+
+<p>Morgan logger middleware function di buat menggunakan 2 parameter, yaitu format dan options. Format merupakan string yang sudah di definisikan dan di kenali oleh morgan. Kode berikut merupakan contohnya</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// EXAMPLE: hanya menampilkan kode yang error</span>
+<span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">combined</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">skip</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">&lt;</span> <span class="mi">400</span> <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h4 id="format">Format</h4>
+
+<ul>
+  <li>Combined</li>
+</ul>
+
+<p>Replace middleware <code class="highlighter-rouge">app.use(morgan('dev'));</code> dan gunakan middleware berikut pada server.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">combined</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Jalankan server, buka browser dengan port 3000, dan kembali ke terminal untuk melihat catatan dari morgan</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/combined.jpg" alt="combined" /></p>
+
+<p>Seperti yang kita lihat morgan menampilkan catatan yang lebih lengkap dari sebelumnya Standard Apache combined log output, yang berisi dengan tanggal akses, hardware apa server di akses dan juga detail browsernya.</p>
+
+<p>Format output log dari format combined bisa kita lihat seperti ini :</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
+</code></pre></div></div>
+
+<ul>
+  <li>Common</li>
+</ul>
+
+<p>Gunakan middleware berikut pada server.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">common</span><span class="dl">'</span><span class="p">));</span>  
+</code></pre></div></div>
+
+<p>Jalankan server, buka browser dengan port 3000, dan kembali ke terminal untuk melihat catatan dari morgan</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/common.jpg" alt="common" /></p>
+
+<p>Hasilnya kita ketahui dengan format yang sama dengan combined hanya tidak di sertai informasi user agent.</p>
+
+<p>Format output log dari format common bisa kita lihat seperti ini :</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length]
+</code></pre></div></div>
+
+<ul>
+  <li>dev</li>
+</ul>
+
+<p>Sebelumnya kita sudah menggunakan format dev ini, sekarang saya akan menjelaskannya secara lebih rinci.</p>
+
+<p>Gunakan middleware berikut pada server.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">dev</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Jalankan server, buka browser dengan port 3000, dan kembali ke terminal untuk melihat catatan dari morgan</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/morgan-result.jpg" alt="morgan-result" /></p>
+
+<p>Catatan di warnai hasil dari status response pada development. Token <code class="highlighter-rouge">:status</code> akan berwarna merah pada server yang error, kuning pada error di sisi client, biru langit untuk redirect kode, dan tanpa warna untuk kode yang lain.</p>
+
+<p>Format output log dari format dev bisa kita lihat seperti ini</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:method :url :status :response-time ms - :res[content-length]
+</code></pre></div></div>
+
+<ul>
+  <li>Short</li>
+</ul>
+
+<p>Gunakan middleware berikut pada server.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">short</span><span class="dl">'</span><span class="p">));</span>  
+</code></pre></div></div>
+
+<p>Jalankan server, buka browser dengan port 3000, dan kembali ke terminal untuk melihat catatan dari morgan</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/short.jpg" alt="short" /></p>
+
+<p>Lebih sederhana dari combined, dengan menghilangkan waktu dan tanggal akses, tetapi dengan memberi response time.</p>
+
+<p>Format output log dari format short bisa kita lihat seperti ini</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:remote-addr :remote-user :method :url HTTP/:http-version :status :res[content-length] - :response-time ms
+</code></pre></div></div>
+
+<ul>
+  <li>Tiny</li>
+</ul>
+
+<p>Gunakan middleware berikut pada server.js</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">tiny</span><span class="dl">'</span><span class="p">));</span>  
+</code></pre></div></div>
+
+<p>Jalankan server, buka browser dengan port 3000, dan kembali ke terminal untuk melihat catatan dari morgan</p>
+
+<p><img src="/assets/img/tukang-catat-morgan/tiny.jpg" alt="tiny" /></p>
+
+<p>Lebih sederhana hanya tidak menggunakan warna.</p>
+
+<p>Format output log dari format short bisa kita lihat seperti ini</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:method :url :status :res[content-length] - :response-time ms
+</code></pre></div></div>
+
+<h3 id="options">Options</h3>
+
+<p>Morgan mengenali 3 paramter dalam mendefinisikan middleware nya.</p>
+
+<ul>
+  <li>Immediate</li>
+</ul>
+
+<p>Bari log di tulis atas request. Ini berarti bahwa permintaan akan dicatat bahkan jika server crash, namun data dari response (seperti kode response, content length, dll) tidak dapat login.</p>
+
+<ul>
+  <li>Skip</li>
+</ul>
+
+<p>Function skip di tentukan jika pencatatan di lewati (skip). Options ini di panggil menggunakan skip(req, res).</p>
+
+<p>Contoh dari skip</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// contoh: hanya menampilkan kode yang error</span>
+<span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">combined</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>  
+  <span class="na">skip</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">&lt;</span> <span class="mi">400</span> <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p><img src="/assets/img/tukang-catat-morgan/skip.jpg" alt="skip" /></p>
+
+<p>Dengan options skip, kita lihat morgan hanya menampilkan request dan response yg error saja atau dengan status 400</p>
+
+<ul>
+  <li>Stream</li>
+</ul>
+
+<p>Berguna jika kita ingin menyimpan log pada file yang telah kita tentukan.</p>
+
+<p>Sebagai contoh kita akan membuat morgan menuliskan catatannya pada file <code class="highlighter-rouge">access.log</code>.</p>
+
+<p>Ganti kode di server.js dengan kode berikut ini</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">morgan</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">morgan</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">()</span>
+
+<span class="c1">// create a write stream (in append mode)</span>
+<span class="kd">var</span> <span class="nx">accessLogStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">access.log</span><span class="dl">'</span><span class="p">),</span> <span class="p">{</span><span class="na">flags</span><span class="p">:</span> <span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">})</span>
+
+<span class="c1">// setup the logger</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">morgan</span><span class="p">(</span><span class="dl">'</span><span class="s1">combined</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">stream</span><span class="p">:</span> <span class="nx">accessLogStream</span><span class="p">}))</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello, world!</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">);</span>  
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Server running on port 3000</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Kita jalankan server dan buka browser dengan port 3000. Saat ini di directory kita terdapat file baru bernama access.log, dan sudah berisi pencatatan dari apa yang sudah kita akses.</p>
+
+<h3 id="kesimpulan">Kesimpulan</h3>
+
+<p>Banyak manfaat jika kita menggunakan MorganJS ini, dalam development kita dapat memanfaatkannya untuk optimasi website dengan melihat access time pada terminal atau pun melihat request atau response mana yang error. Pada production kita bisa memanfaatkan untuk merekam IP, hardware, sistem operasi, dan waktu pengunjung yang melihat website kita.</p>
+
+<p>Untuk selengkapnya silahkan pelajari dokumentasi dari <a href="https://github.com/expressjs/morgan">github morgan</a>.</p>
+
+<p>Semua kode dalam artikel ini dapat di akses di <a href="http://">github erabelajar</a></p>
+:ET

@@ -1,0 +1,104 @@
+I"Ù<p>Artikel ini adalah pembelajaran saya mengenai Angular yang bersumber dari official dokumentasinya yang bisa di buka <a href="https://angular.io/docs/ts/latest/guide/setup.html">di sini</a>.</p>
+
+<p>Ok, langsung saja setup di sini adalah dengan menggunakan cloning dari repository yang di sediakan angular untuk file basic, bukan dari <em>create</em> file di angular cli.</p>
+
+<h2 id="setup-local-development-environment">Setup local development environment</h2>
+
+<p>Pada bagian ini kita akan belajar bagaimana membuat angular berjalan pada komputer lokal kita. Setting project baru di lokal komputer sangat lah mudah, coba lihat langkah-langkah berikut (jangan lupa untuk menginstall <a href="https://angular.io/docs/ts/latest/guide/setup.html#install-prerequisites">node dan npm</a>)</p>
+
+<ol>
+  <li>
+    <p>Buat project folder dengan nama <code class="highlighter-rouge">quickstart</code>, kita dapat me-<em>rename</em> nya nanti.</p>
+  </li>
+  <li>
+    <p>Clone atau download angular dari <a href="https://github.com/angular/quickstart.git">repository github</a> ke dalam project yang sudah kita buat.</p>
+  </li>
+  <li>
+    <p>Install semua packages dengan npm.</p>
+  </li>
+  <li>
+    <p>Jalankan npm start untuk meruning aplikasi kita.</p>
+  </li>
+</ol>
+
+<p>Berikut langkah-langkahnya jika kita jalankan pada terminal,</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/angular/quickstart.git quickstart
+<span class="nb">cd </span>quickstart
+npm <span class="nb">install
+</span>npm start
+</code></pre></div></div>
+
+<h2 id="delete-non-essential-files-optional">Delete non-essential files (optional)</h2>
+
+<p>Kita bisa dengan mudah menghapus file-file yang berfokus pada testing dan maintenance repository (termasuk hal yang berhubungan dengan git seperti folder <code class="highlighter-rouge">.git</code> dan file <code class="highlighter-rouge">.gitigonoe</code>)</p>
+
+<blockquote>
+  <p>Lakukan ini hanya pada awalnya saja untuk menghindari secara tidak sengaja menghapus test dan pengaturan git anda sendiri!</p>
+</blockquote>
+
+<p>Buka terminal dan enter command berikut,</p>
+
+<h3 id="osx-bash">OS/X (bash)</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xargs <span class="nb">rm</span> <span class="nt">-rf</span> &lt; non-essential-files.osx.txt
+<span class="nb">rm </span>src/app/<span class="k">*</span>.spec<span class="k">*</span>.ts
+<span class="nb">rm </span>non-essential-files.osx.txt
+</code></pre></div></div>
+
+<h3 id="windows">Windows</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for /f %i in (non-essential-files.txt) do del %i /F /S /Q
+rd .git /s /q
+rd e2e /s /q
+</code></pre></div></div>
+
+<h2 id="apa-yang-kita-clone">Apa yang kita Clone?</h2>
+
+<p>Folder berisi file yang membentuk fondasi yang solid untuk local development. Karena itu, sangat banyak file di dalam folder di <em>working directory</em> kita, yang sebagian besar bisa kita <a href="https://angular.io/docs/ts/latest/guide/setup-systemjs-anatomy.html">pelajari nanti</a>.</p>
+
+<p>Fokus pada tiga file TypeScipt (<code class="highlighter-rouge">.ts</code>) di dalam folder <code class="highlighter-rouge">/src</code></p>
+
+<h3 id="srcappappcomponentts">src/app/app.component.ts</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`&lt;h1&gt;Hello &lt;/h1&gt;`</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Angular</span><span class="dl">'</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Mendefinisikan sebuah <code class="highlighter-rouge">AppComponent</code>, ini adalah <strong>root</strong> component pada sebuah aplikasi</p>
+
+<h3 id="srcappappmodulets">src/app/app.module.ts</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.component</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
+  <span class="na">bootstrap</span><span class="p">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Mendefinisikan <code class="highlighter-rouge">AppModule</code>, sebuah <a href="https://angular.io/docs/ts/latest/guide/appmodule.html">root module</a> memerintahkan Angular bagaimana mengumpulkan semua hal yang di butuhkan dalam sebuah aplikasi. Saat ini kita hanya mendeklarasikan <code class="highlighter-rouge">AppComponent</code>, setelah ini kita akan banyak mendeklarasikan component lainnya.</p>
+
+<h3 id="srcmaints">src/main.ts</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser-dynamic</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span>              <span class="k">from</span> <span class="dl">'</span><span class="s1">./app/app.module</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Mengcompile aplikasi dengan <a href="https://angular.io/docs/ts/latest/glossary.html#!#jit">JIT compiler</a> (Just-in-time compilation) dan <a href="https://angular.io/docs/ts/latest/guide/appmodule.html#main">bootstrap</a> <code class="highlighter-rouge">AppModule</code> untuk menjalankannya pada browser. Kita akan belajar tentang pilihan alternatif compiling dan <a href="https://angular.io/docs/ts/latest/guide/deployment.html">deployment</a> nanti.</p>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/docs/ts/latest/guide/setup.html</li>
+</ul>
+:ET

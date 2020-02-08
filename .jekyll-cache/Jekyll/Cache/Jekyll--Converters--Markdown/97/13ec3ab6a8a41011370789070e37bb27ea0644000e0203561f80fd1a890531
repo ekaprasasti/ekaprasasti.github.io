@@ -1,0 +1,67 @@
+I"~<p><img src="/assets/img/stateful-stateless-react/props-state.jpg" alt="stateless stateful" /></p>
+
+<p style="text-align: center;">Illustration by <a href="https://image.slidesharecdn.com/discoverreact-150603094016-lva1-app6891/95/discover-react-59-638.jpg?cb=1435652856">slideshare.com</a></p>
+
+<p>Kita tau kalau react itu segalanya mengenai component, dan untuk mengakses dan menyimpan alur data pada component kita menggunakan props dan state seperti yang sudah saya tulis di artikel <a href="/this-state-pada-react">sebelumnya</a> mengenai pembelajaran saya di <a href="https://www.codecademy.com/learn/react-101">codecademy</a>. Masih dari codecademy kali ini kita akan belajar mengenai programming pattern dari react menggunakan state, yaitu stateful component dan stateless component.</p>
+
+<p>Stateful component mendeskripsikan component yang mempunyai property state. Sebaliknya stateless component di istilahkan untuk component yang tidak mempunyai property state.</p>
+
+<p>Programming pattern menggunakan stateful dan stateless component artinya, kita melewatkan atau mempassing state dari stateful component ke stateless component. Untuk mempraktekannya kita akan membuat 2 component yaitu stateful dan stateless component.</p>
+
+<h2 id="membuat-stateful-component-class">Membuat Stateful Component Class</h2>
+
+<p>Buat sebuah class component yang bernama Parent yang kita gunakan sebagai stateful component. Component stateful membutuhkan method constructor.</p>
+
+<p>File <code class="highlighter-rouge">Parent.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Child</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Child</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Parent</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Frarthur</span><span class="dl">'</span> <span class="p">};</span>
+  <span class="p">}</span>
+  
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Child</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Frarthur</span><span class="dl">"</span> <span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+	<span class="o">&lt;</span><span class="nx">Parent</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Kode diatas kita menerima kode dari file <code class="highlighter-rouge">Child.js</code> sebagai stateless component dengan kode <code class="highlighter-rouge">import { Child } from './Child';</code> dan mengirimkan sebuah state dengan melewatkan props pada sebuah component instance <code class="highlighter-rouge">&lt;Child name="Frathur" /&gt;</code>. Dan merender component child pada stateful component yaitu <code class="highlighter-rouge">&lt;Parent /&gt;</code>.</p>
+
+<h2 id="membuat-stateless-component-class">Membuat Stateless Component Class</h2>
+
+<p>Berikut kode dari stateless component <code class="highlighter-rouge">&lt;Child /&gt;</code>.</p>
+
+<p>File <code class="highlighter-rouge">Child.js</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Child</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hey</span><span class="p">,</span> <span class="nx">my</span> <span class="nx">name</span> <span class="nx">is</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Kita lihat pada kode di atas kita mengakses state dari component stateless <code class="highlighter-rouge">&lt;Parent /&gt;</code> dengan menggunakan props. Setelah itu kode pada method render di tampilkan pada component <code class="highlighter-rouge">&lt;Parent /&gt;</code>.</p>
+
+<h2 id="jangan-mengupdate-props">Jangan Mengupdate Props</h2>
+
+<p>Sebelumya kita telah belajar bagaimana component merubah state dengan <code class="highlighter-rouge">this.setState()</code>. Lalu bagaimana dengan props? bisakah sebuah component merubah props? Jawabannya adalah tidak bisa!</p>
+
+<p>Props dan state sama-sama menyimpan informasi dinamis, lalu di mana perbedaannya?</p>
+
+<ul>
+  <li>Props menyimpan informasi dinamis yang bisa di rubah di component yang berbeda.</li>
+  <li>State juga menyimpan informasi dinamis tetapi kita bisa merubahnya di componentnya sendiri.</li>
+</ul>
+:ET

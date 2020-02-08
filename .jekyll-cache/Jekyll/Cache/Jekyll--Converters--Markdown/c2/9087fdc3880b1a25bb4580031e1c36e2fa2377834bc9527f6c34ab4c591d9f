@@ -1,0 +1,353 @@
+I"Î}<p>Saat ini saya ingin membahas mengenai <em>positioning</em> element HTML menggunakan CSS. Biasanya programmer yang sudah terbiasa menggunakan framework CSS seperti Bootstrap sering melupakan dasar dari pengaturan posisi, karena framework seperti itu mereka sudah menyediakan class yang tinggal kita tambahkan di <em>attribute</em> HTML, biasanya kita menggunakan Grid dan Column yang di tandai dengan misal <code class="highlighter-rouge">col-md-12</code> dan sebagainya.</p>
+
+<p>Saya rasa kita perlu belajar lagi mengenai dasar-dasar CSS ini khususnya mengenai <em>positioning</em>. Agar basic kita mengenai CSS ini kuat dengan tidak hanya mengandalkan framework seperti Bootstrap saja. Pada artikel kali ini setidaknya ada 5 syntax CSS yang bisa di gunakan untuk mengatur <em>positioning</em>, yaitu position, overflow, float, inline-block, dan Align. Mari kita bahas satu persatu.</p>
+
+<h2 id="position">Position</h2>
+
+<p>Properti <em>position</em> di gunakan untuk menentukan <em>positioning</em> yang di gunakan pada sebuah elemen. Setidaknya ada 5 nilai yang dapat di gunakan menggunakan properti ini yaitu, static, relative, fixed, absolute, dan sticky. Letak pada posisi sendiri di atur dengan menggunakan properti <em>top</em>, <em>bottom</em>, <em>left</em>, dan <em>right</em> yang tidak akan bekerja kecuali properti <em>position</em> di definisikan terlebih dahulu.</p>
+
+<h3 id="posisition-static">posisition: static;</h3>
+
+<p>Elemen pada HTML secara default menggunakan posisi static. Elemen dengan <em>position</em> static sama seperti posisi normal biasa, dan tidak berpengaruh kepada properti <em>top</em>, <em>bottom</em>, <em>left</em>, dan <em>right</em>. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">div</span><span class="nc">.static</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">static</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"static"</span><span class="nt">&gt;</span>
+  Elemen ini menggunakan position: static;
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode di atas kita jalankan menggunakan browser, maka akan terlihat seperti ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/static.png" alt="position static css" /></p>
+
+<p>Jika kita beri properti <em>top</em>, <em>bottom</em>, <em>left</em>, dan <em>right</em> pada kode css, contohnya seperti ini:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span><span class="nc">.static</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">static</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+	<span class="nl">left</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>  
+  <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Maka hasilnya akan sama saja karena properti tersebut tidak berpengaruh pada posisi static.</p>
+
+<h3 id="posisition-relative">posisition: relative;</h3>
+
+<p>Elemen dengan posisi relative dapat di posisikan dengan properti <em>top</em>, <em>bottom</em>, <em>left</em>, dan <em>right</em> yang disesuaikan dengan posisi normal. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">div</span><span class="nc">.static</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="nl">left</span><span class="p">:</span> <span class="m">30px</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"static"</span><span class="nt">&gt;</span>
+  Elemen ini menggunakan position: static;
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode diatas di jalankan pada browser maka hasilnya akan seperti ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/relative.png" alt="posisiton relative css" /></p>
+
+<p>Hasilnya adalah elemen berada di antara jarak kiri sejauh 30px dari posisi normal dan atas sejauh 10px dari posisi normal.</p>
+
+<h3 id="position-fixed">position: fixed;</h3>
+
+<p>Berbeda dengan relative, posisi fixed mengatur properti <em>top</em>, <em>bottom</em>, <em>left</em>, dan <em>right</em> yang di sesuaikan dengan area browser. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">div</span><span class="nc">.static</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+  <span class="nl">bottom</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"static"</span><span class="nt">&gt;</span>
+  Elemen ini menggunakan position: fixed;
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode diatas di jalankan pada browser maka akan terlihat seperti berikut:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/fixed.png" alt="position fixed css" /></p>
+
+<p>Kita lihat hasilnya pada gambar di atas, bahwa elemen berada di pojok kanan bawah karena kita mengatur properti <em>bottom</em> dan <em>right</em> sebesar 0. Elemen akan tetap berada pada posisinya walaupun browser di scroll.</p>
+
+<h3 id="position-absolute">position: absolute;</h3>
+
+<p>Elemen dengan posisi absolute akan menyesuaikan dengan posisi relative dari tag root terdekatnya. Namun jika elemen tidak mempunya tag root maka akan menyesuaikan dengan tag body. Perhatikan contoh berikut ini:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">div</span><span class="nc">.relative</span> <span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">400px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span> 
+
+<span class="nt">div</span><span class="nc">.absolute</span> <span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">80px</span><span class="p">;</span>
+    <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"relative"</span><span class="nt">&gt;</span>Elemen ini menggunakan position: relative;
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"absolute"</span><span class="nt">&gt;</span>Elemen ini menggunakan position: absolute;<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode diatas di jalankan pada browser maka hasilnya akan seperti ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/absolute.png" alt="position absolute css" /></p>
+
+<p>Pada contoh di atas kita bisa melihat bahwa posisi elemen dari class <code class="highlighter-rouge">absolute</code> di atur dengan properti <code class="highlighter-rouge">top</code> sejauh 80px dari elemen class <code class="highlighter-rouge">relative</code> dan properti <code class="highlighter-rouge">right</code> sejauh 0 dari elemen class <code class="highlighter-rouge">relative</code>.</p>
+
+<h3 id="position-sticky">position: sticky;</h3>
+
+<p>Elemen dengan posisi sticky adalah posisi elemen yang di sesuaikan dengan scroll pada browser. Untuk browser seperti Internet Explorer dan Edge tidak mensuport sticky, sedangkan untuk browser Safari kita harus menambahkan prefix <code class="highlighter-rouge">-webkit-sticky</code>. Untuk menggunakan posisi sticky ini setidaknya kita harus mengatur salah satu dari properti <em>top</em>, <em>bottom</em>, <em>left</em> dan <em>right</em>. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">div</span><span class="nc">.sticky</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="n">-webkit-sticky</span><span class="p">;</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="n">sticky</span><span class="p">;</span>
+  <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="m">#cae8ca</span><span class="p">;</span>
+  <span class="nl">border</span><span class="p">:</span> <span class="m">2px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"sticky"</span><span class="nt">&gt;</span>Coba scroll saya!<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"padding-bottom:2000px"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;p&gt;</span>Perkecil ukuran jendela browser dan coba scroll. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;p&gt;</span>Perkecil ukuran jendela browser dan coba scroll.. Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode HTML di atas di jalankan pada browser maka hasilnya akan seperti ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/sticky.png" alt="position sticky css" /></p>
+
+<p>Tentu untuk praktek scrolling dengan image di atas tidak bisa memvisualisasikan penggunaan scroll pada browser. Untuk mempraktekannya copy kode di atas dan pastekan pada text editor dan simpan dengan nama misalnya belajar.html lalu buka file tersebut dengan browser dan perkecil ukuran browser agar kita bisa men-scroll browser keatas dan kebawah.</p>
+
+<p>Bisa di lihat bahwa elemen dengan posisi sticky walaupun kita scroll keatas atau ke bawah elemen tetap menyesuaikan. Posisi ini sering kita pakai untuk membuat navigasi pada website.</p>
+
+<h3 id="z-index">z-index</h3>
+
+<p>Sebagai tambahan <code class="highlighter-rouge">z-index</code> adalah sebuah properti pada css yang di gunakan untuk menentukan urutan elemen yang saling tumpang tindih atau istilahnya adalah <em>overlapping elemen</em>. Untuk lebih jelasnya perhatikan contoh berikut ini:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">img</span> <span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+    <span class="nl">z-index</span><span class="p">:</span> <span class="m">-1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;h1&gt;</span>Contoh z-index<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"http://io13-high-dpi.appspot.com/images/CSS3_Logo.svg"</span> <span class="na">height=</span><span class="s">"140"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;p&gt;</span>Perhatikan gambar akan berada di bawah tulisan<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode di atas di jalankan pada browser maka hasilnya akan menjadi seperti ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/z-index.png" alt="z-index" /></p>
+
+<p>Dengan properti <code class="highlighter-rouge">z-index</code> dengan nilai <code class="highlighter-rouge">-1</code> pada elemen <code class="highlighter-rouge">img</code> maka kita dapat membuat image tersebut berada di belakang elemen lainnya.</p>
+
+<h2 id="float">Float</h2>
+
+<p>Float biasa di gunakan untuk mengatur posisi text di sekitar image. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">img</span> <span class="p">{</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;p&gt;</span>Properti float membuat image berada di sebelah kanan dan text yang membungkus image<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">"http://io13-high-dpi.appspot.com/images/CSS3_Logo.svg"</span> <span class="na">height=</span><span class="s">"170"</span><span class="nt">&gt;</span>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode di atas di buka pada browser maka hasilnya akan menjadi seperti ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/float.png" alt="float" /></p>
+
+<h3 id="memisahkan-diri-dengan-clear">Memisahkan diri dengan Clear</h3>
+
+<p>Elemen yang berada di sekitar properti float akan menyesuaikan dengan elemen dengan properti tersebut. Untuk mengatasinya gunakan properti <code class="highlighter-rouge">clear</code> pada elemen yang ingin kita pisahkan dari properti float. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nc">.div1</span> <span class="p">{</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.div2</span> <span class="p">{</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="nc">.div3</span> <span class="p">{</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#543535</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.div4</span> <span class="p">{</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">clear</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Dengan clear<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"div1"</span><span class="nt">&gt;</span>div1<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"div2"</span><span class="nt">&gt;</span>div2 - Perhatikan bahwa div 2 berada setelah div 1 yang mana div 1 mempunyai properti float left. Maka yang terjadi adalah text pada div 2 menyesuaikan float pada div 1.<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;h2&gt;</span>Menggunakan clear<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"div3"</span><span class="nt">&gt;</span>div3<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"div4"</span><span class="nt">&gt;</span>div4 - memisahkan diri dengan properti float pada div 3 menggunakan properti clear.<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode di atas di jalankan maka hasilnya akan seperti berikut ini:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/clear.png" alt="clear" /></p>
+
+<h3 id="clearfix-overflow">Clearfix Overflow</h3>
+
+<p>Jika elemen image lebih tinggi dari pada elemen text, maka elemen gambar tersebut akan terpisah dari elemen text yang membungkusnya. Untuk mengatasi hal ini kita menggunakan properti yang di namakan overflow. Overflow adalah sebuah properti pada CSS yang di gunakan untuk menscroll suatu elemen jika ukuran jendela browser lebih kecil dari elemen yang membungkusnya. Perhatikan contoh berikut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nt">div</span> <span class="p">{</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#4CAF50</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.img1</span> <span class="p">{</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span> <span class="p">{</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.img2</span> <span class="p">{</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;p&gt;</span>Pada contoh berikut, image lebih tinggi dari elemen text sehingga image di overflow di luar elemen text<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;div&gt;</span>
+	<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"img1"</span> <span class="na">src=</span><span class="s">"http://io13-high-dpi.appspot.com/images/CSS3_Logo.svg"</span> <span class="na">height=</span><span class="s">"170"</span><span class="nt">&gt;</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum...
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"clear:right"</span><span class="nt">&gt;</span>Tambahkan class clearfix dengan overflow: auto; pada elemen image untuk mengatasi hal ini<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"img2"</span> <span class="na">src=</span><span class="s">"http://io13-high-dpi.appspot.com/images/CSS3_Logo.svg"</span> <span class="na">height=</span><span class="s">"170"</span><span class="nt">&gt;</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum...
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Jika kode di atas di jalankan pada browser maka hasilnya akan menjadi seperti berikut:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/float-overflow.png" alt="float overflow" /></p>
+
+<p>Dari contoh di atas bisa di lihat bahwa dengan <code class="highlighter-rouge">overflow: auto;</code> kita bisa membungkus elemen gambar yang lebih panjang dengan text. Dengan properti overflow maslah yang kita alami sudah teratasi namun banyak developer yang menggunakan <em>pseudo-class</em> after sebagai alternative lain, contohnya bisa di lihat dibawah ini. Mengenai apa itu <em>pseudo-class</em> akan di bahas pada kesempatan berikutnya.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+</code></pre></div></div>
+
+<h2 id="inline-block">Inline Block</h2>
+
+<p>Sebagai alternative dari float kita dapat menggunakan <code class="highlighter-rouge">display: inline-block</code> untuk membuat grid, perbedaannya jika kita menggunakan float dalam menggunakan grid kita harus menggunakan properti <code class="highlighter-rouge">clear</code>. Perhatikan kedua contoh kode berikut:</p>
+
+<h3 id="menggunakan-float">Menggunakan Float</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nc">.floating-box</span> <span class="p">{</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">150px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">75px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#73AD21</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="nc">.after-box</span> <span class="p">{</span>
+    <span class="nl">clear</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span>      
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Menggunakan float<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"after-box"</span><span class="nt">&gt;</span>Box setelah floating box<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="menggunakan-inline-block">Menggunakan inline-block</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style&gt;</span>
+<span class="nc">.floating-box</span> <span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">150px</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">75px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#73AD21</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="nc">.after-box</span> <span class="p">{</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="no">red</span><span class="p">;</span> 
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;h2&gt;</span>Menggunakan inline-block<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"floating-box"</span><span class="nt">&gt;</span>Floating box<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"after-box"</span><span class="nt">&gt;</span>Box setelah floating box<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Kedua tipe kode di atas jika kita jalankan pada browser maka hasilnya akan sama:</p>
+
+<p><img src="/assets/img/posisi-dengan-css/inline-block.png" alt="inline-block" /></p>
+
+<p>Pada penggunaan properti <code class="highlighter-rouge">float</code> kita harus menggunakan properti <code class="highlighter-rouge">clear</code> untuk memisahkan class <code class="highlighter-rouge">after-box</code> dari baris float class <code class="highlighter-rouge">floating-box</code>. Tetapi pada kode yang ke dua menggunakan <code class="highlighter-rouge">display: inline-block</code> kita tidak perlu menggunakan properti <code class="highlighter-rouge">clear</code>.</p>
+
+<p>Sepertinya sudah cukup sampai di sini pembahasan mengenai properti dasar apa saja untuk mengatur posisi dari suatu elemen. Sebenarnya masih banyak trik atau cara lain untuk mengatur posisi elemen HTML menggunakan CSS, seperti menggunakan margin auto, padding, text-align, display block, dan line-height, yang mungkin akan saya bahas di lain kesempatan. Sebagai referensi teman-teman bisa membaca dokumentasi dari <a href="https://www.w3schools.com/css/default.asp">w3school.com</a>. Jika ada yang ingin di tanyakan dan di diskusikan silahkan bertanya di kolom komentar ya.</p>
+:ET

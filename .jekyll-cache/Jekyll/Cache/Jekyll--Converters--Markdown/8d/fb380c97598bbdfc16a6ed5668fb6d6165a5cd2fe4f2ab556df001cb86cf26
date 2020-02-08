@@ -1,0 +1,277 @@
+I"�K<p>Tutorial kali ini kita akan membahas Refactor master/detail view kedalam component yang terpisah. Tutorial ini merupakan lanjutan dari tutorial Angular <a href="/angular-tour-of-heroes-tutorial">Tour of Heroes</a>.</p>
+
+<p>Saat ini <code class="highlighter-rouge">AppComponent</code> dapat melakukan apa saja. Selanjutnya akan banyak requirement dan fitur yang akan di implementasi. Kita tidak bisa terus menumpuk fitur dalam satu component, hal ini membuat sulit untuk di maintain.</p>
+
+<p>Kita harus memecahnya kedalam sub-component, setiap component fokus pada tugas atau workflow yang spesifik. Ketika selesai, aplikasi akan terlihat seperti berikut <a href="https://angular.io/resources/live-examples/toh-3/ts/eplnkr.html">live example</a> / <a href="https://angular.io/resources/zips/toh-3/toh-3.zip">downloadable example</a>.</p>
+
+<h2 id="component-hero-detail">Component hero detail</h2>
+
+<p>Buat file dengan nama <code class="highlighter-rouge">hero-detail.component.ts</code> pada folder <code class="highlighter-rouge">app/</code>. File ini akan menyimpan component baru <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<p>Nama file dan component mengikuti standard yang di deskripsikan Angular <a href="https://angular.io/docs/ts/latest/guide/style-guide.html#naming">style guide</a>.</p>
+
+<ul>
+  <li>
+    <p>Nama component class harus di tulis dengan <em>upper camel case</em> dan di akhiri dengan kata “Component”. Component class hero detail adalah <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+  </li>
+  <li>
+    <p>Nama file component harus di eja dengan <em>lower dash case</em>, setiap kata di sisipi dengan dash (strip), dan di akhiri dengan <code class="highlighter-rouge">.component.ts</code>. Class <code class="highlighter-rouge">HeroDetailComponent</code> ada pada file <code class="highlighter-rouge">hero-detail.component.ts</code>.</p>
+  </li>
+</ul>
+
+<p>Mulai dengan <code class="highlighter-rouge">HeroDetailComponent</code> berikut.</p>
+
+<h4 id="apphero-detailcomponentts-initial-version">app/hero-detail.component.ts (initial version)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">hero-detail</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Untuk mendefinisikan component, kita akan selalu meng-import <code class="highlighter-rouge">Component</code> symbol.</p>
+
+<p>Selector <code class="highlighter-rouge">hero-detail</code>, akan sesuai dengan tag element pada template component parent. Di akhir tutorial ini, kita akan menambahkan <code class="highlighter-rouge">&lt;hero-detail&gt;</code> element pada template <code class="highlighter-rouge">AppComponent</code>.</p>
+
+<p>Export selalu component class karena kita akan selalu meng-import nya di suatu tempat.</p>
+
+<h3 id="hero-detail-template">Hero detail template</h3>
+
+<p>Untuk memindahkan detail view ke dalam <code class="highlighter-rouge">HeroDetailComponent</code>, cut content hero detail di bagian bawah template <code class="highlighter-rouge">AppComponent</code> dan paste kedalam template property baru di metadata <code class="highlighter-rouge">@Component</code>.</p>
+
+<p><code class="highlighter-rouge">HeroDetailComponent</code> mempunyai hero, bukan <em>selected hero</em>. Ganti kata “selectedHero”, dengan kata, “hero”, pada template. Jika sudah, template baru kita sekarang terlihat seperti ini.</p>
+
+<h4 id="srcapphero-detailcomponentts-template">src/app/hero-detail.component.ts (template)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">hero-detail</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;div *ngIf="hero"&gt;
+      &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+      &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;name: &lt;/label&gt;
+        &lt;input [(ngModel)]="hero.name" placeholder="name"/&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span>
+<span class="p">})</span>
+
+</code></pre></div></div>
+
+<h3 id="tambahkan-property-hero">Tambahkan property hero</h3>
+
+<p>Tambahkan property pada class <code class="highlighter-rouge">HeroDetailComponent</code> seperti ini.</p>
+
+<h4 id="srcapphero-detailcomponentts-hero-property">src/app/hero-detail.component.ts (hero property)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Property <code class="highlighter-rouge">hero</code> di tulis sebagai instance dari <code class="highlighter-rouge">Hero</code>. Class <code class="highlighter-rouge">Hero</code> masih berada pada file <code class="highlighter-rouge">app.component.ts</code>. Sekarang ada 2 component yang membutuhkan reference pada class <code class="highlighter-rouge">Hero</code>. Agular <a href="https://angular.io/docs/ts/latest/guide/style-guide.html#rule-of-one">style guide</a> merekomendasikan 1 class per file.</p>
+
+<p>Pindahkan class <code class="highlighter-rouge">Hero</code> dari <code class="highlighter-rouge">app.component.ts</code> kepada file <code class="highlighter-rouge">hero.ts</code>.</p>
+
+<h4 id="srcappherots">src/app/hero.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sekarang class <code class="highlighter-rouge">Hero</code> mempunyai file tersendiri, <code class="highlighter-rouge">AppComponent</code> dan <code class="highlighter-rouge">HeroDetailComponent</code> harus mengimportnya. Tambahkan statement <code class="highlighter-rouge">import</code> di bagian atas pada file <code class="highlighter-rouge">app.component.ts</code> dan <code class="highlighter-rouge">hero-detail.component.ts</code></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="property-hero-sebagai-property-input">Property hero sebagai property input</h3>
+
+<p>Component utama <code class="highlighter-rouge">AppComponent</code> memberitahukan component turunannya <code class="highlighter-rouge">HeroDetailComponent</code>, hero yang mana yang akan di turunkan dengan <em>binding</em> <code class="highlighter-rouge">selectedHero</code> kepada property <code class="highlighter-rouge">hero</code> di <code class="highlighter-rouge">HeroDetailComponent</code>. Binding akan terlihat seperti ini:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;hero-detail</span> <span class="na">[hero]=</span><span class="s">"selectedHero"</span><span class="nt">&gt;&lt;/hero-detail&gt;</span>
+</code></pre></div></div>
+
+<p>Menempatkan tanda kurung di antara property <code class="highlighter-rouge">hero</code>, dan di tambah tanda sama dengan (=), hal ini membuat target kepada ekspresi binding. Kita harus mendeklarasikan target binding menjadi property input. Jika tidak, Angular akan mereject binding dan menampilkan error.</p>
+
+<p>Pertama, ubah statement import <code class="highlighter-rouge">@angular/core</code> dengan menambah symbol <code class="highlighter-rouge">Input</code>.</p>
+
+<h4 id="srcapphero-detailcomponentts-excerpt">src/app/hero-detail.component.ts (excerpt)</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Lalu deklarasikan <code class="highlighter-rouge">hero</code> sebagai input property dengan menambahkan decorator <code class="highlighter-rouge">@Input</code> yang telah kita import sebelumnya</p>
+
+<h4 id="srcapphero-detailcomponentts-excerpt-1">src/app/hero-detail.component.ts (excerpt)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Baca lebih lanjut mengenai property input dalam halaman <a href="https://angular.io/docs/ts/latest/guide/attribute-directives.html#why-input">Attribute Directives</a>.</p>
+
+<p>Itu saja. Property <code class="highlighter-rouge">hero</code> hanya berisi class <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Kode di atas adalah menerima object hero melalui property input dan bind property dengan template.</p>
+
+<p>Berikut code <code class="highlighter-rouge">HeroDetailComponent</code> yang lengkap.</p>
+
+<h4 id="srcapphero-detailcomponentts">src/app/hero-detail.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">hero-detail</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;div *ngIf="hero"&gt;
+      &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+      &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;name: &lt;/label&gt;
+        &lt;input [(ngModel)]="hero.name" placeholder="name"/&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
+  <span class="p">@</span><span class="nd">Input</span><span class="p">()</span> <span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="mendeklarasikan-herodetailcomponent-dalam-appmodule">Mendeklarasikan <em>HeroDetailComponent</em> dalam <em>AppModule</em></h2>
+
+<p>Setiap component harus di deklarasikan pada satu (dan hanya boleh satu) Angular module.</p>
+
+<p>Buka <code class="highlighter-rouge">app.module.ts</code> di editor dan import <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<h4 id="srcappappmodulets">src/app/app.module.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero-detail.component</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Tambahkan <code class="highlighter-rouge">HeroDetailComponent</code> pada module array <code class="highlighter-rouge">declarations</code>.</p>
+
+<h4 id="srcappappmodulets-1">src/app/app.module.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">declarations</span><span class="p">:</span> <span class="p">[</span>
+  <span class="nx">AppComponent</span><span class="p">,</span>
+  <span class="nx">HeroDetailComponent</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Secara umum, array <code class="highlighter-rouge">declarations</code> berisi list component dari aplikasi, pipes, dan directive yang termasuk di dalam module. Component harus di deklarasikan di dalam module sebelum component lain menggunakannya. Module ini mendeklarasikan hanya dua component pada aplikasi, yakni <code class="highlighter-rouge">AppComponent</code> dan <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<p>Baca lebih lanjut mengenai Angular modules dalam guide <a href="https://angular.io/guide/ngmodule">NgModules</a></p>
+
+<h2 id="menambahkan-component-herodetailcomponent-ke-dalam-appcomponent">Menambahkan component <em>HeroDetailComponent</em> ke dalam <em>AppComponent</em></h2>
+
+<p><code class="highlighter-rouge">AppComponent</code> masih sebagai master/detail view. Ini di gunakan untuk menampilkan detail hero. Sekarang kita akan menugaskannya kepada <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<p>Panggil ulang <code class="highlighter-rouge">hero-detail</code>, yang merupakan CSS <code class="highlighter-rouge">selector</code> pada <code class="highlighter-rouge">HeroDetailComponent</code>.</p>
+
+<p>Tambahkan element <code class="highlighter-rouge">&lt;hero-detail&gt;</code> di bagian bawah template <code class="highlighter-rouge">AppComponent</code>, yang dimana view detail hero di gunakan.</p>
+
+<h4 id="appcomponentts-excerpt">app.component.ts (excerpt)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="dl">"</span><span class="s2">selectedHero</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/hero-detail</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Sekarang setiap kali <code class="highlighter-rouge">selectedHero</code> berubah, <code class="highlighter-rouge">HeroDetailComponent</code> menampilkan hero yang baru.</p>
+
+<p>Revisi dari template <code class="highlighter-rouge">AppComponent</code> harus terlihat seperti ini.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nx">template</span><span class="p">:</span> <span class="s2">`
+  &lt;h1&gt;{{title}}&lt;/h1&gt;
+  &lt;h2&gt;My Heroes&lt;/h2&gt;
+  &lt;ul class="heroes"&gt;
+    &lt;li *ngFor="let hero of heroes"
+      [class.selected]="hero === selectedHero"
+      (click)="onSelect(hero)"&gt;
+      &lt;span class="badge"&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;hero-detail [hero]="selectedHero"&gt;&lt;/hero-detail&gt;
+`</span><span class="p">,</span>
+
+</code></pre></div></div>
+
+<h2 id="apa-saja-yang-sudah-kita-rubah">Apa saja yang sudah kita rubah?</h2>
+
+<p>Sebelumnya, dimanapun user mengklik nama hero, detail hero akan muncul di bawah list hero. Tapi sekarang <code class="highlighter-rouge">HeroDetailView</code> yang akan menampilkan detail tersebut.</p>
+
+<p>Refactor original <code class="highlighter-rouge">AppComponent</code> pada 2 component memiliki keuntungan, untuk saat ini dan yang akan datang:</p>
+
+<ol>
+  <li>
+    <p>Kita membuat simpel <code class="highlighter-rouge">AppComponent</code> dengan mengurangi kemampuan component tersebut.</p>
+  </li>
+  <li>
+    <p>Kita dapat mengembangkan <code class="highlighter-rouge">HeroDetailComponent</code> menjadi hero editor yang lebih kaya tanpa harus menyentuh <code class="highlighter-rouge">AppComponent</code>.</p>
+  </li>
+  <li>
+    <p>Kita dapat mengembangkan <code class="highlighter-rouge">AppComponent</code> tanpa harus menyentuh view detail view.</p>
+  </li>
+  <li>
+    <p>Kita dapat menggunakan kembali <code class="highlighter-rouge">HeroDetailComponent</code> dalam template lain kedepannya pada component.</p>
+  </li>
+</ol>
+
+<h3 id="review-struktur-app">Review struktur app</h3>
+
+<p>Saat ini struktur folder dan file akan menjadi seperti ini.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>angular-tour-of-heroes
+|
+ -src
+| |
+| -app
+| | |
+| | -app.compponent.ts
+| | |
+| | -app.module.ts
+| | |
+| | -hero.ts
+| | |
+| | -hero-detail.compponent.ts
+| |
+| -main.ts
+| |
+| -index.html
+| |
+| -styles.css
+| |
+| -systemjs.config.js
+| |
+| -tsconfig.json
+|
+-node_modules
+|
+-package.json
+</code></pre></div></div>
+
+<h2 id="apa-saja-yang-sudah-kita-pelajari">Apa saja yang sudah kita pelajari?</h2>
+
+<ul>
+  <li>
+    <p>Kita membuat component yang reusable.</p>
+  </li>
+  <li>
+    <p>Kita belajar bagaimana membuat component menyetujui input.</p>
+  </li>
+  <li>
+    <p>Kita belajar mendeklarasikan directive yang di butuhkan aplikasi pada Angular module. Kita me-list directive di dalam <code class="highlighter-rouge">NgModule</code> decorator pada array <code class="highlighter-rouge">declarations</code>.</p>
+  </li>
+  <li>
+    <p>Kita belajar bagaimana bind parent component dengan child component.</p>
+  </li>
+</ul>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/tutorial/toh-pt3</li>
+</ul>
+:ET

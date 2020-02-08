@@ -1,0 +1,97 @@
+I"�<p>Tutorial ini adalah pembelajaran saya mengenai Angular yang bersumber dari <a href="https://angular.io/docs/ts/latest/tutorial/">dokumentasi official</a> Angular. Dan juga ceritanya sekaligus saya belajar bahasa Inggris, jadi sekalian saya translate dokumentasinya ke bahasa Indonesia.</p>
+
+<blockquote>
+  <p>The Tour of Heroes tutorial takes you through the steps of creating an Angular application in TypeScript.</p>
+</blockquote>
+
+<p>Tujuan dari tutorial ini adalah membuat sebuah aplikasi yang dapat menolong staff agensi mengatur <em>stable of heroes</em>. Aplikasi ini mencakup <em>core fundamentals</em> dari Angular. Kita akan membuat aplikasi dasar dengan banyak fitur yang dapat kita temukan pada aplikasi berbasis data yang lengkap (<em>data-driven app</em>): mengambil dan menampilkan data hero, mengedit detail hero yang di pilih, dan navigasi di antara tampilan yang berbeda pada data heroic.</p>
+
+<h2 id="apa-saja-fitur-yang-akan-kita-buat">Apa saja fitur yang akan kita buat?</h2>
+
+<ul>
+  <li>
+    <p>Kita akan menggunakan built-in directive untuk memunculkan dan menghilangkan elements dan menampilkan data pada list hero.</p>
+  </li>
+  <li>
+    <p>Kita membuat component untuk menampilkan detail hero dan memunculkan sebuah array dari <em>hero</em>.</p>
+  </li>
+  <li>
+    <p>Kita menggunakan <em>one-way data binding</em> hanya untuk membaca data.</p>
+  </li>
+  <li>
+    <p>Kita akan menambahkan edit field untuk meng-update sebuah model dengan <em>two-way data binding</em>.</p>
+  </li>
+  <li>
+    <p>Kita akan <em>bind</em> method component pada event user, seperti <em>keystrokes</em> dan <em>clicks</em>.</p>
+  </li>
+  <li>
+    <p>Kita dapat memungkinkan user untuk memilih hero dari master list dan mengeditnya di dalam details view.</p>
+  </li>
+  <li>
+    <p>Kita bisa memformat data dengan <em>pipes</em>.</p>
+  </li>
+  <li>
+    <p>Kita akan membuat sebuah <em>shared service</em> untuk mengumpulkan <em>hero</em>.</p>
+  </li>
+  <li>
+    <p>Kita juga akan membuat routing untuk menavigasi <em>view</em> yang berbeda pada setiap component.</p>
+  </li>
+</ul>
+
+<p>Kita cukup belajar inti dari Angular untuk memulai dan setelahnya kita akan dapat melakukan apapun yang kita butuhkan dengan Angular. Aplikasi yang akan kita buat juga dapat kita buka di sini <a href="https://angular.io/resources/live-examples/toh-6/ts/eplnkr.html">live example</a> / <a href="https://angular.io/resources/zips/toh-6/toh-6.zip">downloadable example</a>.</p>
+
+<h2 id="the-end-game">The End Game</h2>
+
+<p>Bagian ini adalah ide visual yang akan kita buat pada tutorial ini, di mulai dari “Dashboard” view dan hero yang paling heroik.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/heroes-dashboard-1.png" alt="Dashboard" /></p>
+
+<p>Kita dapat meng-klik 2 link di atas dashboard yaitu “Dashboard” dan “Heroes” yang merupakan navigasi antara Dashboard view dan Hero view.</p>
+
+<p>Di dalam Dashboard Jika kita klik hero “Magneta”, router akan membuka “Hero Details” yang di mana kita dapat meng-edit nama hero.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/hero-details-1.png" alt="hero details" /></p>
+
+<p>Klik button “Back” untuk kembali ke Dashboard yang merupakan view utama kita. Jika di klik “Hero”, aplikasi akan menampilkan master <em>hero</em> list.</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/heroes-list-2.png" alt="Heroes" /></p>
+
+<p>Jika kita klik nama hero yang berbeda, membuat nama hero maka button di bagian paling bawah menyesuaikan. Kita dapat men-klik “View Details” untuk menuju detail yang dapat kita edit pada hero yang di pilih.</p>
+
+<p>Perhatikan alur dan diagram navigasi yang akan kita buat</p>
+
+<p><img src="https://angular.io/generated/images/guide/toh/nav-diagram.png" alt="diagram navigations" />.</p>
+
+<h2 id="app-in-action">App in Action</h2>
+
+<p><img src="https://angular.io/generated/images/guide/toh/toh-anim.gif" alt="gif action" /></p>
+
+<p>Kita akan membuat aplikasi Tour of Heroes, step by step. Setiap langkah memotivasi kita membuat requirement yang mungkin akan banyak kita temui di setiap aplikasi. Klik di setiap step pada daftar berikut ini.</p>
+
+<ol>
+  <li>
+    <p><a href="/the-hero-editor-tour-of-heroes">The Hero Editor</a></p>
+  </li>
+  <li>
+    <p><a href="/master-detail-tour-of-heroes">Master Details</a></p>
+  </li>
+  <li>
+    <p><a href="/multiple-component-tour-of-heroes">Multiple Component</a></p>
+  </li>
+  <li>
+    <p><a href="/services-tour-of-heroes">Services</a></p>
+  </li>
+  <li>
+    <p><a href="/routing-tour-of-heroes">Routing</a></p>
+  </li>
+  <li>
+    <p><a href="/http-tour-of-heroes">HTTP</a></p>
+  </li>
+</ol>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/docs/ts/latest/tutorial/</li>
+</ul>
+:ET

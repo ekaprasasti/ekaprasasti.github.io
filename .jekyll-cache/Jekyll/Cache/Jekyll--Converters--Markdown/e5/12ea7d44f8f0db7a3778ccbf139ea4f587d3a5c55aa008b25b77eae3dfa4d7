@@ -1,0 +1,160 @@
+I"2<p><img src="/assets/img/tipe-output-javascript/keep-calm-and-console-log.jpg" alt="Keep calm and console log" /></p>
+
+<p>Pada artikel kali ini saya akan membahas berbagai macam tipe output yang ada pada javascript. Ouput dapat kita gunakan untuk menampilkan sesuatu pada browser atau pada server dengan NodeJS. Selain itu output juga berguna jika kita ingin mendebug atau melihat isi dari variabel atau fungsi-fungsi lain pada program.</p>
+
+<p>Tipe output yang saya bahas di sini ada lima yaitu:</p>
+
+<ol>
+  <li>
+    <p><strong>innerHTML</strong>, menuliskan output pada element HTML</p>
+  </li>
+  <li>
+    <p><strong>document.write</strong>, menuliskan output bersamaan dengan output pada HTML</p>
+  </li>
+  <li>
+    <p><strong>window.alert()</strong>, menampilkan output pada pop-up alert box javascript</p>
+  </li>
+  <li>
+    <p><strong>console.log()</strong>, menampilkan output pada browser console</p>
+  </li>
+  <li>
+    <p><strong>node output</strong>, menampilkan output pada terminal</p>
+  </li>
+</ol>
+
+<h2 id="innerhtml">innerHTML</h2>
+
+<p>Untuk mengakses elemen pada HTML, javascript bisa menggunakan method <code class="highlighter-rouge">document.getElementById(id)</code>. Argumen <code class="highlighter-rouge">id</code> mendefinisikan atribut <code class="highlighter-rouge">id</code> pada elemen HTML. Property <code class="highlighter-rouge">innerHTML</code> akan merubah konten HTML pada atribut <code class="highlighter-rouge">id</code> yang dituju, perhatikan contoh berikut.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Ouput innerHTML<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>How to output innerHTML?<span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"demo"</span><span class="nt">&gt;&lt;/p&gt;</span>
+
+        <span class="nt">&lt;script&gt;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">demo</span><span class="dl">'</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="mi">9</span> <span class="o">+</span> <span class="mi">8</span><span class="p">;</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Simpan kode diatas dengan nama file <code class="highlighter-rouge">inner-html.html</code> dan buka file tersebut dengan browser, lihat apa yang terjadi? tag <code class="highlighter-rouge">&lt;p&gt;&lt;/p&gt;</code> terisi 17. Karena tag <code class="highlighter-rouge">&lt;p&gt;</code> memiliki atribut <code class="highlighter-rouge">id</code> demo yang sesuai dengan target <code class="highlighter-rouge">document.getElementById('demo')</code> pada javascript, sehingga HTML menampilkan output hasil dari <code class="highlighter-rouge">9 + 8</code> dengan memanggil <code class="highlighter-rouge">innerHTML</code> pada method <code class="highlighter-rouge">document.getElementById('demo')</code>.</p>
+
+<p><img src="/assets/img/tipe-output-javascript/inner-html.png" alt="innerHTML" /></p>
+
+<h2 id="documentwrite">document.write()</h2>
+
+<p>Untuk tujuan testing, akan lebih mudah menggunakan <code class="highlighter-rouge">document.write()</code>. Karena ia tidak mengubah elemen apapun pada HTML. Mengeksekusi <code class="highlighter-rouge">document.write()</code> setelah HTML berhasil di load, maka mengakibatkan content di HTML terhapus pada browser. Perhatikan contoh penggunaan <code class="highlighter-rouge">document.write()</code> berikut.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Output document.write()<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>How to output with document.write()?<span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;script&gt;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Simpan kode diatas dengan nama <code class="highlighter-rouge">document-write.html</code> dan buka file tersebut pada browser, yang terlihat adalah setelah tag <code class="highlighter-rouge">&lt;h1&gt;How to output with document.write()?&lt;/h1&gt;</code> akan tercetak 7. Lihat gambar berikut ini.</p>
+
+<p><img src="/assets/img/tipe-output-javascript/document-write.png" alt="document.write()" /></p>
+
+<p>Lalu apa yang terjadi jika kita biarkan HTML di tampilkan terlebih dahulu lalu kita baru mengeksekusi javascript? Perhatikan penggunaan <code class="highlighter-rouge">document.write</code> yang kedua berikut ini.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Output document.write()<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>How to output with document.write()?<span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">"document.write(5 + 6)"</span><span class="nt">&gt;</span>show me<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Kita jalankan kode di atas pada browser, lalu apa yang terjadi? ketika kita klik button <code class="highlighter-rouge">show me</code> tiba-tiba content pada HTML <code class="highlighter-rouge">&lt;h1&gt;How to output with document.write()?&lt;/h1&gt;</code> dan button <code class="highlighter-rouge">show me</code> terhapus. Ini di sebabkan karena <code class="highlighter-rouge">document.write()</code> di eksekusi setelah content HTML di load.</p>
+
+<p><img src="/assets/img/tipe-output-javascript/document-write-2.png" alt="document.write()" /></p>
+
+<h2 id="windowalert">window.alert()</h2>
+
+<p>Untuk menampilkan output kita juga bisa menggunakan method <code class="highlighter-rouge">window.alert()</code> pada javascript, yaitu method yang dapat memunculkan sebuah pop-up alert pada browser. Perhatikan contoh penggunaan <code class="highlighter-rouge">window.alert()</code> berikut ini.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Output window.alert()<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>How to output with window.alert()?<span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;script&gt;</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Kita simpan kode diatas dengan nama file <code class="highlighter-rouge">window-alert.html</code>, lalu jalankan pada browser. Maka akan muncul sebuah pop-up dari javascript berisi output dari <code class="highlighter-rouge">7 + 8</code>.</p>
+
+<p><img src="/assets/img/tipe-output-javascript/window-alert.png" alt="window.alert()" /></p>
+
+<h2 id="consolelog">console.log()</h2>
+
+<p>Untuk keperluan debugging saya biasa menggunakan method <code class="highlighter-rouge">console.log()</code> pada javascript, karena method ini tidak seperti method sebelumnya yang mengubah dan memanipulasi kode HTML, method ini manampilkan output pada feature console di browser. Perhatikan kode berikut ini.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Output console.log()<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>How to output with console.log()?<span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;script&gt;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Kita simpan kode di atas dengan nama file <code class="highlighter-rouge">console-log.html</code>, kita buka file tersebut pada browser. Lalu kita buka feature console pada browser kita, jika pada browser chrome kita dapat membuka console dengan menu <code class="highlighter-rouge">View &gt; Developer &gt; JavaScript Console</code> atau dengan shortcut keyboard <code class="highlighter-rouge">option + command + J</code>. Jika kita lihat output dari <code class="highlighter-rouge">3 + 2</code> dapat terilhat pada console.</p>
+
+<p><img src="/assets/img/tipe-output-javascript/console-log.png" alt="console.log()" /></p>
+
+<p>Debug berfungsi untuk mencari kesalahan dan cacat dalam program, baik itu kesalahan implementasi, design, konfigurasi, sampai kesalahan logika.</p>
+
+<h2 id="node-output">Node Output</h2>
+
+<p>Pada <a href="http://ekaprasasti.com/mengapa-harus-javascript/">tulisan saya sebelumnya</a>, sudah kita ketahui bahwa saat ini javascript tidak hanya dapat berjalan pada browser atau sisi client. Tetapi javascript juga dapat berjalan pada sisi server melalui terminal. Lalu bagaimana mengakses javascript dengan terminal? jawabannya adalah dengan NodeJS. Sebelum menjalankan NodeJS kita harus <a href="https://nodejs.org/en/download/package-manager/">menginstall NodeJS</a> terlebih dahulu.</p>
+
+<p>Buka editor anda, lalu ketikan output javascript <code class="highlighter-rouge">console.log()</code>, contohnya <code class="highlighter-rouge">console.log(6 + 3)</code> simpan dengan nama <code class="highlighter-rouge">node-output.js</code>. Lalu buka terminal atau command prompt anda, arahkan directory pada tempat anda menyimpan file <code class="highlighter-rouge">node-output.js</code> yang sudah kita simpan. Setalah itu jalankan perintah <code class="highlighter-rouge">node node-output.js</code>, enter dan lihat hasil outputnya.</p>
+
+<p><img src="/assets/img/tipe-output-javascript/terminal-node-output.png" alt="node output" /></p>
+
+<p>Ok sampai sini dulu pembahasan mengenai metode ouput pada javascript. Jika ada yang ingin di diskusikan silahkan tinggalkan komentar di bawah dan jangan lupa di share.</p>
+
+<h3 id="referensi">Referensi</h3>
+
+<ul>
+  <li><a href="https://www.w3schools.com/js/js_output.asp">w3school</a></li>
+</ul>
+:ET

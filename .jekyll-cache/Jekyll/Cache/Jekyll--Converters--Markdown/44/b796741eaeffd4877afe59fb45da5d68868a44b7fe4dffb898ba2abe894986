@@ -1,0 +1,472 @@
+I"��<p><img src="/assets/img/props-react/props-react.jpg" alt="props react" /></p>
+
+<p style="text-align: center;">React props illustration by <a href="https://css-tricks.com/wp-content/uploads/2016/01/image01.jpg">css-tricks.com</a></p>
+
+<p>Pada artikel kali ini kita akan belajar mengenai props, untuk melanjutkan jurnal pembelajaran saya mengenai ReactJS di <a href="https://www.codecademy.com/learn/react-101">codecademy</a>. Latihan kita kali ini adalah “Interaksi Component”. Kita akan belajar cara agar component dapat saling berinteraksi, component lain dapat menyampaikan informasi ke component lain.</p>
+
+<p>Informasi yang di lewatkan (passed) dari satu component ke component lainya di sebut sebagai “props”.</p>
+
+<h2 id="mengakses-components-props">Mengakses Component’s props</h2>
+
+<p>Setiap component mempunyai sesuatu yang di sebut dengan <code class="highlighter-rouge">props</code>. Sebuah <code class="highlighter-rouge">props</code> pada component adalah object. Yang menyimpan informasi tentang component tersebut.</p>
+
+<p>Untuk mengakses object component <code class="highlighter-rouge">props</code>, kita menggunakan sebuah ekspresi yang di sebut <code class="highlighter-rouge">this.props</code>. Di bawah ini adalah contoh dari <code class="highlighter-rouge">this.props</code> yang di gunakan di dalam render function.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">“</span><span class="nx">Props</span> <span class="nx">object</span> <span class="nx">comin</span> <span class="nx">up</span><span class="o">!</span><span class="err">”</span><span class="p">);</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">);</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="err">“</span><span class="nx">That</span> <span class="nx">was</span> <span class="nx">my</span> <span class="nx">props</span> <span class="nx">object</span><span class="err">”</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Informasi mengenai hasil dari <code class="highlighter-rouge">console.log(this.props)</code> memang seperti <em>useless</em>, tetapi beberapa informasi tersebut ada yang sangat penting. Lebih jauh akan kita lihat pada pembahasan selanjutnya.</p>
+
+<h2 id="melewatkan-props-ke-component">Melewatkan <code class="highlighter-rouge">props</code> ke Component</h2>
+
+<p>Kita bisa melewatkan informasi ke dalam component React dengan memberikan <em>attribute</em> kepada component tersebut:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;MyComponent</span> <span class="na">foo=</span><span class="s">""</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Katakanlah kita ingin melewatkan sebuah pesan kepada component “This is some top secret info.”. Kita bisa melakukannya dengan cara seperti ini:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Example</span> <span class="na">message=</span><span class="s">"this is some top secret info."</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Untuk melewatkan informasi ke component kita perlu memberi nama dari informasi yang ingin kita lewatkan. Pada contoh di atas kita menamainya dengan <code class="highlighter-rouge">message</code>. Kita bisa menggunakan nama apa saja yang kita mau.</p>
+
+<p>Jika kita ingin melewatkan informasi yang bukan string misalnya array, maka bungkus infromasi tersebut di antara kurung kurawal</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Greeting</span> <span class="na">myInfo=</span><span class="s">{["top",</span> <span class="err">"</span><span class="na">secret</span><span class="err">",</span> <span class="err">"</span><span class="na">lol</span><span class="err">"]}</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Contoh diatas kita melewatkan beberapa informasi ke pada <code class="highlighter-rouge">&lt;Greeting /&gt;</code>. Contoh lain nilai yang bukan string menggunakan kurung kurawal.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Greeting</span> <span class="na">name=</span><span class="s">"Frarthur"</span> <span class="na">town=</span><span class="s">"Flundon"</span> <span class="na">age=</span><span class="s">"{2} haunted="</span><span class="err">{</span><span class="na">false</span><span class="err">}</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<h2 id="merender-component-props">Merender Component props</h2>
+
+<p>Kita akan menampilkan informasi yang di lewatkan pada component. Untuk melakukan hal tersebut kita punya beberapa tahapan:</p>
+
+<ol>
+  <li>
+    <p>Temukan component class yang menerima informasi tersebut.</p>
+  </li>
+  <li>
+    <p>Include <code class="highlighter-rouge">this.props.nama-informasi</code> di dalam component class pada method render di statement return.</p>
+  </li>
+</ol>
+
+<p>Lihat contoh berikut, mulai dari sekarang kita akan menggunakan sintaks ES6 pada react:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Greeting</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hi</span> <span class="nx">there</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">firstName</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Greeting</span> <span class="nx">firstName</span><span class="o">=</span><span class="dl">'</span><span class="s1">Groberta</span><span class="dl">'</span> <span class="o">/&gt;</span><span class="p">,</span> 
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pada contoh diatas, kita bisa lihat sebuah informasi di lewatkan pada <code class="highlighter-rouge">&lt;Greeting /&gt;</code> dengan nama <code class="highlighter-rouge">firstName</code>. Bagaimana caranya menampilkan <code class="highlighter-rouge">firstName</code> di munculkan pada browser? Dengan menggunakan <code class="highlighter-rouge">this.props.firstName</code> pada class <code class="highlighter-rouge">Greeting</code> di method render statement <code class="highlighter-rouge">return</code>.</p>
+
+<h2 id="melewatkan-props-dari-component-ke-component">Melewatkan props dari Component ke Component</h2>
+
+<p>Hal berguna lain dari <code class="highlighter-rouge">props</code> adalah kita dapat melewatkan informasi dari suatu component ke component lain yang berbeda.</p>
+
+<p>Penjelasan mengenai grammer kata <code class="highlighter-rouge">prop</code> dan <code class="highlighter-rouge">props</code>:</p>
+
+<p>Jika anda perhatikan kita menggunakan kata <code class="highlighter-rouge">prop</code> dan <code class="highlighter-rouge">props</code>. <code class="highlighter-rouge">props</code> adalah nama dari sebuah object yang menyimpan informasi yang telah di lewatkan. <code class="highlighter-rouge">this.props</code> mengacu pada object tersebut. Pada saat bersamaan, setiap potongan informasi yang di lewatkan disebut juga dengan <code class="highlighter-rouge">prop</code>.</p>
+
+<p>Untuk melewatkan <code class="highlighter-rouge">props</code> dari component ke component yang berbeda perhatikan contoh berikut:</p>
+
+<p>File <code class="highlighter-rouge">Greeting.js</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Greeting</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="p">({</span>
+	<span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hi</span> <span class="nx">there</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>	<span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Pada contoh di atas kita menggunakan <code class="highlighter-rouge">this.props.name</code> pada <code class="highlighter-rouge">&lt;Greeting /&gt;</code>, yang di ambil dari <code class="highlighter-rouge">&lt;App /&gt;</code>. jangan lupa untuk meng-export class jika kita menggunakan component <code class="highlighter-rouge">Greeting</code> di component <code class="highlighter-rouge">App</code>.</p>
+
+<p>Berikut kode dari component instance <code class="highlighter-rouge">&lt;App /&gt;</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Greeting</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Greeting</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span>
+          <span class="nx">Hullo</span> <span class="nx">and</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Welcome to The Newzz,</span><span class="dl">"</span> <span class="dl">"</span><span class="s2">On Line!</span><span class="dl">"</span>
+        <span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Greeting</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Ruby</span><span class="dl">"</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">article</span><span class="o">&gt;</span>
+          <span class="nx">Latest</span> <span class="nx">newzz</span><span class="p">:</span>  <span class="nx">where</span> <span class="nx">is</span> <span class="nx">my</span> <span class="nx">phone</span><span class="p">?</span>
+        <span class="o">&lt;</span><span class="sr">/article</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> 
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ketika kita menggunakan component lain dalam hal ini component <code class="highlighter-rouge">Greeting</code> kita harus meng-import filenya terlebih dahulu dengan sintaks <code class="highlighter-rouge">import { Greeting } from './Greeting';</code>. Kita akan melewatkan informasi <code class="highlighter-rouge">name</code> pada component instance <code class="highlighter-rouge">&lt;Greeting&gt;</code>.</p>
+
+<h2 id="render-ui-yang-berbeda-berdasarkan-props">Render UI yang berbeda berdasarkan props</h2>
+
+<p>Kita dapat melakukan lebih banyak lagi dengan <code class="highlighter-rouge">props</code> dari pada hanya menampilkannya. Kita juga dapat menggunakan <code class="highlighter-rouge">props</code> untuk membuat keputusan.</p>
+
+<p>Perhatikan pada contoh berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Welcome</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">Wolfgang Amadeus Mozart</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span>
+      	<span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+      	  <span class="nx">hello</span> <span class="nx">sir</span> <span class="nx">it</span> <span class="nx">is</span> <span class="nx">truly</span> <span class="nx">great</span> <span class="nx">to</span> <span class="nx">meet</span> <span class="nx">you</span> <span class="nx">here</span> <span class="nx">on</span> <span class="nx">the</span> <span class="nx">web</span>
+      	<span class="o">&lt;</span><span class="sr">/h2</span><span class="err">&gt;
+</span>      <span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span>
+      	<span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+      	  <span class="nx">WELCOME</span> <span class="dl">"</span><span class="s2">2</span><span class="dl">"</span> <span class="nx">MY</span> <span class="nx">WEB</span> <span class="nx">SITE</span> <span class="nx">BABYYY</span><span class="o">!!!!!</span>
+      	<span class="o">&lt;</span><span class="sr">/h2</span><span class="err">&gt;
+</span>      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pada contoh kode di atas, kita menggunakan sebuah <code class="highlighter-rouge">props</code> dengan nama <code class="highlighter-rouge">name</code> untuk menentukan keputusan, jika <code class="highlighter-rouge">props</code> menerima value yang cocok maka akan mereturn <code class="highlighter-rouge">hello sir it is truly great to meet you here on the web</code> sebaliknya jika value tidak cocok maka akan mereturn <code class="highlighter-rouge">WELCOME "2" MY WEB SITE BABYYY!!!!!</code>.</p>
+
+<p>Sekarang kita lihat class <code class="highlighter-rouge">Home</code> yang melewatkan informasi props tersebut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Welcome</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Welcome</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Home</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Welcome</span> <span class="nx">name</span><span class="o">=</span><span class="dl">'</span><span class="s1">Ludwig van Beethoven</span><span class="dl">'</span> <span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Home</span> <span class="o">/&gt;</span><span class="p">,</span> 
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Pada component <code class="highlighter-rouge">Home</code> kita melewatkan props yang tidak sesuai dengan kondisi, maka hasilnya adalah false dan tercetak pada browser <code class="highlighter-rouge">WELCOME "2" MY WEB SITE BABYYY!!!!!</code>.</p>
+
+<h2 id="meletakan-event-handler-pada-component-class">Meletakan Event Handler pada Component Class</h2>
+
+<p>Kita bisa, dan akan selalu, melewatkan function sebagai <code class="highlighter-rouge">props</code>. Terutama pada function event handler. Pada pembahasan berikutnya. kita akan menggunakan function event handler sebagai <code class="highlighter-rouge">prop</code>. Namun kita harus mendefinisikan sebuah event handler sebelum kita bisa menggunkannya di manapun.</p>
+
+<p>Bagaimana kita mendefinisikan sebuah event handler di dalam React?</p>
+
+<p>Kita mendefinisikan sebuah event handler sebagai instruksi di dalam property pada object, sama halnya seperti render function. Hampir semua function yang kita definisikan pada React akan di definisikan dengan cara ini, sebagai <em>instructions object properties</em>.</p>
+
+<p>Perhatikan contoh berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">handleEvent</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">`I am an event handler.
+      If you see this message,
+      then I have been called.`</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleEvent</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="nx">Hello</span> <span class="nx">world</span>
+      <span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pada kode di atas pada baris 4 sampai 8 sebuah <em>event handler</em> di definisikan. Dan pada baris ke 12 di method render <em>event handler</em> tersebut digunakan.</p>
+
+<h2 id="melewatkan-event-handler-sebagai-prop">Melewatkan Event Handler sebagai prop</h2>
+
+<p>Anda bisa melewatkan method dengan cara yang sama seperti anda menyampaikan informasi lainnya. Perhatikan kode berikut bagaimana kita melewatkan <em>event handler</em> sebagai prop:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Button</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Talker</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">talk</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">speech</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">speech</span> <span class="o">+=</span> <span class="dl">'</span><span class="s1">blah </span><span class="dl">'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">speech</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">talk</span><span class="o">=</span><span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">talk</span> <span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Talker</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Tujuan dari kode di atas adalah untuk melewatkan function <code class="highlighter-rouge">talk</code> dari <code class="highlighter-rouge">&lt;Talker /&gt;</code> ke <code class="highlighter-rouge">&lt;Button /&gt;</code>. Berikut adalah component <code class="highlighter-rouge">Button</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Button</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span><span class="o">&gt;</span>
+        <span class="nx">Click</span> <span class="nx">me</span><span class="o">!</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="menerima-event-handler-sebagai-prop">Menerima Event Handler sebagai prop</h2>
+
+<p>Kita telah melewatkan function dari <code class="highlighter-rouge">&lt;Talker /&gt;</code> ke <code class="highlighter-rouge">&lt;Button /&gt;</code>.</p>
+
+<p>Jika user klik element <code class="highlighter-rouge">&lt;button&gt;&lt;/button&gt;</code>, lalu kita ingin melewatkan function <code class="highlighter-rouge">talk</code> untuk di panggil. Itu artinya kita harus menyematkan <code class="highlighter-rouge">talk</code> kepada <code class="highlighter-rouge">&lt;button&gt;&lt;/button&gt;</code> sebagai <em>event handler</em>.</p>
+
+<p>Bagaimana kita melakukannya? Cara yang sama ketika kita menyematkan event handler ke JSX element, yaitu kita memberikan element JSX sebuah atribut spesial. Nama atribut bisa seperti <code class="highlighter-rouge">onClick</code> atau <code class="highlighter-rouge">onHover</code>. Nilai dari attribute adalah event handler yang kita ingin gunakan.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Button</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">talk</span> <span class="p">}</span><span class="o">&gt;</span>
+        <span class="nx">Click</span> <span class="nx">me</span><span class="o">!</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="handleevent-onevent-dan-thispropsonevent">handleEvent, onEvent, dan this.props.onEvent</h2>
+
+<p>Mari kita membicarakan mengenai <em>naming convention</em>. Ketika kita melewatkan sebuah event handler sebagai <code class="highlighter-rouge">prop</code> seperti yang sudah kita lakukan, terdapat 2 nama yang harus kita pilih. Kedua nama ada pada component class, nama pertama yang harus kita pilih adalah nama event handler itu sendiri.</p>
+
+<p>Lihat <code class="highlighter-rouge">Talker.js</code> yang sudah kita buat, kita menamainya dengan <code class="highlighter-rouge">talk</code> pada function event handler. Nama ke dua yang kita pilih adalah nama dari <code class="highlighter-rouge">prop</code> yang kita akan gunakan untuk pass event handler. Ini sama seperti nama dalam atribut.</p>
+
+<p>Untuk nama <code class="highlighter-rouge">prop</code>, kita juga memilih <code class="highlighter-rouge">talk</code>, lihat baris kode ini:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">talk</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">talk</span><span class="p">}</span> <span class="sr">/&gt;</span><span class="err">;
+</span></code></pre></div></div>
+
+<p>Kedua nama ini bisa apa saja sesuai yang kita mau. Namun, ada sebuah naming convention yang sering mereka ikuti. Kita tidak harus mengikuti convention ini tapi kita harus mengerti kapan harus menggunakannya.</p>
+
+<p>Berikut bagaimana sebuah naming convention bekerja: Pertama, fikirkan tipe dari event yang kita inginkan. Dalam contoh diatas tipe eventnya adalah “click”.</p>
+
+<p>Jika kita menginginkan sebuah event “click”, maka kita namakan event handler kita <code class="highlighter-rouge">handleClick</code>. Jika kita menginginkan sebuah event “keyPress”, maka kita bisa menamai event handler <code class="highlighter-rouge">handleKeyPress</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">MyClass</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">handleHover</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">I am an event handler.</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">I will be called in response to "hover" events.</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Perhatikan contoh berikut:</p>
+
+<p>File <code class="highlighter-rouge">Talker.js</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Button</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./Button</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Talker</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">speech</span> <span class="o">=</span> <span class="dl">''</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">speech</span> <span class="o">+=</span> <span class="dl">'</span><span class="s1">blah </span><span class="dl">'</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">speech</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="sr">/&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Talker</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>File <code class="highlighter-rouge">Button.js</code>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Button</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="nx">Click</span> <span class="nx">me</span><span class="o">!</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="thispropschildren">this.props.children</h2>
+
+<p>Setiap component <code class="highlighter-rouge">props</code> object, mempunyai properti bernama <code class="highlighter-rouge">children</code>. <code class="highlighter-rouge">this.props.children</code> akan mereturn semua yang ada di antara opening component dan closing JSX tags.</p>
+
+<p>Sejauh ini, semua component yang kita lihat mempunya tag self-closing, seperti <code class="highlighter-rouge">&lt;MyComponentClass /&gt;</code>. Mereka yang tidak mempunyai tag penutup, kita bisa menulis <code class="highlighter-rouge">&lt;MyComponentClass&gt;&lt;/MyComponentClass&gt;</code>, dan itu akan tetap berjalan.</p>
+
+<p><code class="highlighter-rouge">this.props.children</code> akan mereturn apapun antara  <code class="highlighter-rouge">&lt;MyComponentClass&gt;</code> dan <code class="highlighter-rouge">&lt;/MyComponentClass&gt;</code>. Perhatikan contoh berikut ini.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example 1</span>
+<span class="o">&lt;</span><span class="nx">BigButton</span><span class="o">&gt;</span>
+  <span class="nx">I</span> <span class="nx">am</span> <span class="nx">a</span> <span class="nx">child</span> <span class="k">of</span> <span class="nx">BigButton</span><span class="p">.</span>
+<span class="o">&lt;</span><span class="sr">/BigButton</span><span class="err">&gt;
+</span>
+
+<span class="c1">// Example 2</span>
+<span class="o">&lt;</span><span class="nx">BigButton</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">LilButton</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="sr">/BigButton</span><span class="err">&gt;
+</span>
+
+<span class="c1">// Example 3</span>
+<span class="o">&lt;</span><span class="nx">BigButton</span> <span class="o">/&gt;</span>
+</code></pre></div></div>
+
+<p>Pada example 1, <code class="highlighter-rouge">this.props.children</code> sama juga dengan text, “I am a child of BigButton.”. Example 2, <code class="highlighter-rouge">this.props.children</code> sama dengan component <code class="highlighter-rouge">&lt;LilButton /&gt;</code>. Example 3, <code class="highlighter-rouge">this.props.children</code> adalah undefined.</p>
+
+<h2 id="defaultprops">defaultProps</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Button</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">Button</span> <span class="o">/&gt;</span><span class="p">,</span> 
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">app</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Lihat <code class="highlighter-rouge">Button</code> component class pada contoh diatas. Pada baris ke 8, <code class="highlighter-rouge">Button</code> berharap menerima <code class="highlighter-rouge">prop</code> dengan nama <code class="highlighter-rouge">text</code>. Hasil dari menerima <code class="highlighter-rouge">prop</code> dengan nama <code class="highlighter-rouge">text</code> akan di tampilkan ke element <code class="highlighter-rouge">&lt;button&gt;&lt;/button&gt;</code>.</p>
+
+<p>Bagaimana jika <code class="highlighter-rouge">text</code> tidak melewati apa2 pada <code class="highlighter-rouge">Button</code>? Jika tidak ada yang melewatkan <code class="highlighter-rouge">text</code> pada <code class="highlighter-rouge">Button</code>, maka <code class="highlighter-rouge">Button</code> tidak akan menampilkan apa2 (blank). Lebih baik jika <code class="highlighter-rouge">Button</code> bisa menampilkan pesan di dalamnya secara default.</p>
+
+<p>Kita dapat memungkinkan ini dengan menuliskan sebuah function dengan nama <code class="highlighter-rouge">defaultProps</code>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Example</span><span class="p">.</span><span class="nx">defaultProps</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Function <code class="highlighter-rouge">defaultProps</code> harus mereturn sebuah object. Di dalam object, tulis properti untuk semua default <code class="highlighter-rouge">props</code> yang kita inginkan:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Set defaultProps equal to an object:</span>
+<span class="nx">Example</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{};</span>
+</code></pre></div></div>
+
+<p>Di dalam object tersebut, tulis properties untuk semua default <code class="highlighter-rouge">props</code> yang kita inginkan:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Example</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Example</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span> <span class="na">text</span><span class="p">:</span> <span class="dl">'</span><span class="s1">yo</span><span class="dl">'</span> <span class="p">};</span>
+</code></pre></div></div>
+
+<p>Jika sebuah <code class="highlighter-rouge">&lt;Example /&gt;</code> tidak melewatkan text apapun, maka “yo” akan di tampilkan.</p>
+
+<h2 id="kesimpulan-thisprops">Kesimpulan this.props</h2>
+
+<p>Kita sudah menyelesaikan belajar <code class="highlighter-rouge">props</code>!</p>
+
+<ul>
+  <li>
+    <p>Melewatkan <code class="highlighter-rouge">prop</code> dengan memberikan attribute pada sebuah component instance.</p>
+  </li>
+  <li>
+    <p>Akses <code class="highlighter-rouge">prop</code> via <code class="highlighter-rouge">this.props.prop-name</code>.</p>
+  </li>
+  <li>
+    <p>Menampilkan <code class="highlighter-rouge">prop</code>.</p>
+  </li>
+  <li>
+    <p>Menggunakan <code class="highlighter-rouge">prop</code> untuk pengambilan keputusan tentang apa yang akan di tampilkan.</p>
+  </li>
+  <li>
+    <p>Mendefinisikan event handler pada sebuah component class.</p>
+  </li>
+  <li>
+    <p>Melewatkan event handler sebagai sebuah <code class="highlighter-rouge">prop</code>.</p>
+  </li>
+  <li>
+    <p>Menerima <code class="highlighter-rouge">prop</code> event handler dan menyematkan sebuah event listener.</p>
+  </li>
+  <li>
+    <p>Penamaan event handle dan atribute pada event handler sesuai convention.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">this.props.children</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">getDefaultProps</code></p>
+  </li>
+</ul>
+:ET

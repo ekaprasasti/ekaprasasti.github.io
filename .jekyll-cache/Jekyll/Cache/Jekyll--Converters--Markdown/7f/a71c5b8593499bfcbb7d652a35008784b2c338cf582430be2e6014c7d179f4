@@ -1,0 +1,485 @@
+I"S�<p>Tutorial ini merupakan kelanjutan step by step <a href="/angular-tour-of-heroes-tutorial">aplikasi Tour of Heroes</a> dari Angular.</p>
+
+<p>Seiring aplikasi Tour of Heroes terus berkembang, kita akan menambahkan lebih banyak component yang memerlukan akses ke data hero.</p>
+
+<p>Dari pada copy dan paste code yang sama terus menerus, kita akan membuat satu data service yang <em>reusable</em> dan di <em>inject</em> kedalam component yang membutuhkannya. Menggunakan service yang terpisah membuat component lebih ringkas dan fokus kepada view atau tampilan, dan membuat lebih mudah untuk unit-test component dengan <em>mock</em> service.</p>
+
+<p>Karena data services selalu menggunakan <em>asynchronous</em>, kita akan mengakhiri tutorial pada bagian ini dengan <em>Promise-based version</em> pada data service.</p>
+
+<p>Ketika bagian tutorial ini selesai, aplikasi akan terlihat seperti berikut <a href="https://angular.io/generated/live-examples/toh-pt4/eplnkr.html">live example</a> / <a href="https://angular.io/generated/zips/toh-pt4/toh-pt4.zip">download example</a>.</p>
+
+<h2 id="membuat-hero-service">Membuat hero service</h2>
+
+<p>Saat ini, <code class="highlighter-rouge">AppComponent</code> mendefinisikan heroes untuk di tampilkan. Namun, mendefinisikan heroes bukan merupakan tugas dari component, dan kita tidak mudah membagikan list heroes dengan component dan view lain. Pada bagian ini, kita akan memindahkan data hero ke satu service yang menyediakan data dan berbagi service tersebut dengan semua component yang membutuhkan data heroes.</p>
+
+<p>Buat sebuah file di dalam folder <code class="highlighter-rouge">app</code> yang bernama <code class="highlighter-rouge">hero.service.ts</code>.</p>
+
+<blockquote>
+  <p><em>Naming Convention</em> pada sebuah file service merupakan nama dari service dengan <em>lowercase</em> di ikuti dengan <code class="highlighter-rouge">.service</code>. Untuk nama service yang mempunyai multi-kata, gunakan <em>lower dash-case</em>. Contoh nama file utuk service <code class="highlighter-rouge">SepecialSuperHeroService</code> adalah <code class="highlighter-rouge">special-super-hero.service.ts</code>.</p>
+</blockquote>
+
+<p>Buat class <code class="highlighter-rouge">HeroService</code> dan export.</p>
+
+<h4 id="srcappheroservicets-starting-point">src/app/hero.service.ts (starting point)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="injectable-services">Injectable services</h3>
+
+<p>Perhatikan kita meng-import function <code class="highlighter-rouge">Injetable</code> pada Angular dan mengaplikasikan function tersebut dalam decorator <code class="highlighter-rouge">@Injectable()</code>.</p>
+
+<p>Decorator <code class="highlighter-rouge">@Injectable()</code> memberitahukan TypeScript untuk membuat metadata tentang sebuah service. Metadata yang menentukan bahwa Angular mungkin perlu <em>inject</em> dependency lain kedalam service.</p>
+
+<p>Meskipun <code class="highlighter-rouge">HeroService</code> saat ini tidak memiliki dependency, menerapkan decorator <code class="highlighter-rouge">@Injectable()</code> dari awal memastikan konsistensi dan kemudahan di waktu mendatang.</p>
+
+<h3 id="mendapatkan-data-hero">Mendapatkan data hero</h3>
+
+<p>Tambahkan method <code class="highlighter-rouge">getHeroes()</code> stub.</p>
+
+<h4 id="srcappheroservicets-getheroes-stub">src/app/hero.service.ts (getHeroes stub)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+  <span class="nx">getHeroes</span><span class="p">():</span> <span class="k">void</span> <span class="p">{}</span> <span class="c1">// stub</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">HeroService</code> bisa mendapatkan data <code class="highlighter-rouge">Hero</code> dari mana saja - web service, local storage, atau source data buatan. Membuang akses data dari component artinya kita bisa merubah persepsi tentang <em>implementation anytime</em>, tanpa menyentuh components yang membutuhkan data tersebut.</p>
+
+<h3 id="pindahkan-data-hero">Pindahkan data hero</h3>
+
+<p>Cut array <code class="highlighter-rouge">Heroes</code> dari <code class="highlighter-rouge">app.component.ts</code> dan paste di folder baru dalam folder <code class="highlighter-rouge">app</code> yang di beri nama <code class="highlighter-rouge">mock-heroes.ts</code>. Sebagai tambahan, copy statement <code class="highlighter-rouge">import {Hero} ...</code> karena array heroes menggunakan class <code class="highlighter-rouge">Hero</code>.</p>
+
+<h4 id="srcappmock-heroests">src/app/mock-heroes.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">HEROES</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mr. Nice</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Narco</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bombasto</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Celeritas</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magneta</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">RubberMan</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dynama</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dr IQ</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magma</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Tornado</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Constanta <code class="highlighter-rouge">HEROES</code> di export sehingga ia bisa di import di luar ini. Di dalam <code class="highlighter-rouge">app.component.ts</code>, di mana kita meng-cut array <code class="highlighter-rouge">HEROES</code>, tambahkan sebuah <em>uninitialized</em> property <code class="highlighter-rouge">heroes</code>.</p>
+
+<h4 id="srcappappcomponentts-heroes-property">src/app/app.component.ts (heroes property)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">heroes</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[];</span>
+</code></pre></div></div>
+
+<h3 id="return-data-hero">Return data hero</h3>
+
+<p>Kembali ke <code class="highlighter-rouge">HeroService</code>, import data <code class="highlighter-rouge">HEROES</code> dan return dari method <code class="highlighter-rouge">getHeroes()</code>. <code class="highlighter-rouge">HeroService</code> akan terlihat seperti berikut.</p>
+
+<h4 id="srcappappcomponentts-hero-service-import">src/app/app.component.ts (hero-service-import)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HEROES</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./mock-heroes</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+  <span class="nx">getHeroes</span><span class="p">():</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">HEROES</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="import-hero-service">Import hero service</h3>
+
+<p>Kita siap menggunakan <code class="highlighter-rouge">HeroService</code> di component lain, di mulai dari <code class="highlighter-rouge">AppComponent</code>. Import <code class="highlighter-rouge">HeroService</code> sehingga kita bisa mereferensikannya di dalam code.</p>
+
+<h4 id="srcappappcomponentts-hero-service-import-1">src/app/app.component.ts (hero-service-import)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="jangan-gunakan-new-pada-heroservice">Jangan gunakan <em>new</em> pada <em>HeroService</em></h3>
+
+<p>Bagaimana seharusnya <code class="highlighter-rouge">AppComponent</code> mendapatkan instance HeroService?</p>
+
+<p>Kita bisa membuat instance baru pada <code class="highlighter-rouge">HeroService</code> dengan <code class="highlighter-rouge">new</code> seperti ini.</p>
+
+<h4 id="srcappappcomponentts">src/app/app.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">heroService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HeroService</span><span class="p">();</span> <span class="c1">// don't do this</span>
+</code></pre></div></div>
+
+<p>Namun opsi ini tidak ideal dengan beberapa alasan:</p>
+
+<ul>
+  <li>
+    <p>Component harus tahu bagaimana membuat <code class="highlighter-rouge">HeroService</code>. Jika kita merubah constructor <code class="highlighter-rouge">HeroService</code>, kita haru menemukan dan memperbaharui setiap tempat kita membuat service. Membuat code di banyak tempat membuat rawan kesalahan dan menambah beban test.</p>
+  </li>
+  <li>
+    <p>Kita membuat service setiap kali kita menggunakan <code class="highlighter-rouge">new</code>. Bagaimana jika service meng-caches heroes dan membagikan <em>cache</em> tersebut dengan yang lain? Kita tidak dapat melakukannya.</p>
+  </li>
+  <li>
+    <p>Dengan <code class="highlighter-rouge">AppComponent</code> terkunci di dalam implementasi yang sepesifik dari <code class="highlighter-rouge">HeroService</code>, berganti implementasi untuk skenario yang berbeda, seperti operasi offline atau menggunakan <em>mocked</em> (data buatan) version untuk testing, akan sulit di lakukan.</p>
+  </li>
+</ul>
+
+<h3 id="inject-heroservice">Inject <em>HeroService</em></h3>
+
+<p>Alih-alih menggunakan baris baru, Anda akan menambahkan dua baris.</p>
+
+<ul>
+  <li>
+    <p>Menambahkan constructor yang juga mendefinisikan private property.</p>
+  </li>
+  <li>
+    <p>Menambahkan <code class="highlighter-rouge">providers</code> metadata pada component.</p>
+  </li>
+</ul>
+
+<p>Tambahkan constructor di dalam class:</p>
+
+<h4 id="srcappappcomponentts-constructor">src/app/app.component.ts (constructor)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="p">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Constructor itu sendiri tidak melakukan apapun. Parameter secara simultan mendefiniskan private property <code class="highlighter-rouge">heroService</code> dan mengidentifikasi sebgai <code class="highlighter-rouge">HeroService</code> injection site.</p>
+
+<p>Sekarang Angular mengetahui untuk supply sebuah instance dari <code class="highlighter-rouge">HeroService</code> ketika membuat <code class="highlighter-rouge">AppComponent</code>.</p>
+
+<blockquote>
+  <p>Baca lebih jauh mengenai <em>dependency injection</em> dalam page <a href="https://angular.io/guide/dependency-injection">Dependency Injection</a>.</p>
+</blockquote>
+
+<p><em>Injector</em> belum tahu bagaimana cara membuat <code class="highlighter-rouge">HeroService</code>. Jika kita menjalankan code sekarang, Angular akan mengirimkan error.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">EXCEPTION</span><span class="p">:</span> <span class="nx">No</span> <span class="nx">provider</span> <span class="k">for</span> <span class="nx">HeroService</span><span class="o">!</span> <span class="p">(</span><span class="nx">AppComponent</span> <span class="o">-&gt;</span> <span class="nx">HeroService</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Untuk mengajarkan injector bagaimana menggunakan <code class="highlighter-rouge">HeroService</code>, tambahkan property array <code class="highlighter-rouge">providers</code> di bawah component metadata di dalam <code class="highlighter-rouge">@Component</code>.</p>
+
+<h4 id="srcappappcomponentts-providers">src/app/app.component.ts (providers)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">HeroService</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Array <code class="highlighter-rouge">providers</code> memberitahukan Angular untuk membuat fresh instance dari <code class="highlighter-rouge">HeroService</code> saat membuat <code class="highlighter-rouge">AppComponent</code>. <code class="highlighter-rouge">AppComponent</code>, serta child component, bisa menggunakan service tersebut untuk mendapatkan data hero.</p>
+
+<h3 id="getheroes-di-dalam-appcomponent"><em>getHeroes()</em> di dalam <em>AppComponent</em></h3>
+
+<p>Service berada di dalam private variabel <code class="highlighter-rouge">heroService</code>.</p>
+
+<p>Kamu bisa memanggil service dan mengambil data dalam satu baris.</p>
+
+<h4 id="srcappappcomponentts-letakan-di-dalam-class">src/app/app.component.ts (letakan di dalam class)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Kita tidak benar-benar membutuhkan method khusus untuk membungkus satu baris.</p>
+
+<h4 id="srcappappcomponentts-getheroes">src/app/app.component.ts (getHeroes)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getHeroes</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="the-ngoninit-lifesycle-hook">The <em>ngOnInit</em> lifesycle hook</h3>
+
+<p><code class="highlighter-rouge">AppComponent</code> harus mengambil dan menampilkan data hero tanpa masalah.</p>
+
+<p>Kita mungkin akan memanggil method <code class="highlighter-rouge">getHeroes()</code> di dalam constructor, tapi constructor tidak boleh mengandung logic yang rumit, terutama constructor yang memanggil server, seperti method akses data. Constructor adalah di tujukan untuk inisiasi sederhana, seperti menghubungkan parameter constructor ke properties.</p>
+
+<p>Agar Angular dapat memanggil <code class="highlighter-rouge">getHeroes()</code>, kita bisa mengimplementasikan Angular <em>ngOnInit lifecycle hook</em>. Angular menawarkan interface untuk memanfaatkan saat-saat penting dalam component lifecycle: <em>at creation</em>, <em>after each change</em>, dan <em>eventual destruction</em>.</p>
+
+<p>Setiap interface mempunyai satu method. Ketika component mengimplementasikan method, Angular memanggilnya pada waktu yang tepat.</p>
+
+<blockquote>
+  <p>Pelajari lebih lanjut mengenai <em>lifecycle hook</em> pada page <a href="https://angular.io/guide/lifecycle-hooks">Lifecycle Hooks</a></p>
+</blockquote>
+
+<p>Berikut adalah outline <code class="highlighter-rouge">OnInit</code> interface secara garis besar:</p>
+
+<h4 id="srcappappcomponentts-1">src/app/app.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Tambahkan implementasi interface <code class="highlighter-rouge">OnInit</code> pada export statement:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Tulis method <code class="highlighter-rouge">ngOnInit</code> dengan menginisiasi logic di dalamnya. Angular akan memanggil pada waktu yang tepat. Pada kasus ini, inisiasi dengan memanggil <code class="highlighter-rouge">getHeroes()</code>:</p>
+
+<h4 id="srcappappcomponentts-ng-on-init">src/app/app.component.ts (ng-on-init)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Aplikasi harus berjalan sesuai ekspektasi, menampilkan list heroes dan detail hero ketika user mengklik nama hero.</p>
+
+<h2 id="async-service--promises">Async service &amp; Promises</h2>
+
+<p><code class="highlighter-rouge">HeroService</code> me-return list data dari heroes, <code class="highlighter-rouge">getHeroes()</code> merupakan synchronous.</p>
+
+<h4 id="srcappappcomponentts-2">src/app/app.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Dalam beberapa kasus, data hero datang dari remote server. Ketika menggunakan remote server, user tidak bisa menunggu untuk server melakukan respon. Selain itu, kita tidak bisa mem-block userinterface saat menunggu.</p>
+
+<p>Untuk mengkoordinasikan view dengan respon, kita bisa menggunakan <em>Promises</em>, yang merupakan teknik asynchronous yang merubah signature method <code class="highlighter-rouge">getHeroes()</code>.</p>
+
+<h3 id="membuat-promise-pada-hero-service">Membuat Promise pada hero service</h3>
+
+<p>Promise esensinya adalah <em>callback</em> ketika sudah ada <em>result</em>/hasil.</p>
+
+<blockquote>
+  <p>Ini merupakan penjelasan yang simpel. Pelajari lebih lanjut mengenai ES2015 Promises dalam page <a href="http://exploringjs.com/es6/ch_promises.html">Promises for asynchronous programming</a></p>
+</blockquote>
+
+<p>Update <code class="highlighter-rouge">HeroService</code> dengan mereturn Promise method <code class="highlighter-rouge">getHeroes()</code></p>
+
+<h4 id="srcappheroservicets-excerpt">src/app/hero.service.ts (excerpt)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getHeroes</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">HEROES</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Kita masih memakain data buatan (mocking data). Kita mensimulasikan <em>behavior</em> <em>ultra-fast</em>, <em>zero-lantency</em> server, dengan mereturn Promise yang segera di selesaikan dengan data heroes sebagai hasilnya.</p>
+
+<h3 id="act-on-the-promise">Act on the Promise</h3>
+
+<p>Sebagai hasil dari perubahan <code class="highlighter-rouge">HeroService</code>, <code class="highlighter-rouge">this.heroes</code> saat ini menggunakan <code class="highlighter-rouge">Promise</code> daripada sebuah array dari heroes.</p>
+
+<h4 id="srcappappcomponentts-getheroes---old">src/app/app.component.ts (getHeroes - old)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getHeroes</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Kita harus merubah implementasi untuk berlaku sebagai Promise ketika menyelesaikannya.</p>
+
+<p>Lewatkan function callback sebagai argument kepada method Promise <code class="highlighter-rouge">then()</code>.</p>
+
+<h4 id="srcappappcomponentts-getheroes---revised">src/app/app.component.ts (getHeroes - revised)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getHeroes</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Callback mengatur property component <code class="highlighter-rouge">heroes</code> kepada array heroes dengan mereturn service. Aplikasi tetap berjalan, menampilkan list heroes, dan merespon seleksi nama dengan detail view.</p>
+
+<h2 id="review-app-structure">Review app structure</h2>
+
+<p>Setelah kita melakukan refactoring, struktur file dan folder saat ini menjadi seperti berikut</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>angular-tour-of-heroes
+|
+ -src
+| |
+| -app
+| | |
+| | -app.compponent.ts
+| | |
+| | -app.module.ts
+| | |
+| | -hero.ts
+| | |
+| | -hero-detail.compponent.ts
+| | |
+| | -hero.service.ts
+| | |
+| | -mock-heroes.ts
+| |
+| -main.ts
+| |
+| -index.html
+| |
+| -styles.css
+| |
+| -systemjs.config.js
+| |
+| -tsconfig.json
+|
+-node_modules
+|
+-package.json
+</code></pre></div></div>
+
+<p>Dan berikut adalah code lengkap yang kita diskusikan pada tutorial ini.</p>
+
+<h4 id="srcappheroservicets">src/app/hero.service.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HEROES</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./mock-heroes</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="p">@</span><span class="nd">Injectable</span><span class="p">()</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+  <span class="nx">getHeroes</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">HEROES</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="srcappappcomponentts-3">src/app/app.component.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero.service</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;h1&gt;{{title}}&lt;/h1&gt;
+    &lt;h2&gt;My Heroes&lt;/h2&gt;
+    &lt;ul class="heroes"&gt;
+      &lt;li *ngFor="let hero of heroes"
+        [class.selected]="hero === selectedHero"
+        (click)="onSelect(hero)"&gt;
+        &lt;span class="badge"&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+      &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;hero-detail [hero]="selectedHero"&gt;&lt;/hero-detail&gt;
+  `</span><span class="p">,</span>
+  <span class="na">styles</span><span class="p">:</span> <span class="p">[</span><span class="s2">`
+    .selected {
+      background-color: #CFD8DC !important;
+      color: white;
+    }
+    .heroes {
+      margin: 0 0 2em 0;
+      list-style-type: none;
+      padding: 0;
+      width: 15em;
+    }
+    .heroes li {
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      background-color: #EEE;
+      margin: .5em;
+      padding: .3em 0;
+      height: 1.6em;
+      border-radius: 4px;
+    }
+    .heroes li.selected:hover {
+      background-color: #BBD8DC !important;
+      color: white;
+    }
+    .heroes li:hover {
+      color: #607D8B;
+      background-color: #DDD;
+      left: .1em;
+    }
+    .heroes .text {
+      position: relative;
+      top: -3px;
+    }
+    .heroes .badge {
+      display: inline-block;
+      font-size: small;
+      color: white;
+      padding: 0.8em 0.7em 0 0.7em;
+      background-color: #607D8B;
+      line-height: 1em;
+      position: relative;
+      left: -1px;
+      top: -4px;
+      height: 1.8em;
+      margin-right: .8em;
+      border-radius: 4px 0 0 4px;
+    }
+  `</span><span class="p">],</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span><span class="nx">HeroService</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nl">heroes</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[];</span>
+  <span class="nl">selectedHero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">;</span>
+<span class="err"> </span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="p">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">getHeroes</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">ngOnInit</span><span class="p">():</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="err"> </span>
+  <span class="nx">onSelect</span><span class="p">(</span><span class="na">hero</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">):</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h4 id="srcappmock-heroests-1">src/app/mock-heroes.ts</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./hero</span><span class="dl">'</span><span class="p">;</span>
+<span class="err"> </span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">HEROES</span><span class="p">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Mr. Nice</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Narco</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bombasto</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Celeritas</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magneta</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">RubberMan</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dynama</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Dr IQ</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Magma</span><span class="dl">'</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Tornado</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<h2 id="apa-saja-yang-sudah-kita-pelajari">Apa saja yang sudah kita pelajari?</h2>
+
+<ul>
+  <li>
+    <p>Kita membuat service class yang bisa di bagikan kepada banyak component.</p>
+  </li>
+  <li>
+    <p>Kita menggunakan <em>lifecycle hook</em> ngOnInit untuk mengambil data hero ketika <code class="highlighter-rouge">AppComponent</code> di aktifkan.</p>
+  </li>
+  <li>
+    <p>Kita mendefinisikan <code class="highlighter-rouge">HeroService</code> sebagai provider untuk <code class="highlighter-rouge">AppComponent</code>.</p>
+  </li>
+  <li>
+    <p>Kita membuat data hero buatan (mock) dan meng-import nya ke dalam service.</p>
+  </li>
+  <li>
+    <p>Kita mendesign service untuk me-return Promise dan component mengambil data melalui Promise.</p>
+  </li>
+</ul>
+
+<h2 id="lampiran-take-it-slow">Lampiran: Take it slow</h2>
+
+<p>Untuk mensimulasikan slow connection, import <code class="highlighter-rouge">Hero</code> symbol dan tambahkan method <code class="highlighter-rouge">getHeroesSlowly()</code> kepada <code class="highlighter-rouge">HeroService</code>.</p>
+
+<h4 id="appheroservicets-getheroesslowly">app/hero.service.ts (getHeroesSlowly)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getHeroesSlowly</span><span class="p">():</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Simulate server latency with 2 second delay</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()),</span> <span class="mi">2000</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Seperti getHeroes(), code diatas juga mereturn <code class="highlighter-rouge">Promise</code>. Tapi Promise di sini menunggu 2 detik sebelum menyelesaikan Promise dengan data heroes.</p>
+
+<p>Kembail kedalam <code class="highlighter-rouge">AppComponent</code>, ganti <code class="highlighter-rouge">getHeroes()</code> dengan <code class="highlighter-rouge">getHeroesSlowly()</code>.</p>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/tutorial/toh-pt4</li>
+</ul>
+:ET

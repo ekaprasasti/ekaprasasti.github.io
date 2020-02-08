@@ -1,0 +1,203 @@
+I"9<p>Tutorial ini adalah langkah pertama membuat aplikasi <a href="/angular-tour-of-heroes-tutorial">Tour of Heroes</a>. Ikuti langkah-langkah <a href="/setup-angular-documentation/">setup</a> untuk membuat project baru dengan nama <code class="highlighter-rouge">angular-tour-of-heroes</code>. Struktur file akan terlihat seperti berikut.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>angular-tour-of-heroes
+|
+ -src
+| |
+| -app
+| | |
+| | -app.compponent.ts
+| | |
+| | -app.module.ts
+| |
+| -main.ts
+| |
+| -index.html
+| |
+| -styles.css
+| |
+| -systemjs.config.js
+| |
+| -tsconfig.json
+|
+-node_modules
+|
+-package.json
+</code></pre></div></div>
+
+<h2 id="transpiling-dan-running-app">Transpiling dan Running app</h2>
+
+<p>Buka terminal lalu tulis dan enter command berikut ini:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm start
+</code></pre></div></div>
+
+<p>Perintah ini akan menjalankan compiler TypeScipt di dalam “Watch mode”, dan akan me-recompiling secara automatis ketika kode berubah. Perintah tersebut secara simultan me-launch aplikasi di dalam browser dan me-refresh browser ketika kode berubah.</p>
+
+<p>Kita dapat tetap mengerjakan aplikasi tanpa pause untuk recompile atau refresh browser.</p>
+
+<h2 id="show-the-heroes">Show the Heroes</h2>
+
+<p>Tambahkan 2 property di dalam <code class="highlighter-rouge">AppComponent</code>, sebuah property <code class="highlighter-rouge">title</code> untuk nama aplikasi dan property <code class="highlighter-rouge">hero</code> dengan nama “Windstorm”.</p>
+
+<h4 id="appcomponentts-appcomponent-class">app.component.ts (AppComponent class)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nx">hero</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Windstorm</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sekarang update template di dalam <code class="highlighter-rouge">@Component</code> decorator dengan data binding.</p>
+
+<h4 id="appcomponentts-component">app.component.ts (@Component)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+template: `<span class="nt">&lt;h1&gt;</span>{{title}}<span class="nt">&lt;/h1&gt;&lt;h2&gt;</span>{{hero}} details!<span class="nt">&lt;/h2&gt;</span>`
+
+</code></pre></div></div>
+
+<p>Refresh browser dan akan menampilkan <code class="highlighter-rouge">title</code> dan nama <code class="highlighter-rouge">hero</code>. Tanda double kurung kurawal merupakan Angular sintaks <em>interpolation binding</em>.</p>
+
+<h2 id="hero-object">Hero Object</h2>
+
+<p>Hero membutuhkan lebih banyak property. Convert <code class="highlighter-rouge">hero</code> dari string ke class. Buat class <code class="highlighter-rouge">hero</code> dengan property <code class="highlighter-rouge">id</code> dan <code class="highlighter-rouge">name</code>. Tambahkan property berikut di bagian atas aplikasi, di atas <code class="highlighter-rouge">@Component</code>.</p>
+
+<h4 id="srcappappcomponentts-hero-class">src/app/app.component.ts (Hero class)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Di dalam class <code class="highlighter-rouge">AppComponent</code>, refactor component property <code class="highlighter-rouge">hero</code> menjadi <code class="highlighter-rouge">Hero</code> type, lalu inisiasi <code class="highlighter-rouge">id</code> dengan <code class="highlighter-rouge">1</code> dan <code class="highlighter-rouge">name</code> dengan <code class="highlighter-rouge">Windstorm</code>.</p>
+
+<h4 id="srcappappcomponentts-hero-property">src/app/app.component.ts (hero property)</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">hero</span><span class="p">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Windstorm</span><span class="dl">'</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Karena kita merubah hero dari string ke object, update binding di dalam template yang mengambil property <code class="highlighter-rouge">name</code> hero.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+template: `<span class="nt">&lt;h1&gt;</span>{{title}}<span class="nt">&lt;/h1&gt;&lt;h2&gt;</span>{{hero.name}} details!<span class="nt">&lt;/h2&gt;</span>`
+
+</code></pre></div></div>
+
+<h2 id="menambah-html-dengan-multi-line-template-strings">Menambah HTML dengan multi-line template strings</h2>
+
+<p>Untuk menampilkan semua property hero, tambahkan <code class="highlighter-rouge">&lt;div&gt;</code> untuk property <code class="highlighter-rouge">id</code> pada hero dan <code class="highlighter-rouge">&lt;div&gt;</code> untuk property <code class="highlighter-rouge">name</code> pada hero. Untuk menjaga template agar tetap terbaca, letakan <code class="highlighter-rouge">&lt;div&gt;</code> di setiap line code dengan menggunakan <strong>backticks</strong>.</p>
+
+<h4 id="appcomponentts-appcomponents-template">app.component.ts (AppComponent’s template)</h4>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+template: `
+  <span class="nt">&lt;h1&gt;</span>{{title}}<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>{{hero.name}} details!<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;div&gt;&lt;label&gt;</span>id: <span class="nt">&lt;/label&gt;</span>{{hero.id}}<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;div&gt;&lt;label&gt;</span>name: <span class="nt">&lt;/label&gt;</span>{{hero.name}}<span class="nt">&lt;/div&gt;</span>
+`
+
+</code></pre></div></div>
+
+<h2 id="edit-hero-name">Edit hero name</h2>
+
+<p>User harus dapat men-edit nama hero di dalam <code class="highlighter-rouge">&lt;input&gt;</code> textbox. Textbox harus dapat menampilkan keduanya, property <code class="highlighter-rouge">name</code> dan property <em>update</em> yang di ketikan user.</p>
+
+<p>Kita membutuhkan <em>two-way binding</em> antara element <code class="highlighter-rouge">&lt;input&gt;</code> form dan property <code class="highlighter-rouge">hero.name</code>.</p>
+
+<h3 id="two-way-binding">Two-way binding</h3>
+
+<p>Refactor nama hero di dalam template sehingga terlihat seperti kode berikut.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;label&gt;</span>name: <span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">[(ngModel)]=</span><span class="s">"hero.name"</span> <span class="na">placeholder=</span><span class="s">"name"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">[(ngModel)]</code> merupakan syntax Angular untuk binding property <code class="highlighter-rouge">hero.name</code> di dalam textbox.</p>
+
+<p>Aplikasi akan error, dan jika kita lihat dalam browser console, kita akan melihat Angular memberitahukan errornya “<code class="highlighter-rouge">ngModel</code> … isn’t a known property of <code class="highlighter-rouge">input</code>.”</p>
+
+<p><code class="highlighter-rouge">NgModel</code> adalah directive valid dari Angular, dan itu tidak tersedia secara default. Ini termasuk dalam optional module <code class="highlighter-rouge">FormsModule</code>. Kita harus menambahkan module tersebut secara manual.</p>
+
+<h3 id="import-formsmodule">import FormsModule</h3>
+
+<p>Buka file <code class="highlighter-rouge">app.module.ts</code> dan import <code class="highlighter-rouge">FormsModule</code>. <code class="highlighter-rouge">AppModule</code> sekarang menjadi terlihat seperti berikut.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/platform-browser</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/forms</span><span class="dl">'</span><span class="p">;</span> <span class="c1">// &lt;-- NgModel lives here</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>  <span class="k">from</span> <span class="dl">'</span><span class="s1">./app.component</span><span class="dl">'</span><span class="p">;</span>
+<span class="p">@</span><span class="nd">NgModule</span><span class="p">({</span>
+  <span class="na">imports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span> <span class="c1">// &lt;-- import the FormsModule before binding with [(ngModel)]</span>
+  <span class="p">],</span>
+  <span class="na">declarations</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span>
+  <span class="p">],</span>
+  <span class="na">bootstrap</span><span class="p">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Read more about <code class="highlighter-rouge">FormsModule</code> and <code class="highlighter-rouge">ngModel</code> in the <a href="https://angular.io/docs/ts/latest/guide/forms.html#ngModel">Two-way data binding with ngModel</a> section of the <a href="https://angular.io/docs/ts/latest/guide/forms.html">Forms</a> guide and the Two-way binding with NgModel section of the <a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">Template Syntax</a> guide.</p>
+</blockquote>
+
+<p>Ketika browser di refresh, app kembali berjalan dengan normal.</p>
+
+<h2 id="apa-saja-yang-sudah-kita-pelajari">Apa saja yang sudah kita pelajari?</h2>
+
+<ul>
+  <li>
+    <p>Menggunakan kurung kurawal ganda (one-way data binding) untuk menampilkan title dan property object <code class="highlighter-rouge">hero</code>.</p>
+  </li>
+  <li>
+    <p>Menulis multi-line template menggunakan ES2015 literal template untuk membuat template mudah di baca.</p>
+  </li>
+  <li>
+    <p>Kita menambahkan two-way data binding untuk <code class="highlighter-rouge">&lt;input&gt;</code> element menggunakan built-in directive <code class="highlighter-rouge">ngModel</code>.</p>
+  </li>
+  <li>
+    <p>Directive ngModel membuat perubahan pada setiap binding lain pada <code class="highlighter-rouge">hero.name</code>.</p>
+  </li>
+</ul>
+
+<p>Berikut adalah file <code class="highlighter-rouge">app.component.ts</code> yang lengkap.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@angular/core</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nl">id</span><span class="p">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nl">name</span><span class="p">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="nd">Component</span><span class="p">({</span>
+  <span class="na">selector</span><span class="p">:</span> <span class="dl">'</span><span class="s1">my-app</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">template</span><span class="p">:</span> <span class="s2">`
+    &lt;h1&gt;{{title}}&lt;/h1&gt;
+    &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+    &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+    &lt;div&gt;
+      &lt;label&gt;name: &lt;/label&gt;
+      &lt;input [(ngModel)]="hero.name" placeholder="name"&gt;
+    &lt;/div&gt;
+    `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="kd">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Tour of Heroes</span><span class="dl">'</span><span class="p">;</span>
+  <span class="nl">hero</span><span class="p">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Windstorm</span><span class="dl">'</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="referensi">Referensi</h2>
+
+<ul>
+  <li>https://angular.io/docs/ts/latest/tutorial/toh-pt1.html</li>
+</ul>
+:ET
