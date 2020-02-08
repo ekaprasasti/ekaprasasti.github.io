@@ -49,3 +49,5 @@ projects:
     url: http://developer.erabelajar.com
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules']
+
+future: true
