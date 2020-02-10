@@ -1,0 +1,55 @@
+I"�<p>Saya akan membahas salah satu fitur penulisan kode atau syntax pada javascript ES6. Paling banyak kita temui ketika belajar react menggunakan ES6 adalah model syntax ketika mengoveride nilai dari sebuah state menggunakan setState seperti ini:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="kd">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Eka Prasasti</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">role</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Software Engineer</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+  <span class="err">…</span><span class="nx">newState</span><span class="p">,</span>
+  <span class="na">jobdesk</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Feature development</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">// sehingga nilai dari this.state menjadi:</span>
+<span class="c1">// {name: ‘Eka Prasasti’, role: ’Software Engineer’, jobdesk: ‘Feature development`}</span>
+</code></pre></div></div>
+
+<p>Nah tahukah kamu maksud dari syntax <code class="highlighter-rouge">…newState</code> ? Syntax inilah yang dalam ES6 di namakan dengan Spread Syntax Notation.</p>
+
+<blockquote>
+  <p>Spread syntax allows an iterable such as an array expression or string to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected, or an object expression to be expanded in places where zero or more key-value pairs (for object literals) are expected. - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax">developer.mozilla.org</a></p>
+</blockquote>
+
+<p>Jadi tanda 3 titik di depan sebuah nilai dari variable adalah iterasi atau pengulangan yang di sematkan pada sebuah variable atau nilai baru. Contoh sederhananya adalah pada operasi array berikut ini.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">myArray</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myArray</span><span class="p">)</span> <span class="c1">// output: [1, 2, 3]</span>
+
+<span class="kd">const</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="p">[</span><span class="err">…</span><span class="nx">myarray</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newArray</span><span class="p">)</span> <span class="c1">// output: [1, 2, 3, 4, 5, 6]</span>
+</code></pre></div></div>
+
+<p>Bagaimana sudah lebih jelas? Kita kembali di state pada react di awal. Syntax <code class="highlighter-rouge">…newState</code> bisa kita artikan juga sebagai berikut:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">newState</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Eka Prasasti</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">role</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Software Engineer</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+  <span class="err">…</span><span class="nx">newState</span><span class="p">,</span>
+  <span class="na">jobdesk</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Feature development</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">// code setState di atas penulisannya sama seperti ini.</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Eka Prasast</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">role</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Software Engineer</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">jobdesk</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Feature development</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Dengan spread syntax penulisan kode menjadi lebih singkat dan efisien, penulisan kode teknik seperti ini juga banyak kita temua pada implementasi reducer di state management seperti redux. Kita perlu me override kembali global state dan di gabung dengan nilai yang baru sehingga nilai yang lama tidak hilang, sehingga jika kita punya banyak global state kita tidak perlu menuliskan kembali state tersebut dari awal dalam reducer. Penjelasan mengenai redux dan reducer akan kita bahas di artikel mendatang.</p>
+:ET

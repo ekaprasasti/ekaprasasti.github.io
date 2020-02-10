@@ -4,7 +4,7 @@ title:  'Berdamai Dengan Kegagalan'
 image: ''
 date:   2020-02-09 00:00:00
 tags:
-- LiFe
+- Life
 description: 'Alhamdulillah masih di kasih umur masuk bulan febuari di tahun 2020 ini. Hayo resolusi yang udah di canangkan di awal tahun 2020 sejauh januari kemarin gimana?'
 categories:
 - My Daily Posts

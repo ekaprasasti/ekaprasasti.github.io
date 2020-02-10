@@ -1,0 +1,56 @@
+I"#<p>Saya akan membahas salah satu fitur penulisan kode atau syntax pada javascript ES6. Paling banyak kita temui ketika belajar react menggunakan ES6 adalah model syntax ketika mengoveride nilai dari sebuah state menggunakan setState seperti ini:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>this.state = {};
+
+const newState = {
+  name: ‘Eka Prasasti’,
+  role: ’Software Engineer’,
+}
+
+this.setState({
+  …newState,
+  jobdesk: ‘Feature development’,
+});
+
+// sehingga nilai dari this.state menjadi:
+// {name: ‘Eka Prasasti’, role: ’Software Engineer’, jobdesk: ‘Feature development`}
+</code></pre></div></div>
+
+<p>Nah tahukah kamu maksud dari syntax <code class="highlighter-rouge">…newState</code> ? Syntax inilah yang dalam ES6 di namakan dengan Spread Syntax Notation.</p>
+
+<blockquote>
+  <p>Spread syntax allows an iterable such as an array expression or string to be expanded in places where zero or more arguments (for function calls) or elements (for array literals) are expected, or an object expression to be expanded in places where zero or more key-value pairs (for object literals) are expected. - <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax">developer.mozilla.org</a></p>
+</blockquote>
+
+<p>Jadi tanda 3 titik di depan sebuah nilai dari variable adalah iterasi atau pengulangan yang di sematkan pada sebuah variable atau nilai baru. Contoh sederhananya adalah pada operasi array berikut ini.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const myArray = [1, 2, 3]
+console.log(myArray) // output: [1, 2, 3]
+
+const newArray = […myarray, 4, 5, 6]
+console.log(newArray) // output: [1, 2, 3, 4, 5, 6]
+```javascript
+
+Bagaimana sudah lebih jelas? Kita kembali di state pada react di awal. Syntax `…newState` bisa kita artikan juga sebagai berikut:
+
+</code></pre></div></div>
+<p>const newState = {
+  name: ‘Eka Prasasti’,
+  role: ’Software Engineer’,
+}</p>
+
+<p>this.setState({
+  …newState,
+  jobdesk: ‘Feature development’,
+});</p>
+
+<p>// code setState di atas penulisannya sama seperti ini.
+this.setState({
+  name: ‘Eka Prasast’,
+  role: ’Software Engineer’,
+  jobdesk: ‘Feature development<code class="highlighter-rouge">,
+});
+</code>``</p>
+
+<p>Dengan spread syntax penulisan kode menjadi lebih singkat dan efisien, penulisan kode teknik seperti ini juga banyak kita temua pada implementasi reducer di state management seperti redux. Kita perlu me override kembali global state dan di gabung dengan nilai yang baru sehingga nilai yang lama tidak hilang, sehingga jika kita punya banyak global state kita tidak perlu menuliskan kembali state tersebut dari awal dalam reducer. Penjelasan mengenai redux dan reducer akan kita bahas di artikel mendatang.</p>
+:ET
