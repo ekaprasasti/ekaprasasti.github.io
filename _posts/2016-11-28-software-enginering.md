@@ -4,7 +4,7 @@ title:  "Apa itu Software Engineering?"
 image: ''
 date:   2016-12-28 00:06:11
 tags:
-- Sofware Engineer
+- Software Engineer
 description: ''
 categories:
 - Programming

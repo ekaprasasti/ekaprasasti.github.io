@@ -4,7 +4,7 @@ title:  'Berkontribusi di Dunia Open Source'
 image: '/assets/img/berkontribusi-di-dunia-open-source/simon-abrams-k_T9Zj3SE8k-unsplash.jpg'
 date:   2020-01-22 00:05:03
 tags:
-- Sofware Engineer
+- Software Engineer
 description: 'Ternyata banyak cara loh, dan gak melulu selalu berkontribusi dengan cara ngoding dan di push atau pull request ke github'
 categories:
 - My Daily Posts
