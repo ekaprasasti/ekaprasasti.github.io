@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  'Trigger Untuk Belajar Lagi'
-image: ''
+image: '/assets/img/trigger-untuk-belajar-lagi/cover.jpg'
 date:   2020-02-11 00:00:00
 tags:
 - Software Engineer
 - Life
-description: ''
+description: 'Kali ini saya mau cerita moment dan flow ketika saya mendapatkan energi dalam belajar software enginering lagi.'
 categories:
 - Life
 - My Daily Posts
