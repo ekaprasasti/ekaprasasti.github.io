@@ -41,3 +41,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 .post-item .content a {
 	text-transform: none;
 }
+
+.header-post a {
+	text-decoration: none;
+}
