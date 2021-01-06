@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  'Meeting Penggangu Terbesar Buat Developer'
-image: ''
+image: '/assets/img/meeting-pengganggu-developer/banner.jpg'
 date:   2021-01-06 00:00:00
 tags:
 - Life
-description: ''
+description: 'Sebagai seorang developer pada sebuah team yang minimal setidaknya ada 3 role di sana PM (Project/Product Manager), QA (Quality Asurance/Software Tester) dan developer itu sendiri atau lebih, tergantung dari besarnya project yang artinya banyak role dan anggota team yang terlibat di sana, satu yang tidak bisa di hindari dalam hal komunikasi dan koordinasi adalah mengenai meeting.'
 categories:
 - Life
 - My Daily Posts
