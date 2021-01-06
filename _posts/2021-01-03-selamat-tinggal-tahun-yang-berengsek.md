@@ -1,11 +1,11 @@
 ---
 layout: post
 title:  'Selamat Tinggal Tahun yang Berengsek'
-image: ''
+image: '/assets/img/tahun-berengsek/corona.jpg'
 date:   2021-01-03 00:00:00
 tags:
 - Life
-description: ''
+description: '2020 Tahun yang gak di harapkan untuk semua orang, tahun yang sulit banget buat di lewatin, tahun yang menjadi momentum kebangkitan atau keterpurukan semua orang,'
 categories:
 - Life
 - My Daily Posts
