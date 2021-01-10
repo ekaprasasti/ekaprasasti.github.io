@@ -5,7 +5,7 @@ image: '/assets/img/pilih-macbook-air-m1/my-macbook-air.jpeg'
 date:   2021-01-09 00:00:00
 tags:
 - Life
-description: 'Lanjutin cerita di [Usai Sudah Perjalanan mu Macbook Pro 2012](/usai-sudah-perjalanan-mu-macbook-pro-2012/), setelah memutuskan untuk sekalian upgrade laptop, saya langsung terfikir ke chip terbaru M1,'
+description: 'Lanjutin cerita di Usai Sudah Perjalanan mu Macbook Pro 2012, setelah memutuskan untuk sekalian upgrade laptop, saya langsung terfikir ke chip terbaru M1,'
 categories:
 - Life
 - My Daily Posts
