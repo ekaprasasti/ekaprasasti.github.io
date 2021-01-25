@@ -4,7 +4,7 @@ title:  'Done is Better than Perfect'
 image: ''
 date:   2020-01-13 00:05:03
 tags:
-- LiFe
+- Life
 description: 'Kalo di pikir2 lagi kayaknya emang banyak kerjaan, keinginan, inovasi, yang  tertunda karena merasa belum sempurna, belum pantes, dan lebih parahnya lagi takut di kritik.'
 categories:
 - My Daily Posts

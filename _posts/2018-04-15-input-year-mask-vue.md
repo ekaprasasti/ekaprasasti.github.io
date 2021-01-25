@@ -4,11 +4,11 @@ title:  'Input Year Mask Vue JS'
 image: '/assets/img/mask-input-year-vue/the-mask.gif'
 date:   2018-04-15 00:05:03
 tags:
-- Life
+- Javascript
 description: 'Di seri My Daily Bug kali ini saya mau ngebahas proses ketika saya membuat input tahun yang di mana di validasi dan di pastikan yang di input adalah format tahun saja tidak lebih dari 4 digit tipe number, seperti itu sederhananya. Di html kita bisa menemukan input dengan tipe date yaitu `tahun-bulan-tanggal` dan **monthyear** yaitu `bulan-tahun`, tetapi kita tidak menemukan di html tipe yang hanya tahun saja, jadi mau tidak mau kita harus membuat field input tersebut secara manual.'
 categories:
 - My Daily Bug
-serie: Life
+serie: Javascript
 ---
 
 Di seri My Daily Bug kali ini saya mau ngebahas proses ketika saya membuat input tahun yang di mana di validasi dan di pastikan yang di input adalah format tahun saja tidak lebih dari 4 digit tipe number, seperti itu sederhananya. Di html kita bisa menemukan input dengan tipe date yaitu `tahun-bulan-tanggal` dan **monthyear** yaitu `bulan-tahun`, tetapi kita tidak menemukan di html tipe yang hanya tahun saja, jadi mau tidak mau kita harus membuat field input tersebut secara manual.
