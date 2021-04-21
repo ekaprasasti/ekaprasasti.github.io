@@ -5,7 +5,7 @@ image: ''
 date:   2021-03-01 00:00:00
 tags:
 - Javascript
-description: ''
+description: 'Tetapi lain halnya jika kita ingin mendownload file dari sebuah Response API, biasanya hal ini terjadi ketika server ingin men-generate file sesuai dengan parameter request body dari client, maka setelah file ter-generate biasanya server akan mengirimkan file kita pada response berupa type data blob.'
 categories:
 - My Daily Bug
 ---
